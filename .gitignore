@@ -1,0 +1,21 @@
+# Compiled Objects:
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic Libraries
+*.so
+*.dylib
+
+# Compiled Static Libraries
+*.lai
+*.la
+*.a
+
+# Binary
+Jack_The_Janitor
+
+# Text editor backup files
+*~
+*.swp
+*.swo
