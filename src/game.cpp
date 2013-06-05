@@ -1,15 +1,30 @@
 #include <iostream>
 #include "game.h"
+#include <unistd.h>
 
 using namespace std;
 
 void Game::initGUI() {
     cout << "initializing GUI..." << endl;
+
+    //Initializing SDL
+    SDL_Init(SDL_INIT_EVERYTHING);
+    //Setting Window title
+    SDL_WM_SetCaption("Jack, The Janitor", NULL);
+    //Set Window icon
+    SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
+    //Setting Screen
+    this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
+
     cout << "GUI started\n" << endl;
 }
 
 void Game::closeGUI() {
     cout << "closing GUI..." << endl;
+
+    sleep(10);
+    SDL_Quit();
+
     cout << "GUI closed\n" << endl;
 }
 
@@ -96,11 +111,13 @@ bool Game::isLevelFinished() {
 
 void Game::init() {
     cout << "initializing..." << endl;
+    initGUI();
     cout << "Game started\n" << endl;
 }
 
 void Game::shutdown() {
     cout << "Shutting Down..." << endl;
+    closeGUI();
     cout << "Finalized" << endl;
 }
 

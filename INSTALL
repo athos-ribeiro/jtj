@@ -1,0 +1,11 @@
+Jack the Janitor is currently being developed on Linux.
+
+In order to compile it, one must have the SDL and SDL_image libraries. Autotools are also required to generate the makefiles.
+
+To compile, run:
+
+bootstrap.sh
+./configure
+make
+
+then run src/jackthejanitor
