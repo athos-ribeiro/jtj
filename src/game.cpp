@@ -1,6 +1,6 @@
 #include <iostream>
 #include "game.h"
-#include <unistd.h>
+#include <unistd.h> //Just for sleep, may be removed
 
 using namespace std;
 
