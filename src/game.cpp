@@ -1,6 +1,6 @@
 #include <iostream>
 #include "game.h"
-#include <unistd.h> //Just for sleep, may be removed
+#include "jack.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ void Game::initGUI() {
 void Game::closeGUI() {
     cout << "closing GUI..." << endl;
 
-    sleep(10);
+    SDL_Delay(5000);
     SDL_Quit();
 
     cout << "GUI closed\n" << endl;
@@ -86,6 +86,9 @@ void Game::sendNetworkData() {
 
 void Game::draw() {
     cout << "Drawing..." << endl;
+    this->jack = new Jack(5, this->SCREEN_HEIGHT - Jack::JACK_HEIGHT - 5);
+    this->jack->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0xFF, 0xFF));
+    SDL_Flip(this->screen);
     cout << "Drawing done.\n" << endl;
 }
 
