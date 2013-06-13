@@ -7,8 +7,8 @@ class Jack {
     SDL_Rect jack;
 
     public:
-        static const int JACK_WIDTH = 44;
-        static const int JACK_HEIGHT = 66;
+        static const int JACK_WIDTH = 38;
+        static const int JACK_HEIGHT = 57;
         Jack(int x, int y); //where x and y are the positions of Jack on the screen.
         ~Jack();
 

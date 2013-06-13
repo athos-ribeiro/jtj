@@ -1,6 +1,8 @@
 #include <iostream>
 #include "game.h"
 #include "jack.h"
+#include "level.h"
+#include "box.h"
 
 using namespace std;
 
@@ -86,9 +88,30 @@ void Game::sendNetworkData() {
 
 void Game::draw() {
     cout << "Drawing..." << endl;
-    this->jack = new Jack(5, this->SCREEN_HEIGHT - Jack::JACK_HEIGHT - 5);
-    this->jack->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0xFF, 0xFF));
+
+    Level *level = new Level();
+    level->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0xFF, 0xFF));
+
+    this->jack = new Jack(38 + Level::LEVEL_X_OFFSET, Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT);
+    this->jack->draw(this->screen, SDL_MapRGB(this->screen->format, 0x00, 0x00, 0xAF));
+
+    Box *box1 = new Box(38, 38, Level::LEVEL_X_OFFSET, 250);
+    box1->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0x00, 0xFF));
+
+    Box *box2 = new Box(38, 38, Level::LEVEL_X_OFFSET + 10*38, 180);
+    box2->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0x00, 0xFF));
+
+    Box *box3 = new Box(38, 38, Level::LEVEL_X_OFFSET+ 4*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
+    box3->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0x00, 0xFF));
+
+    Box *box4 = new Box(38, 38, Level::LEVEL_X_OFFSET+ 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
+    box4->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0x00, 0xA0));
+
+    Box *box5 = new Box(38, 38, Level::LEVEL_X_OFFSET+ 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*2);
+    box5->draw(this->screen, SDL_MapRGB(this->screen->format, 0xFF, 0x00, 0x6F));
+
     SDL_Flip(this->screen);
+
     cout << "Drawing done.\n" << endl;
 }
 
