@@ -13,7 +13,7 @@ class Jack : public GameObject {
         static const int JACK_WIDTH = 38;
         static const int JACK_HEIGHT = 57;
 
-        Jack(std::string filename); //where x and y are the positions of Jack on the screen.
+        Jack(std::string filename);
 
         void move();
         void jump();

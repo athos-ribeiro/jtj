@@ -2,6 +2,7 @@
 #include "game.h"
 #include "jack.h"
 #include "level.h"
+#include "enemy.h"
 #include "box.h"
 
 using namespace std;
@@ -114,9 +115,8 @@ void Game::loadLevel() {
     Jack* jack = new Jack("resources/jack.png");
     level->addChild(jack);
 
-    //Box* box = new Box("resources/box.png");
-    //box->setPosition(Level::LEVEL_X_OFFSET, 250);
-    //level->addChild(box);
+    Enemy* enemy = new Enemy("resources/enemy_1.png");
+    level->addChild(enemy);
 
     Box* box[5];
     for(int i = 0; i < 5; i++) {
