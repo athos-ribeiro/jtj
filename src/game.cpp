@@ -22,6 +22,7 @@ void Game::closeGUI() {
     cout << "closing GUI..." << endl;
 
     SDL_Delay(5000);
+    SDL_SaveBMP(screen, "screenshot.bmp");
     SDL_Quit();
 
     cout << "GUI closed\n" << endl;
@@ -122,7 +123,7 @@ void Game::loadLevel() {
         box[i] = new Box("resources/box.png");
     }
     box[0]->setPosition(Level::LEVEL_X_OFFSET, 250);
-    box[1]->setPosition(Level::LEVEL_X_OFFSET + 10*38, 180);
+    box[1]->setPosition(Level::LEVEL_X_OFFSET + 10*38, 200);
     box[2]->setPosition(Level::LEVEL_X_OFFSET + 4*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
     box[3]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
     box[4]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*2);
