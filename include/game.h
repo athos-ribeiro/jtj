@@ -1,6 +1,6 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include "jack.h"
+#include "level.h"
 
 #ifndef GAME_H_
 #define GAME_H_
@@ -12,7 +12,7 @@ class Game {
         void shutdown();
 
     private:
-        Jack* jack;
+        Level* level;
 
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;

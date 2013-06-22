@@ -1,19 +1,20 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include <SDL/SDL.h>
+#include "gameobject.h"
+#include <string>
 
-class Box {
-    SDL_Rect box;
+class Box : public GameObject {
+    SDL_Surface *box;
+    void drawSelf(SDL_Surface *surface);
+    int x_position;
+    int y_position;
     int speed;
     int acceleration;
     public:
-        Box(int w, int h, int x, int y);
-        ~Box();
+        Box(std::string filename);
 
-        SDL_Rect getBox();
-
-        void draw(SDL_Surface *surface, Uint32 color);
+        void setPosition(int x, int y);
         void accelerate();
 };
 

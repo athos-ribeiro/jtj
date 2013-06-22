@@ -1,20 +1,21 @@
 #include "box.h"
+#include "sdlutil.h"
 
 using namespace std;
 
-Box::Box(int w, int h, int x, int y) {
-    this->box.w = w;
-    this->box.h = h;
-    this->box.x = x;
-    this->box.y = y;
+Box::Box(string filename) {
+    this->box = SDLUtil::loadImage(filename);
 }
 
-Box::~Box() {
+void Box::drawSelf(SDL_Surface *surface) {
+    SDLUtil::applySurface(this->x_position, this->y_position, this->box, surface);
 }
 
-void Box::draw(SDL_Surface *surface, Uint32 color) {
-    SDL_FillRect(surface, &this->box, color);
+void Box::setPosition(int x, int y) {
+    this->x_position = x;
+    this->y_position = y;
 }
 
 void Box::accelerate() {
 }
+

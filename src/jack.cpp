@@ -1,27 +1,25 @@
 #include "jack.h"
+#include "level.h"
+#include "sdlutil.h"
 
 using namespace std;
 
-Jack::Jack(int x, int y) {
-    this->jack.w = JACK_WIDTH;
-    this->jack.h = JACK_HEIGHT;
-    this->jack.x = x;
-    this->jack.y = y;
+Jack::Jack(string filename) {
+    this->jack = SDLUtil::loadImage(filename);
+    this->x_position = JACK_WIDTH + Level::LEVEL_X_OFFSET;
+    this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT;
 }
 
-Jack::~Jack() {
-}
 
-SDL_Rect Jack::getJack() {
-    return this->jack;
-}
-
-void Jack::draw(SDL_Surface *surface, Uint32 color) {
-    SDL_FillRect(surface, &this->jack, color);
+void Jack::drawSelf(SDL_Surface *surface) {
+    SDLUtil::applySurface(this->x_position, this->y_position, this->jack, surface);
+    return;
 }
 
 void Jack::move() {
+    return;
 }
 
 void Jack::jump() {
+    return;
 }
