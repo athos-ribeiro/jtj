@@ -22,8 +22,8 @@ void Game::initGUI() {
 void Game::closeGUI() {
     cout << "closing GUI..." << endl;
 
-    SDL_Delay(5000);
-    SDL_SaveBMP(screen, "screenshot.bmp");
+//  SDL_Delay(5000);
+//  SDL_SaveBMP(screen, "screenshot.bmp");
     SDL_Quit();
 
     cout << "GUI closed\n" << endl;
@@ -60,8 +60,62 @@ void Game::updateTimeStep() {
     return;
 }
 
+void Game::handle_event_keydown (SDL_Event& event)
+{
+    switch (event.key.keysym.sym)
+    {
+    case (SDLK_ESCAPE):
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    case (SDLK_w):
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    case (SDLK_a):
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    case (SDLK_s):
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    case (SDLK_d):
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Game::handle_event_type (SDL_Event& event)
+{
+    switch (event.type)
+    {
+    case SDL_QUIT:
+        this->quit_game = 1;
+        this->quit_level = 1;
+        break;
+
+    case SDL_KEYDOWN:
+        handle_event_keydown (event);
+        break;
+
+    default:
+        break;
+    }
+}
+
 void Game::handleEvents() {
     cout << "handling events..." << endl;
+    while (SDL_PollEvent (&event))
+        handle_event_type (event);
     cout << "events handled.\n" << endl;
     return;
 }
@@ -95,7 +149,6 @@ void Game::sendNetworkData() {
     cout << "Packages handled.\n" << endl;
     return;
 }
-
 
 void Game::draw() {
     cout << "Drawing..." << endl;
@@ -146,17 +199,19 @@ void Game::releaseLevel() {
 
 bool Game::isGameFinished() {
     cout << "Checking if game is finished...\n" << endl;
-    return true;
+    return this->quit_game;
 }
 
 bool Game::isLevelFinished() {
     cout << "Checking end of level...\n" << endl;
-    return true;
+    return this->quit_level;
 }
 
 void Game::init() {
     cout << "initializing..." << endl;
     initGUI();
+    this->quit_game = 0;
+    this->quit_level = 0;
     cout << "Game started\n" << endl;
     return;
 }
@@ -183,10 +238,10 @@ void Game::loop() {
             sendNetworkData();
             draw();
         }
-        while(isLevelFinished() == false);
+        while(isLevelFinished() == 0);
         releaseLevel();
     }
-    while(isGameFinished() == false);
+    while(isGameFinished() == 0);
     return;
 }
 

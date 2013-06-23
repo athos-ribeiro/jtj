@@ -18,6 +18,10 @@ class Game {
         static const int SCREEN_HEIGHT = 480;
         static const int SCREEN_BPP = 32;
 
+        // Whether the game and/or the level is finished
+        int quit_game;
+        int quit_level;
+
         SDL_Surface *screen;
 
         SDL_Event event;
@@ -29,6 +33,8 @@ class Game {
         void loadProfile();
         void saveProfile();
         void updateTimeStep();
+        void handle_event_keydown (SDL_Event& event);
+        void handle_event_type (SDL_Event& event);
         void handleEvents();
         void runAI();
         void runPhysics();
