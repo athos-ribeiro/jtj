@@ -4,6 +4,7 @@
 #include "level.h"
 #include "enemy.h"
 #include "box.h"
+#include "timer.h"
 
 using namespace std;
 
@@ -56,6 +57,10 @@ void Game::saveProfile() {
 
 void Game::updateTimeStep() {
     cout << "Updating time step..." << endl;
+
+    //Begin time from 0
+    frameTime.start();
+
     cout << "time step updated.\n" << endl;
     return;
 }
@@ -150,6 +155,19 @@ void Game::sendNetworkData() {
     return;
 }
 
+int Game::checkIfSkip()
+{
+    if (frameTime.get_ticks() < FRAME_MILISECOND)
+    {
+        frameTime.waitDiff(FRAME_MILISECOND);
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 void Game::draw() {
     cout << "Drawing..." << endl;
 
@@ -210,8 +228,11 @@ bool Game::isLevelFinished() {
 void Game::init() {
     cout << "initializing..." << endl;
     initGUI();
+    
+    FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quit_game = 0;
     this->quit_level = 0;
+    
     cout << "Game started\n" << endl;
     return;
 }
@@ -236,7 +257,10 @@ void Game::loop() {
             runPhysics();
             update();
             sendNetworkData();
-            draw();
+            if (checkIfSkip() == 0)
+            {
+                draw();
+            }
         }
         while(isLevelFinished() == 0);
         releaseLevel();
