@@ -20,6 +20,8 @@ class Game {
 
         SDL_Surface *screen;
 
+        SDL_Event event;
+
         void initGUI();
         void closeGUI();
         void loadCommonResources();
