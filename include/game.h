@@ -32,7 +32,7 @@ class Game {
         SDL_Event event;
 
         //Counting time. This is a frame time clock
-        Timer frameTime;
+//      Timer frameTime;
 
         void initGUI();
         void closeGUI();

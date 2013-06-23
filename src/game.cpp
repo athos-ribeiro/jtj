@@ -59,7 +59,7 @@ void Game::updateTimeStep() {
     cout << "Updating time step..." << endl;
 
     //Begin time from 0
-    frameTime.start();
+//  frameTime.start();
 
     cout << "time step updated.\n" << endl;
     return;
@@ -154,7 +154,7 @@ void Game::sendNetworkData() {
     cout << "Packages handled.\n" << endl;
     return;
 }
-
+/*
 int Game::checkIfSkip()
 {
     if (frameTime.get_ticks() < FRAME_MILISECOND)
@@ -167,7 +167,7 @@ int Game::checkIfSkip()
         return 1;
     }
 }
-
+*/
 void Game::draw() {
     cout << "Drawing..." << endl;
 
@@ -257,10 +257,10 @@ void Game::loop() {
             runPhysics();
             update();
             sendNetworkData();
-            if (checkIfSkip() == 0)
-            {
+//          if (checkIfSkip() == 0)
+//          {
                 draw();
-            }
+//          }
         }
         while(isLevelFinished() == 0);
         releaseLevel();
