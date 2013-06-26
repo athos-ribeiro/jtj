@@ -7,6 +7,12 @@ Box::Box(string filename) {
     this->box = SDLUtil::loadImage(filename);
 }
 
+Box::~Box() {
+    if(box != NULL) {
+        SDL_FreeSurface(box);
+    }
+}
+
 void Box::drawSelf(SDL_Surface *surface) {
     SDLUtil::applySurface(this->x_position, this->y_position, this->box, surface);
 }

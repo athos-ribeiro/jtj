@@ -14,6 +14,7 @@ class Enemy : public GameObject {
         static const int ENEMY_HEIGHT = 57;
 
         Enemy(std::string filename);
+        ~Enemy();
 
         void move();
         void throwBox();

@@ -14,6 +14,8 @@ class Game {
 
     private:
         Level* level;
+        SDL_Surface *screen;
+        SDL_Event event;
 
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;
@@ -26,10 +28,6 @@ class Game {
         // Whether the game and/or the level is finished
         bool quitGame;
         bool quitLevel;
-
-        SDL_Surface *screen;
-
-        SDL_Event event;
 
         void initGUI();
         void closeGUI();

@@ -10,6 +10,11 @@ Enemy::Enemy(string filename) {
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Enemy::ENEMY_HEIGHT - 38*7 - 1;
 }
 
+Enemy::~Enemy() {
+    if(enemy != NULL) {
+        SDL_FreeSurface(enemy);
+    }
+}
 
 void Enemy::drawSelf(SDL_Surface *surface) {
     SDLUtil::applySurface(this->x_position, this->y_position, this->enemy, surface);

@@ -14,6 +14,7 @@ class Level : public GameObject {
         static const int LEVEL_Y_OFFSET = 10;
 
         Level(std::string filename);
+        ~Level();
 
 };
 

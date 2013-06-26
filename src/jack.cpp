@@ -10,6 +10,11 @@ Jack::Jack(string filename) {
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT;
 }
 
+Jack::~Jack() {
+    if(jack != NULL) {
+        SDL_FreeSurface(jack);
+    }
+}
 
 void Jack::drawSelf(SDL_Surface *surface) {
     SDLUtil::applySurface(this->x_position, this->y_position, this->jack, surface);

@@ -15,7 +15,8 @@ rm -f aclocal.m4 configure
 #rm -f config.log config.status libtool
 rm -f config.log config.status
 rm -rf config autom4te.cache
-rm screenshot.bmp
+#remove game screenshot
+#rm screenshot.bmp
 
 # include
 cd include

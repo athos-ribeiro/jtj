@@ -14,6 +14,7 @@ class Jack : public GameObject {
         static const int JACK_HEIGHT = 57;
 
         Jack(std::string filename);
+        ~Jack();
 
         void move();
         void jump();

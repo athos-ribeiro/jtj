@@ -13,6 +13,7 @@ class Box : public GameObject {
     int acceleration;
     public:
         Box(std::string filename);
+        ~Box();
 
         void setPosition(int x, int y);
         void accelerate();
