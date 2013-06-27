@@ -12,6 +12,11 @@ SDL_Surface *SDLUtil::loadImage(string filename) {
     if(loadedImage != NULL) {
         optimizedImage = SDL_DisplayFormat(loadedImage);
         SDL_FreeSurface(loadedImage);
+
+        if(optimizedImage != NULL) {
+            Uint32 colorkey = SDL_MapRGB(optimizedImage->format, 255, 0, 255);
+            SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, colorkey);
+        }
     }
 
     return optimizedImage;
