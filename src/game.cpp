@@ -1,10 +1,7 @@
 #include <iostream>
 #include "game.h"
-#include "jack.h"
-#include "level.h"
 #include "enemy.h"
 #include "box.h"
-#include "timer.h"
 
 using namespace std;
 
@@ -55,41 +52,53 @@ void Game::saveProfile() {
 
 void Game::updateTimeStep() {
     cout << "Updating time step..." << endl;
+    frameTime.start();
     cout << "time step updated.\n" << endl;
     return;
 }
 
-void Game::handle_event_keydown (SDL_Event& event)
-{
-    switch (event.key.keysym.sym)
-    {
-    case (SDLK_ESCAPE):
-        this->quitGame = true;
-        this->quitLevel = true;
-        break;
+void Game::handle_event_keydown (SDL_Event& event) {
+    switch (event.key.keysym.sym) {
+        case (SDLK_ESCAPE):
+            this->quitGame = true;
+            this->quitLevel = true;
+            break;
 
-    case (SDLK_w):
-        this->quitGame = true;
-        this->quitLevel = true;
-        break;
+        case (SDLK_w):
+            this->quitGame = true;
+            this->quitLevel = true;
+            break;
 
-    case (SDLK_a):
-        this->quitGame = true;
-        this->quitLevel = true;
-        break;
+        case (SDLK_a):
+            jack->speed = -3;
+            break;
 
-    case (SDLK_s):
-        this->quitGame = true;
-        this->quitLevel = true;
-        break;
+        case (SDLK_s):
+            this->quitGame = true;
+            this->quitLevel = true;
+            break;
 
-    case (SDLK_d):
-        this->quitGame = true;
-        this->quitLevel = true;
-        break;
+        case (SDLK_d):
+            jack->speed = 3;
+            break;
 
-    default:
-        break;
+        default:
+            break;
+    }
+}
+
+void Game::handle_event_keyup (SDL_Event& event) {
+    switch (event.key.keysym.sym) {
+        case (SDLK_a):
+            jack->speed = 0;
+            break;
+
+        case (SDLK_d):
+            jack->speed = 0;
+            break;
+
+        default:
+            break;
     }
 }
 
@@ -104,6 +113,10 @@ void Game::handle_event_type (SDL_Event& event)
 
     case SDL_KEYDOWN:
         handle_event_keydown (event);
+        break;
+
+    case SDL_KEYUP:
+        handle_event_keyup (event);
         break;
 
     default:
@@ -130,6 +143,7 @@ void Game::runAI() {
 
 void Game::runPhysics() {
     cout << "Running physics..." << endl;
+    jack->move();
     cout << "Physics done.\n" << endl;
     return;
 }
@@ -152,6 +166,16 @@ void Game::sendNetworkData() {
     return;
 }
 
+int Game::checkIfSkip() {
+    if (frameTime.get_ticks() < FRAME_MILISECOND) {
+        frameTime.waitDiff(FRAME_MILISECOND);
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+
 void Game::draw() {
     cout << "Drawing..." << endl;
 
@@ -167,7 +191,7 @@ void Game::loadLevel() {
 
     level = new Level("resources/level_1.png");
 
-    Jack* jack = new Jack("resources/jack.png");
+    jack = new Jack("resources/jack.png");
     level->addChild(jack);
 
     Enemy* enemy = new Enemy("resources/enemy_1.png");
@@ -214,7 +238,7 @@ void Game::init() {
 
     initGUI();
 
-    FRAME_MILISECOND = 1000 / SCREEN_FPS;
+    FRAME_MILISECOND = 1250 / SCREEN_FPS;
     this->quitGame = false;
     this->quitLevel = false;
 
@@ -242,7 +266,9 @@ void Game::loop() {
             runPhysics();
             update();
             sendNetworkData();
-            draw();
+            if(checkIfSkip() == 0) {
+                draw();
+            }
         }
         while(isLevelFinished() == false);
         releaseLevel();

@@ -22,6 +22,7 @@ void Jack::drawSelf(SDL_Surface *surface) {
 }
 
 void Jack::move() {
+    x_position += speed;
     return;
 }
 

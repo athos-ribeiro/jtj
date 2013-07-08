@@ -10,6 +10,7 @@ class Jack : public GameObject {
     int x_position;
     int y_position;
     public:
+        int speed;
         static const int JACK_WIDTH = 38;
         static const int JACK_HEIGHT = 57;
 

@@ -2,6 +2,7 @@
 #include <SDL/SDL_image.h>
 #include "level.h"
 #include "timer.h"
+#include "jack.h"
 
 #ifndef GAME_H_
 #define GAME_H_
@@ -16,6 +17,8 @@ class Game {
         Level* level;
         SDL_Surface *screen;
         SDL_Event event;
+        Jack* jack;
+        Timer frameTime;
 
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;
@@ -41,6 +44,7 @@ class Game {
         int checkIfSkip();
 
         void handle_event_keydown (SDL_Event& event);
+        void handle_event_keyup (SDL_Event& event);
         void handle_event_type (SDL_Event& event);
         void handleEvents();
         void runAI();
