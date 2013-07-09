@@ -28,5 +28,8 @@ void Jack::move() {
 }
 
 void Jack::jump() {
+    int initialPosition = y_position;
+    y_position += verticalSpeed;
+    verticalSpeed++;
     return;
 }

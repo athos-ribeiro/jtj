@@ -65,8 +65,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_w):
-            this->quitGame = true;
-            this->quitLevel = true;
+            jack->verticalSpeed = -11;
             break;
 
         case (SDLK_a):
@@ -144,6 +143,7 @@ void Game::runAI() {
 void Game::runPhysics() {
     cout << "Running physics..." << endl;
     jack->move();
+    jack->jump();
     cout << "Physics done.\n" << endl;
     return;
 }
