@@ -47,7 +47,11 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_w):
+            if(jack->jumping == true) {
+                break;
+            }
             jack->verticalSpeed = -11;
+            jack->jumping = true;
             break;
 
         case (SDLK_a):

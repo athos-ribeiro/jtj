@@ -12,6 +12,8 @@ class Jack : public GameObject {
     public:
         int speed;
         int verticalSpeed;
+        bool jumping;
+        static const int ACCELERATION = 1;
         static const int JACK_WIDTH = 38;
         static const int JACK_HEIGHT = 57;
 

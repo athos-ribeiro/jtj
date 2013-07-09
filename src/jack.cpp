@@ -9,6 +9,8 @@ Jack::Jack(string filename) {
     this->x_position = JACK_WIDTH + Level::LEVEL_X_OFFSET;
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT;
     this->speed = 0;
+    verticalSpeed = 0;
+    jumping = false;
 }
 
 Jack::~Jack() {
@@ -39,8 +41,12 @@ void Jack::move() {
 }
 
 void Jack::jump() {
-    int initialPosition = y_position;
     y_position += verticalSpeed;
-    verticalSpeed++;
+    verticalSpeed += ACCELERATION;
+    if(jumping == true && y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57) {
+        jumping = false;
+        verticalSpeed = 0;
+    }
+    //verticalSpeed++;
     return;
 }
