@@ -20,6 +20,11 @@ class Game {
         Jack* jack;
         Timer frameTime;
 
+        
+        Label* labelPlay;
+        Label* labelOptions;
+        Label* labelExit;
+
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;
         static const int SCREEN_BPP = 32;

@@ -233,7 +233,18 @@ bool Game::isLevelFinished() {
 }
 
 void Game::initScreen() {
-    
+    level = new Level("resources/backgroundinitscreen.png");
+
+    labelPlay = new Label("resources/startbutton.png");
+    level->addChild(labelPlay);
+
+    labelOptions = new Label("resources/optionsbutton.png");
+    level->addChild(labelOptions);
+
+    labelQuit = new Label("resources/exitbutton.png");
+    level->addChild(labelQuit);
+
+    return;
 }
 
 void Game::init() {
@@ -244,6 +255,37 @@ void Game::init() {
     this->quitLevel = false;
 
     initScreen();
+
+    bool play = false;
+    bool quit = false;
+    bool options = false;
+
+    do {
+        while (SDL_PollEvent (&event)) {
+            switch(event) {
+            case SDL_MOUSEBUTTONDOWN:
+                switch (event.button.button) {
+                case SDL_BUTTON_LEFT:
+                    if (labelPlay->wasClicked(event.button.x, event.button.y)) {
+                        play = true;
+                    } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
+                        options = true;
+                    } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
+                        quit = true;
+                        this->quitGame = true;
+                        this->quitLevel = true;
+                    }
+                    break;
+                default:
+                    break;
+                }
+                break;
+
+            default:
+                break;
+            }
+        }
+    } while (play == false || options == false || quit == false);
 
     return;
 }
