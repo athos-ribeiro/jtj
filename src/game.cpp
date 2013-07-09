@@ -6,54 +6,36 @@
 using namespace std;
 
 void Game::initGUI() {
-    cout << "initializing GUI..." << endl;
-
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
     SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
-
-    cout << "GUI started\n" << endl;
     return;
 }
 
 void Game::closeGUI() {
-    cout << "closing GUI..." << endl;
-
     SDL_Quit();
-
-    cout << "GUI closed\n" << endl;
     return;
 }
 
 void Game::loadCommonResources() {
-    cout << "loading common resources..." << endl;
-    cout << "common resources started\n" << endl;
     return;
 }
 
 void Game::releaseCommonResources() {
-    cout << "releasing common resources..." << endl;
-    cout << "common resources released\n" << endl;
     return;
 }
 
 void Game::loadProfile() {
-    cout << "loading profile..." << endl;
-    cout << "Profile loaded\n" << endl;
     return;
 }
 
 void Game::saveProfile() {
-    cout << "saving profile..." << endl;
-    cout << "Profile saved\n" << endl;
     return;
 }
 
 void Game::updateTimeStep() {
-    cout << "Updating time step..." << endl;
     frameTime.start();
-    cout << "time step updated.\n" << endl;
     return;
 }
 
@@ -101,6 +83,35 @@ void Game::handle_event_keyup (SDL_Event& event) {
     }
 }
 
+void Game::handle_event_mouse_button_up (SDL_Event& event) {
+    switch (event.button.button) {
+
+    case SDL_BUTTON_LEFT:
+        printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
+        break;
+
+    default:
+        break;
+    }
+
+    return;
+}
+
+
+void Game::handle_event_mouse_button_down (SDL_Event& event) {
+    switch (event.button.button) {
+
+    case SDL_BUTTON_LEFT:
+        printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
+        break;
+
+    default:
+        break;
+    }
+
+    return;
+}
+
 void Game::handle_event_type (SDL_Event& event)
 {
     switch (event.type)
@@ -118,51 +129,45 @@ void Game::handle_event_type (SDL_Event& event)
         handle_event_keyup (event);
         break;
 
+    case SDL_MOUSEBUTTONDOWN:
+        handle_event_mouse_button_down (event);
+        break;
+
+    case SDL_MOUSEBUTTONUP:
+        handle_event_mouse_button_up (event);
+        break;
+
     default:
         break;
     }
 }
 
 void Game::handleEvents() {
-    cout << "handling events..." << endl;
-
     while (SDL_PollEvent (&event)) {
         handle_event_type (event);
     }
-
-    cout << "events handled.\n" << endl;
     return;
 }
 
 void Game::runAI() {
-    cout << "Running AI..." << endl;
-    cout << "AI done.\n" << endl;
     return;
 }
 
 void Game::runPhysics() {
-    cout << "Running physics..." << endl;
     jack->move();
     jack->jump();
-    cout << "Physics done.\n" << endl;
     return;
 }
 
 void Game::update() {
-    cout << "Updating entities..." << endl;
-    cout << "Entities updated.\n" << endl;
     return;
 }
 
 void Game::recieveNetworkData() {
-    cout << "Sending and recieving packages..." << endl;
-    cout << "Packages handled.\n" << endl;
     return;
 }
 
 void Game::sendNetworkData() {
-    cout << "Sending and recieving packages..." << endl;
-    cout << "Packages handled.\n" << endl;
     return;
 }
 
@@ -177,18 +182,12 @@ int Game::checkIfSkip() {
 }
 
 void Game::draw() {
-    cout << "Drawing..." << endl;
-
     level->draw(this->screen);
     SDL_Flip(this->screen);
-
-    cout << "Drawing done.\n" << endl;
     return;
 }
 
 void Game::loadLevel() {
-    cout << "Loading level..." << endl;
-
     level = new Level("resources/level_1.png");
 
     jack = new Jack("resources/jack.png");
@@ -209,47 +208,35 @@ void Game::loadLevel() {
     for(int i = 0; i < 5; i++) {
         level->addChild(box[i]);
     }
-
-    cout << "Level loaded\n" << endl;
     return;
 }
 
 void Game::releaseLevel() {
-    cout << "Releasing Level..." << endl;
     if(level) {
         delete level;
     }
-    cout << "Level released\n" << endl;
     return;
 }
 
 bool Game::isGameFinished() {
-    cout << "Checking if game is finished...\n" << endl;
     return this->quitGame;
 }
 
 bool Game::isLevelFinished() {
-    cout << "Checking end of level...\n" << endl;
     return this->quitLevel;
 }
 
 void Game::init() {
-    cout << "initializing..." << endl;
-
     initGUI();
 
     FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quitGame = false;
     this->quitLevel = false;
-
-    cout << "Game started\n" << endl;
     return;
 }
 
 void Game::shutdown() {
-    cout << "Shutting Down..." << endl;
     closeGUI();
-    cout << "Finalized" << endl;
     return;
 }
 

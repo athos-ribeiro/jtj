@@ -42,7 +42,8 @@ class Game {
 
         //Whether the frame will skip or not. If it doesn't, sleep until FRAME_MILISECOND
         int checkIfSkip();
-
+        void handle_event_mouse_button_up (SDL_Event& event);
+        void handle_event_mouse_button_down (SDL_Event& event);
         void handle_event_keydown (SDL_Event& event);
         void handle_event_keyup (SDL_Event& event);
         void handle_event_type (SDL_Event& event);
