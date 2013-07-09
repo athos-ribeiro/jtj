@@ -91,7 +91,7 @@ void Game::handle_event_mouse_button_up (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-        printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
+//        printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -106,7 +106,7 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-        printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
+//        printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -232,17 +232,17 @@ bool Game::isLevelFinished() {
     return this->quitLevel;
 }
 
-void Game::initScreen() {
-    level = new Level("resources/backgroundinitscreen.png");
+void Game::drawInitScreen() {
+    initScreen = new InitScreen("resources/backgroundinitscreen.png");
 
-    labelPlay = new Label("resources/startbutton.png");
-    level->addChild(labelPlay);
+    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    initScreen->addChild(labelPlay);
 
-    labelOptions = new Label("resources/optionsbutton.png");
-    level->addChild(labelOptions);
+    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    initScreen->addChild(labelOptions);
 
-    labelQuit = new Label("resources/exitbutton.png");
-    level->addChild(labelQuit);
+    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    initScreen->addChild(labelQuit);
 
     return;
 }
@@ -254,7 +254,7 @@ void Game::init() {
     this->quitGame = false;
     this->quitLevel = false;
 
-    initScreen();
+    drawInitScreen();
 
     bool play = false;
     bool quit = false;
@@ -262,7 +262,13 @@ void Game::init() {
 
     do {
         while (SDL_PollEvent (&event)) {
-            switch(event) {
+            switch (event.type) {
+            case SDL_QUIT:
+                this->quitGame = true;
+                this->quitLevel = true;
+                quit = true;
+                break;
+
             case SDL_MOUSEBUTTONDOWN:
                 switch (event.button.button) {
                 case SDL_BUTTON_LEFT:
@@ -276,6 +282,7 @@ void Game::init() {
                         this->quitLevel = true;
                     }
                     break;
+
                 default:
                     break;
                 }
@@ -285,7 +292,11 @@ void Game::init() {
                 break;
             }
         }
-    } while (play == false || options == false || quit == false);
+        initScreen->draw(this->screen);
+        SDL_Flip(this->screen);
+    } while (play == false && options == false && quit == false);
+
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     return;
 }

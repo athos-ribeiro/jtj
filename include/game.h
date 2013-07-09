@@ -3,6 +3,8 @@
 #include "level.h"
 #include "timer.h"
 #include "jack.h"
+#include "label.h"
+#include "initscreen.h"
 
 #ifndef GAME_H_
 #define GAME_H_
@@ -20,10 +22,11 @@ class Game {
         Jack* jack;
         Timer frameTime;
 
-        
+        InitScreen* initScreen;
+
         Label* labelPlay;
         Label* labelOptions;
-        Label* labelExit;
+        Label* labelQuit;
 
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;
@@ -36,7 +39,7 @@ class Game {
         bool quitGame;
         bool quitLevel;
 
-        void initScreen();
+        void drawInitScreen();
         void initGUI();
         void closeGUI();
         void loadCommonResources();
