@@ -28,10 +28,10 @@ class Game {
 
         float FRAME_MILISECOND;
 
-        // Whether the game and/or the level is finished
         bool quitGame;
         bool quitLevel;
 
+        void initScreen();
         void initGUI();
         void closeGUI();
         void loadCommonResources();
@@ -39,8 +39,6 @@ class Game {
         void loadProfile();
         void saveProfile();
         void updateTimeStep();
-
-        //Whether the frame will skip or not. If it doesn't, sleep until FRAME_MILISECOND
         int checkIfSkip();
         void handle_event_mouse_button_up (SDL_Event& event);
         void handle_event_mouse_button_down (SDL_Event& event);

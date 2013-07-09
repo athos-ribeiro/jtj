@@ -182,8 +182,10 @@ int Game::checkIfSkip() {
 }
 
 void Game::draw() {
-    level->draw(this->screen);
-    SDL_Flip(this->screen);
+    if(checkIfSkip() == 0) {
+        level->draw(this->screen);
+        SDL_Flip(this->screen);
+    }
     return;
 }
 
@@ -226,12 +228,19 @@ bool Game::isLevelFinished() {
     return this->quitLevel;
 }
 
+void Game::initScreen() {
+    
+}
+
 void Game::init() {
     initGUI();
 
     FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quitGame = false;
     this->quitLevel = false;
+
+    initScreen();
+
     return;
 }
 
@@ -241,11 +250,9 @@ void Game::shutdown() {
 }
 
 void Game::loop() {
-    do {
+    while(isGameFinished() == false) {
         loadLevel();
-
-        //Level Loop
-        do {
+        while(isLevelFinished() == false) {
             updateTimeStep();
             recieveNetworkData();
             handleEvents();
@@ -253,14 +260,10 @@ void Game::loop() {
             runPhysics();
             update();
             sendNetworkData();
-            if(checkIfSkip() == 0) {
-                draw();
-            }
+            draw();
         }
-        while(isLevelFinished() == false);
         releaseLevel();
     }
-    while(isGameFinished() == false);
     return;
 }
 
