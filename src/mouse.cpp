@@ -5,6 +5,7 @@ Mouse::Mouse() {
 	this->x = 0;
 	this->y = 0;
 	this->wasPressed = false;
+	this->mouse = NULL;
 }
 
 Mouse::~Mouse() {
@@ -30,9 +31,9 @@ Mouse::released() {
 
 Mouse
 Mouse::getMouse() {
-	if (!mouse) {
-		mouse = new Mouse();
+	if (this->mouse == NULL) {
+		this->mouse = new Mouse();
 	}
 
-	return mouse;
+	return this->mouse;
 }
