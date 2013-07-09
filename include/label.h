@@ -9,6 +9,7 @@ class Label : public GameObject {
 	void drawSelf(SDL_Surface * surface);
 	int xPosition;
 	int yPosition;
+	bool wasClicked();
 	public:
 		static const int LABEL_WIDTH = 300;
 		static const int LABEL_HEIGHT = 100;

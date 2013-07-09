@@ -18,3 +18,8 @@ void
 Label::drawSelf(SDL_Surface * surface) {
 	SDLUtil::applySurface(this->xPosition, this->yPosition, this->label, surface);
 }
+
+bool
+Label::wasClicked() {
+	
+}
