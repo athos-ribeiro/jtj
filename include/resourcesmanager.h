@@ -16,7 +16,7 @@ class ResourcesManager {
                 resource = NULL;
                 references = 0;
             }
-    }
+    };
 
     vector<ResourcesInfo*> resources;
 

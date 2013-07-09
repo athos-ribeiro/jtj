@@ -8,6 +8,7 @@ Jack::Jack(string filename) {
     this->jack = SDLUtil::loadImage(filename);
     this->x_position = JACK_WIDTH + Level::LEVEL_X_OFFSET;
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT;
+    this->speed = 0;
 }
 
 Jack::~Jack() {

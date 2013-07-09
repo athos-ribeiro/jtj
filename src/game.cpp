@@ -238,7 +238,7 @@ void Game::init() {
 
     initGUI();
 
-    FRAME_MILISECOND = 1250 / SCREEN_FPS;
+    FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quitGame = false;
     this->quitLevel = false;
 
