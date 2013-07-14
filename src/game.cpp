@@ -75,11 +75,13 @@ void Game::handle_event_keydown (SDL_Event& event) {
 void Game::handle_event_keyup (SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case (SDLK_a):
-            jack->speed = 0;
+            if(jack->speed==-3)
+                jack->speed = 0;
             break;
 
         case (SDLK_d):
-            jack->speed = 0;
+            if(jack->speed==3)
+                jack->speed = 0;
             break;
 
         default:
