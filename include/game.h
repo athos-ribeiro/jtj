@@ -39,7 +39,9 @@ class Game {
         bool quitGame;
         bool quitLevel;
 
-        void drawInitScreen();
+        void initializingScreen();
+        void initScreenDraw();
+        void initScreenLoop();
         void initGUI();
         void closeGUI();
         void loadCommonResources();

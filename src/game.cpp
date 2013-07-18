@@ -42,7 +42,6 @@ void Game::updateTimeStep() {
 void Game::handle_event_keydown (SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case (SDLK_ESCAPE):
-            this->quitGame = true;
             this->quitLevel = true;
             break;
 
@@ -59,7 +58,6 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_s):
-            this->quitGame = true;
             this->quitLevel = true;
             break;
 
@@ -93,7 +91,7 @@ void Game::handle_event_mouse_button_up (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-//        printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
+//		printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -123,7 +121,6 @@ void Game::handle_event_type (SDL_Event& event)
     switch (event.type)
     {
     case SDL_QUIT:
-        this->quitGame = true;
         this->quitLevel = true;
         break;
 
@@ -234,7 +231,7 @@ bool Game::isLevelFinished() {
     return this->quitLevel;
 }
 
-void Game::drawInitScreen() {
+void Game::initScreenDraw() {
     initScreen = new InitScreen("resources/backgroundinitscreen.png");
 
     labelPlay = new Label("resources/startbutton.png", 483, 68);
@@ -249,39 +246,31 @@ void Game::drawInitScreen() {
     return;
 }
 
-void Game::init() {
-    initGUI();
-
-    FRAME_MILISECOND = 1000 / SCREEN_FPS;
+void Game::initScreenLoop()
+{
+    bool playButton = false;
+    bool quitButton = false;
+    bool optionsButton = false;
     this->quitGame = false;
-    this->quitLevel = false;
-
-    drawInitScreen();
-
-    bool play = false;
-    bool quit = false;
-    bool options = false;
 
     do {
         while (SDL_PollEvent (&event)) {
             switch (event.type) {
             case SDL_QUIT:
                 this->quitGame = true;
-                this->quitLevel = true;
-                quit = true;
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 switch (event.button.button) {
                 case SDL_BUTTON_LEFT:
                     if (labelPlay->wasClicked(event.button.x, event.button.y)) {
-                        play = true;
+                        playButton = true;
+                        this->quitLevel = false;
                     } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
-                        options = true;
+                        optionsButton = true;
                     } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
-                        quit = true;
                         this->quitGame = true;
-                        this->quitLevel = true;
+                        quitButton = true;
                     }
                     break;
 
@@ -296,11 +285,29 @@ void Game::init() {
         }
         initScreen->draw(this->screen);
         SDL_Flip(this->screen);
-    } while (play == false && options == false && quit == false);
+    } while (playButton == false && optionsButton == false && quitButton == false);
+
+    return ;
+}
+
+void Game::init() {
+    initGUI();
+
+    FRAME_MILISECOND = 1000 / SCREEN_FPS;
+    this->quitGame = false;
+    this->quitLevel = false;
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     return;
+}
+
+void Game::initializingScreen()
+{
+    initScreenDraw();
+    initScreenLoop();
+
+    return ;
 }
 
 void Game::shutdown() {
@@ -310,6 +317,7 @@ void Game::shutdown() {
 
 void Game::loop() {
     while(isGameFinished() == false) {
+	    initializingScreen();
         loadLevel();
         while(isLevelFinished() == false) {
             updateTimeStep();
