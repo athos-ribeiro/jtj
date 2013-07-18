@@ -58,11 +58,20 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_s):
+        	//How about jack take the box and carry it with him?
+//			this->quitLevel = true;
+            break;
+
+        case (SDLK_q):
             this->quitLevel = true;
             break;
 
         case (SDLK_d):
             jack->speed = 3;
+            break;
+
+        case (SDLK_p):
+            this->pauseLevel = true;
             break;
 
         default:
@@ -106,7 +115,7 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-//        printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
+//		printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -163,6 +172,9 @@ void Game::runPhysics() {
 }
 
 void Game::update() {
+	if (pauseLevel == true) {
+		pausingLevel();
+	}
     return;
 }
 
@@ -193,8 +205,6 @@ void Game::draw() {
 }
 
 void Game::loadLevel() {
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-
     level = new Level("resources/level_1.png");
 
     jack = new Jack("resources/jack.png");
@@ -248,8 +258,67 @@ void Game::initScreenDraw() {
     return;
 }
 
-void Game::initScreenLoop()
-{
+void Game::pauseScreenDraw() {
+	pauseScreen = new PauseScreen("resources/backgroundinitscreen.png");
+
+    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    pauseScreen->addChild(labelPlay);
+
+    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    pauseScreen->addChild(labelOptions);
+
+    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    pauseScreen->addChild(labelQuit);
+
+    return;	
+}
+
+void Game::pauseScreenLoop() {
+    bool playButton = false;
+    bool quitButton = false;
+    bool optionsButton = false;
+    this->quitLevel = false;
+
+    do {
+        while (SDL_PollEvent (&event)) {
+            switch (event.type) {
+            case SDL_QUIT:
+                this->quitLevel = true;
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                switch (event.button.button) {
+                case SDL_BUTTON_LEFT:
+                    if (labelPlay->wasClicked(event.button.x, event.button.y)) {
+                        playButton = true;
+                        this->quitLevel = false;
+                        this->pauseLevel = false;
+                    } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
+                        optionsButton = true;
+                    } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
+                        this->quitLevel = true;
+                        quitButton = true;
+                    }
+                    break;
+
+                default:
+                    break;
+                }
+                break;
+
+            default:
+                break;
+            }
+        }
+        pauseScreen->draw(this->screen);
+        SDL_Flip(this->screen);
+    } while (playButton == false && optionsButton == false && quitButton == false);
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    return ;
+}
+
+void Game::initScreenLoop() {
     bool playButton = false;
     bool quitButton = false;
     bool optionsButton = false;
@@ -288,6 +357,7 @@ void Game::initScreenLoop()
         initScreen->draw(this->screen);
         SDL_Flip(this->screen);
     } while (playButton == false && optionsButton == false && quitButton == false);
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     return ;
 }
@@ -298,14 +368,23 @@ void Game::init() {
     FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quitGame = false;
     this->quitLevel = false;
+	this->pauseLevel = false;
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     return;
 }
 
-void Game::initializingScreen()
-{
+void Game::pausingLevel() {
+    cout << "Paused" << endl;
+	pauseScreenDraw();
+	pauseScreenLoop();
+    cout << "Unpaused" << endl;
+
+	return ;
+}
+
+void Game::initializingScreen() {
     initScreenDraw();
     initScreenLoop();
 
@@ -330,6 +409,7 @@ void Game::loop() {
             update();
             sendNetworkData();
             draw();
+            cout << "Looping" << endl;
         }
         releaseLevel();
     }

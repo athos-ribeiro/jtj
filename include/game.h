@@ -5,6 +5,7 @@
 #include "jack.h"
 #include "label.h"
 #include "initscreen.h"
+#include "pausescreen.h"
 
 #ifndef GAME_H_
 #define GAME_H_
@@ -23,6 +24,7 @@ class Game {
         Timer frameTime;
 
         InitScreen* initScreen;
+        PauseScreen* pauseScreen;
 
         Label* labelPlay;
         Label* labelOptions;
@@ -38,7 +40,11 @@ class Game {
 
         bool quitGame;
         bool quitLevel;
+        bool pauseLevel;
 
+        void pausingLevel();
+        void pauseScreenDraw();
+        void pauseScreenLoop();
         void initializingScreen();
         void initScreenDraw();
         void initScreenLoop();
