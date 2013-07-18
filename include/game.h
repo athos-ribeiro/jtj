@@ -6,6 +6,7 @@
 #include "label.h"
 #include "initscreen.h"
 #include "pausescreen.h"
+#include "gameoverscreen.h"
 
 #ifndef GAME_H_
 #define GAME_H_
@@ -25,6 +26,7 @@ class Game {
 
         InitScreen* initScreen;
         PauseScreen* pauseScreen;
+        GameOverScreen* gameOverScreen;
 
         Label* labelPlay;
         Label* labelOptions;
@@ -41,7 +43,11 @@ class Game {
         bool quitGame;
         bool quitLevel;
         bool pauseLevel;
+        bool gameOver;
 
+        void gameOvering();
+        void gameOverScreenDraw();
+        void gameOverScreenLoop();
         void pausingLevel();
         void pauseScreenDraw();
         void pauseScreenLoop();

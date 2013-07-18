@@ -63,7 +63,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_q):
-            this->quitLevel = true;
+            this->gameOver = true;
             break;
 
         case (SDLK_d):
@@ -71,7 +71,12 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_p):
-            this->pauseLevel = true;
+        	if (this->pauseLevel == true) {
+        		this->pauseLevel = false;
+        	}
+        	else {
+	            this->pauseLevel = true;
+        	}
             break;
 
         default:
@@ -175,6 +180,10 @@ void Game::update() {
 	if (pauseLevel == true) {
 		pausingLevel();
 	}
+	if (gameOver == true)
+	{
+		gameOvering();
+	}
     return;
 }
 
@@ -259,7 +268,7 @@ void Game::initScreenDraw() {
 }
 
 void Game::pauseScreenDraw() {
-	pauseScreen = new PauseScreen("resources/backgroundinitscreen.png");
+	pauseScreen = new PauseScreen("resources/backgroundpausescreen.png");
 
     labelPlay = new Label("resources/startbutton.png", 483, 68);
     pauseScreen->addChild(labelPlay);
@@ -270,13 +279,14 @@ void Game::pauseScreenDraw() {
     labelQuit = new Label("resources/exitbutton.png", 483, 314);
     pauseScreen->addChild(labelQuit);
 
-    return;	
+    return;
 }
 
 void Game::pauseScreenLoop() {
     bool playButton = false;
     bool quitButton = false;
     bool optionsButton = false;
+    bool keyPressed = false;
     this->quitLevel = false;
 
     do {
@@ -306,13 +316,25 @@ void Game::pauseScreenLoop() {
                 }
                 break;
 
+            case SDL_KEYDOWN:
+        	    switch (event.key.keysym.sym) {
+				case (SDLK_p):
+					keyPressed = true;
+					this->pauseLevel = false;
+				    break;
+
+				default:
+					break;
+				}
+				break;
+
             default:
                 break;
             }
         }
         pauseScreen->draw(this->screen);
         SDL_Flip(this->screen);
-    } while (playButton == false && optionsButton == false && quitButton == false);
+    } while (keyPressed == false && playButton == false && optionsButton == false && quitButton == false);
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
     return ;
@@ -323,6 +345,7 @@ void Game::initScreenLoop() {
     bool quitButton = false;
     bool optionsButton = false;
     this->quitGame = false;
+    this->gameOver = false;
 
     do {
         while (SDL_PollEvent (&event)) {
@@ -369,6 +392,7 @@ void Game::init() {
     this->quitGame = false;
     this->quitLevel = false;
 	this->pauseLevel = false;
+	this->gameOver = false;
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
@@ -376,17 +400,84 @@ void Game::init() {
 }
 
 void Game::pausingLevel() {
-    cout << "Paused" << endl;
+	cout << "Pausing Level" << endl;
 	pauseScreenDraw();
 	pauseScreenLoop();
-    cout << "Unpaused" << endl;
+	cout << "Unpausing Level" << endl;
 
 	return ;
 }
 
 void Game::initializingScreen() {
+	cout << "Entering Init Screen" << endl;
     initScreenDraw();
     initScreenLoop();
+	cout << "Leaving Init Screen" << endl;
+
+    return ;
+}
+void Game::gameOverScreenDraw() {
+	gameOverScreen = new GameOverScreen("resources/backgroundgameover.png");
+
+    labelPlay = new Label("resources/startbutton.png", 483, 68);
+    gameOverScreen->addChild(labelPlay);
+
+    labelOptions = new Label("resources/optionsbutton.png", 483, 191);
+    gameOverScreen->addChild(labelOptions);
+
+    labelQuit = new Label("resources/exitbutton.png", 483, 314);
+    gameOverScreen->addChild(labelQuit);
+
+    return;
+}
+
+void Game::gameOverScreenLoop() {
+    bool playButton = false;
+    bool quitButton = false;
+    bool optionsButton = false;
+    this->quitLevel = true;
+
+    do {
+        while (SDL_PollEvent (&event)) {
+            switch (event.type) {
+            case SDL_QUIT:
+                this->quitLevel = true;
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                switch (event.button.button) {
+                case SDL_BUTTON_LEFT:
+                    if (labelPlay->wasClicked(event.button.x, event.button.y)) {
+                        playButton = true;
+                    } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
+                        optionsButton = true;
+                    } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
+                        quitButton = true;
+                    }
+                    break;
+
+                default:
+                    break;
+                }
+                break;
+
+            default:
+                break;
+            }
+        }
+        gameOverScreen->draw(this->screen);
+        SDL_Flip(this->screen);
+    } while (playButton == false && optionsButton == false && quitButton == false);
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    return ;
+}
+
+void Game::gameOvering() {
+	cout << "Entering Game Over" << endl;
+    gameOverScreenDraw();
+    gameOverScreenLoop();
+	cout << "Leaving Game Over" << endl;
 
     return ;
 }
@@ -409,7 +500,7 @@ void Game::loop() {
             update();
             sendNetworkData();
             draw();
-            cout << "Looping" << endl;
+            cout << "Playing" << endl;
         }
         releaseLevel();
     }
