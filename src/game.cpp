@@ -193,6 +193,8 @@ void Game::draw() {
 }
 
 void Game::loadLevel() {
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
     level = new Level("resources/level_1.png");
 
     jack = new Jack("resources/jack.png");
