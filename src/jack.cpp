@@ -11,6 +11,8 @@ Jack::Jack(string filename) {
     this->speed = 0;
     verticalSpeed = 0;
     jumping = false;
+	lastMove=0;
+	lastButOneMove=0;
 }
 
 Jack::~Jack() {
@@ -49,4 +51,34 @@ void Jack::jump() {
     }
     //verticalSpeed++;
     return;
+}
+
+void Jack::pushMove(int v) {
+		if(lastMove==0) {
+			speed=v;
+			lastMove=v;
+		}
+	else if (lastButOneMove==0) {
+			speed=v;
+			lastButOneMove=v;
+		}
+	return;
+}
+
+void Jack::popMove(int v) {
+	if(lastButOneMove==v) {
+		lastButOneMove=0;
+		speed=lastMove;
+	}
+	else if(lastMove==v) {
+		if(lastButOneMove!=0) {
+			speed=lastButOneMove;
+			lastMove=lastButOneMove;
+			lastButOneMove=0;
+		}
+		else {
+			lastMove=0;
+			speed=0;
+		}
+	}
 }

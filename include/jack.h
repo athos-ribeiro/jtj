@@ -9,6 +9,9 @@ class Jack : public GameObject {
     void drawSelf(SDL_Surface *surface);
     int x_position;
     int y_position;
+
+	int lastMove;
+	int lastButOneMove;
     public:
         int speed;
         int verticalSpeed;
@@ -21,6 +24,8 @@ class Jack : public GameObject {
         ~Jack();
 
         void move();
+		void pushMove(int v);
+		void popMove(int v);
         void jump();
 };
 

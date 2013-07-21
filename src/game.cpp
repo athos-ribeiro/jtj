@@ -54,7 +54,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_a):
-            jack->speed = -3;
+			jack->pushMove(-3);
             break;
 
         case (SDLK_s):
@@ -67,7 +67,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_d):
-            jack->speed = 3;
+			jack->pushMove(3);
             break;
 
         case (SDLK_p):
@@ -87,13 +87,11 @@ void Game::handle_event_keydown (SDL_Event& event) {
 void Game::handle_event_keyup (SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case (SDLK_a):
-            if(jack->speed==-3)
-                jack->speed = 0;
+			jack->popMove(-3);
             break;
 
         case (SDLK_d):
-            if(jack->speed==3)
-                jack->speed = 0;
+			jack->popMove(3);
             break;
 
         default:
@@ -500,7 +498,7 @@ void Game::loop() {
             update();
             sendNetworkData();
             draw();
-            cout << "Playing" << endl;
+            //cout << "Playing" << endl;
         }
         releaseLevel();
     }
