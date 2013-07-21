@@ -2,6 +2,7 @@
 #define BOX_H
 
 #include "gameobject.h"
+#include "level.h"
 #include <string>
 
 class Box : public GameObject {
@@ -10,13 +11,14 @@ class Box : public GameObject {
     int x_position;
     int y_position;
     int speed;
-    int acceleration;
+    static const int ACCELERATION = 1;
     public:
         Box(std::string filename);
         ~Box();
 
         void setPosition(int x, int y);
         void accelerate();
+        void fall(Level* level);
 };
 
 #endif

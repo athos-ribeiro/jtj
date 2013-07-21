@@ -5,6 +5,7 @@ using namespace std;
 
 Box::Box(string filename) {
     this->box = SDLUtil::loadImage(filename);
+    speed = 0;
 }
 
 Box::~Box() {
@@ -23,5 +24,15 @@ void Box::setPosition(int x, int y) {
 }
 
 void Box::accelerate() {
+}
+
+void Box::fall(Level* level) {
+    speed += ACCELERATION;
+    y_position += speed;
+    if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38) {
+        speed = 0;
+        y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38;
+        return;
+    }
 }
 

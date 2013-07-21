@@ -4,6 +4,7 @@
 #include "box.h"
 
 using namespace std;
+Box* box[5];
 
 void Game::initGUI() {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -171,6 +172,8 @@ void Game::runAI() {
 void Game::runPhysics() {
     jack->move();
     jack->jump();
+    box[0]->fall(level);
+    box[1]->fall(level);
     return;
 }
 
@@ -220,7 +223,6 @@ void Game::loadLevel() {
     Enemy* enemy = new Enemy("resources/enemy_1.png");
     level->addChild(enemy);
 
-    Box* box[5];
     for(int i = 0; i < 5; i++) {
         box[i] = new Box("resources/box.png");
     }
