@@ -50,7 +50,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             if(jack->jumping == true) {
                 break;
             }
-            jack->verticalSpeed = -11;
+            jack->verticalSpeed = -10;
             jack->jumping = true;
             break;
 
@@ -228,9 +228,9 @@ void Game::loadLevel() {
     }
     box[0]->setPosition(Level::LEVEL_X_OFFSET, 250);
     box[1]->setPosition(Level::LEVEL_X_OFFSET + 10*38, 200);
-    box[2]->setPosition(Level::LEVEL_X_OFFSET + 4*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
-    box[3]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38);
-    box[4]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*2);
+    box[2]->setPosition(Level::LEVEL_X_OFFSET + 4*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*2);
+    box[3]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*2);
+    box[4]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*3);
     for(int i = 0; i < 5; i++) {
         level->addChild(box[i]);
     }

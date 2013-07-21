@@ -29,9 +29,9 @@ void Box::accelerate() {
 void Box::fall(Level* level) {
     speed += ACCELERATION;
     y_position += speed;
-    if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38) {
+    if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2) {
         speed = 0;
-        y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38;
+        y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2;
         return;
     }
 }

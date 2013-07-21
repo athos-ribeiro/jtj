@@ -7,7 +7,7 @@ using namespace std;
 Jack::Jack(string filename) {
     this->jack = SDLUtil::loadImage(filename);
     this->x_position = JACK_WIDTH + Level::LEVEL_X_OFFSET;
-    this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT;
+    this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT - 38;
     this->speed = 0;
     verticalSpeed = 0;
     jumping = false;
@@ -32,7 +32,7 @@ int setLimit(int value, int limit1, int range) {
 
 void Jack::drawSelf(SDL_Surface *surface) {
     this->x_position = setLimit(x_position, Level::LEVEL_X_OFFSET,Level::LEVEL_WIDTH-JACK_WIDTH);
-    this->y_position = setLimit(y_position, Level::LEVEL_Y_OFFSET,Level::LEVEL_HEIGHT-JACK_HEIGHT);
+    this->y_position = setLimit(y_position, Level::LEVEL_Y_OFFSET,Level::LEVEL_HEIGHT-JACK_HEIGHT - 38);
     SDLUtil::applySurface(this->x_position, this->y_position, this->jack, surface);
     return;
 }
@@ -45,7 +45,7 @@ void Jack::move() {
 void Jack::jump() {
     y_position += verticalSpeed;
     verticalSpeed += ACCELERATION;
-    if(jumping == true && y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57) {
+    if(jumping == true && y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38) {
         jumping = false;
         verticalSpeed = 0;
     }
