@@ -92,7 +92,7 @@ void Game::handle_event_keyup (SDL_Event& event) {
             break;
 
         case (SDLK_d):
-			jack->popMove(3);
+            jack->popMove(3);
             break;
 
         default:
@@ -402,6 +402,8 @@ void Game::init() {
 void Game::pausingLevel() {
 	cout << "Pausing Level" << endl;
 	pauseScreenDraw();
+    jack->popMove(3);
+    jack->popMove(-3);
 	pauseScreenLoop();
 	cout << "Unpausing Level" << endl;
 
@@ -411,6 +413,8 @@ void Game::pausingLevel() {
 void Game::initializingScreen() {
 	cout << "Entering Init Screen" << endl;
     initScreenDraw();
+    jack->popMove(3);
+    jack->popMove(-3);
     initScreenLoop();
 	cout << "Leaving Init Screen" << endl;
 
@@ -476,6 +480,8 @@ void Game::gameOverScreenLoop() {
 void Game::gameOvering() {
 	cout << "Entering Game Over" << endl;
     gameOverScreenDraw();
+    jack->popMove(3);
+    jack->popMove(-3);
     gameOverScreenLoop();
 	cout << "Leaving Game Over" << endl;
 
