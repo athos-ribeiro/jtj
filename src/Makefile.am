@@ -6,7 +6,7 @@ jackthejanitor_SOURCES = main.cpp game.cpp jack.cpp box.cpp level.cpp sdlutil.cp
 #resourcesmanager.cpp
 
 #Libraries needed
-jackthejanitor_LDADD = -lSDL -lSDL_image
+jackthejanitor_LDADD = -lSDL -lSDL_image -lSDL_ttf
 
 #Include flags
 AM_CPPFLAGS = -I../include -Wall -W -pedantic -ansi

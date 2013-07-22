@@ -1,8 +1,10 @@
 #include <iostream>
-#include "SDL/SDL_ttf.h"
 #include "game.h"
 #include "enemy.h"
 #include "box.h"
+#include "sdlutil.h"
+#include <cstdlib>
+#include "SDL/SDL_ttf.h"
 
 using namespace std;
 Box* box[6];
@@ -10,6 +12,7 @@ Box* box[6];
 void Game::initGUI() {
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init ();
+
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
     SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
@@ -23,10 +26,13 @@ void Game::closeGUI() {
 }
 
 void Game::loadCommonResources() {
-    string scoreFontFileName = "resources/Hanalei-Regular.ttf";
+    string scoreFontFileName = "resources/HanaleiRegular.ttf";
     int scoreFontSize = 18;
-    scoreTextColor = {255, 255, 255}; 
-    scoreFont = TTF_OpenFont (scoreFontFileName, scoreFontFileName);
+    scoreTextColor.r = 255;
+    scoreTextColor.g = 255;
+    scoreTextColor.b = 255;
+    scoreFont = TTF_OpenFont (scoreFontFileName.c_str(), scoreFontSize);
+    scoreMessage = TTF_RenderText_Solid (scoreFont, "Oioaisdoaisdoaissdoaisd", scoreTextColor);
 
     return;
 }
@@ -65,12 +71,12 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_a):
-			jack->pushMove(-3);
+            jack->pushMove(-3);
             break;
 
         case (SDLK_s):
-        	//How about jack take the box and carry it with him?
-//			this->quitLevel = true;
+            //How about jack take the box and carry it with him?
+//          this->quitLevel = true;
             break;
 
         case (SDLK_q):
@@ -78,16 +84,16 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_d):
-			jack->pushMove(3);
+            jack->pushMove(3);
             break;
 
         case (SDLK_p):
-        	if (this->pauseLevel == true) {
-        		this->pauseLevel = false;
-        	}
-        	else {
-	            this->pauseLevel = true;
-        	}
+            if (this->pauseLevel == true) {
+                this->pauseLevel = false;
+            }
+            else {
+                this->pauseLevel = true;
+            }
             break;
 
         default:
@@ -98,7 +104,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
 void Game::handle_event_keyup (SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case (SDLK_a):
-			jack->popMove(-3);
+            jack->popMove(-3);
             break;
 
         case (SDLK_d):
@@ -114,7 +120,7 @@ void Game::handle_event_mouse_button_up (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-//		printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
+//      printf("Posicao onde o botao foi liberado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -129,7 +135,7 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-//		printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
+//      printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
         break;
 
     default:
@@ -189,15 +195,17 @@ void Game::runPhysics() {
 }
 
 void Game::update() {
-	if (pauseLevel == true) {
-		pausingLevel();
-	}
-	if (gameOver == true)
-	{
-		gameOvering();
-	}
-
-    scoreMessage = TTF_RenderText_Solid (scoreFont, scoreString, scoreTextColor);
+    if (pauseLevel == true) {
+        pausingLevel();
+    }
+    if (gameOver == true)
+    {
+        gameOvering();
+    }
+//    scorePoints ++;
+//    char strasd[50];
+//    sprintf(strasd, "%d", scorePoints);
+//    itoa(scorePoints, scoreString, 10);
     return;
 }
 
@@ -222,8 +230,8 @@ int Game::checkIfSkip() {
 void Game::draw() {
     if(checkIfSkip() == 0) {
         level->draw(this->screen);
-
         SDL_Flip(this->screen);
+        SDLUtil::applySurface (556, 50, scoreMessage, this->screen);
     }
     return;
 }
@@ -402,6 +410,7 @@ void Game::initScreenLoop() {
 
 void Game::init() {
     initGUI();
+    loadCommonResources();
 
     FRAME_MILISECOND = 1000 / SCREEN_FPS;
     this->quitGame = false;
@@ -425,8 +434,6 @@ void Game::pausingLevel() {
 
 void Game::initializingScreen() {
     initScreenDraw();
-    jack->popMove(3);
-    jack->popMove(-3);
     initScreenLoop();
 
     return ;
@@ -504,7 +511,7 @@ void Game::shutdown() {
 
 void Game::loop() {
     while(isGameFinished() == false) {
-	    initializingScreen();
+        initializingScreen();
         loadLevel();
         while(isLevelFinished() == false) {
             updateTimeStep();
@@ -515,7 +522,6 @@ void Game::loop() {
             update();
             sendNetworkData();
             draw();
-            //cout << "Playing" << endl;
         }
         releaseLevel();
     }

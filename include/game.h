@@ -1,5 +1,10 @@
+#ifndef GAME_H_
+#define GAME_H_
+
 #include <SDL/SDL.h>
+#include <sdlutil.h>
 #include <SDL/SDL_image.h>
+#include "SDL/SDL_ttf.h"
 #include "level.h"
 #include "timer.h"
 #include "jack.h"
@@ -7,9 +12,8 @@
 #include "initscreen.h"
 #include "pausescreen.h"
 #include "gameoverscreen.h"
-
-#ifndef GAME_H_
-#define GAME_H_
+#include <string>
+#include <stdlib.h>
 
 class Game {
     public:
@@ -27,6 +31,8 @@ class Game {
         TTF_Font *scoreFont;
         SDL_Surface *scoreMessage;
         SDL_Color scoreTextColor;
+        string scoreString;
+        int scorePoints;
 
         InitScreen* initScreen;
         PauseScreen* pauseScreen;
