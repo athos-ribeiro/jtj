@@ -1,8 +1,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <SDL/SDL.h>
 #include <sdlutil.h>
+#include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include "SDL/SDL_ttf.h"
 #include "level.h"

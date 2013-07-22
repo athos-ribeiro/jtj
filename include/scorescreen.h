@@ -12,6 +12,8 @@ public:
     ScoreScreen();
     ~ScoreScreen();
     void drawSelf(SDL_Surface *surface);
+    int getBox();
+    int getScorePoints();
     int popBox();
     int increaseScore(int value);
 

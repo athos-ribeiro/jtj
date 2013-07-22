@@ -130,7 +130,10 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
 
     case SDL_BUTTON_LEFT:
         score->increaseScore(10);
+        break;
 
+    case SDL_BUTTON_RIGHT:
+        score->popBox();
         break;
 
     default:
@@ -213,7 +216,7 @@ void Game::update() {
         gameOver = true;
     }
 
-    if (score->getScore() >= 99999)
+    if (score->getScorePoints() >= 99999)
     {
         gameOver = true;
     }
