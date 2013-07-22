@@ -187,35 +187,31 @@ void Game::runAI() {
 void Game::runPhysics() {
 
     int xinit = Level::LEVEL_X_OFFSET;
-    int yinit=Level::LEVEL_Y_OFFSET;
+    //int yinit=Level::LEVEL_Y_OFFSET;
     int xrange=Level::LEVEL_WIDTH-Level::LEVEL_X_OFFSET;
-    int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
+    //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
     int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
-    int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET)/38;
-    cout << "Jack esta no grid " << jackposx << endl;
+    int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
+    cout << "Jack esta na posicao " << jackposy << endl;
     for(int i=jackposx;i>=0;i--) {
-        if(level->grid[i]!=0)
+        if((level->grid[i]+jackposy)>=12)
 	{
-		cout << "A caixa a esquerda esta no grid "<< i << endl;
 		xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
 		break;
 	}
     }
     for(int i=jackposx;i<12;i++) {
-	    if(level->grid[i]!=0) {
-		cout << "A caixa a direta esta no grid "<< i << endl;
+	    if((level->grid[i]+jackposy)>=12) {
 		xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
-		cout << "Limite a direita de Jack(encontrado): " << xinit+xrange << endl;
 		break;
 	    }
     }
+    if(xinit<Level::LEVEL_X_OFFSET)
+	    xinit=Level::LEVEL_X_OFFSET;
     if(xrange+xinit>(Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET))
-	    xrange = Level::LEVEL_WIDTH-xinit+Level::LEVEL_X_OFFSET;
-    cout << "Limite a esquerda de Jack: " << xinit << endl;
-    cout << "Area que Jack pode se movimentar: " << xrange << endl;
-    cout << "Posicao do Jack em x: " << jack->getXPosition() << endl;
-    cout << "Posicao do Jack em y: " << jack->getYPosition() << endl;
+	    xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
+    cout << "Limite a direita do jack: " << xrange+xinit << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     jack->jump(level);
     box[0]->fall(level);
