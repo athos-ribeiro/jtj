@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "game.h"
 #include "enemy.h"
 #include "box.h"
@@ -9,6 +10,7 @@
 #include <stdio.h>
 
 using namespace std;
+vector<Box*> boxes;
 Box* box[6];
 
 /* Structure for loaded sounds. */
@@ -412,6 +414,9 @@ void Game::runPhysics() {
     box[0]->fall(level);
     box[1]->fall(level);
     box[5]->fall(level);
+    for(int i = 0; i < boxes.size(); i++) {
+        boxes[i]->fall(level);
+    }
     return;
 }
 
@@ -486,6 +491,9 @@ void Game::loadLevel() {
         level->addChild(box[i]);
     }
     score = new ScoreScreen();
+
+    //testing enemy throw method
+    enemy->throwBox(box[1], boxes);
     return;
 }
 
