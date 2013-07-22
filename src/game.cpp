@@ -202,6 +202,7 @@ void Game::closeGUI() {
 }
 
 void Game::loadCommonResources() {
+    score = new ScoreScreen();
 
     /* Open the audio device. The sound driver will try to give us
     the requested format, but it might not succeed. The 'obtained'
@@ -490,7 +491,6 @@ void Game::loadLevel() {
     for(int i = 0; i < 6; i++) {
         level->addChild(box[i]);
     }
-    score = new ScoreScreen();
 
     return;
 }
