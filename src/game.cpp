@@ -400,23 +400,19 @@ void Game::init() {
 }
 
 void Game::pausingLevel() {
-	cout << "Pausing Level" << endl;
 	pauseScreenDraw();
     jack->popMove(3);
     jack->popMove(-3);
 	pauseScreenLoop();
-	cout << "Unpausing Level" << endl;
 
 	return ;
 }
 
 void Game::initializingScreen() {
-	cout << "Entering Init Screen" << endl;
     initScreenDraw();
     jack->popMove(3);
     jack->popMove(-3);
     initScreenLoop();
-	cout << "Leaving Init Screen" << endl;
 
     return ;
 }
@@ -478,12 +474,10 @@ void Game::gameOverScreenLoop() {
 }
 
 void Game::gameOvering() {
-	cout << "Entering Game Over" << endl;
     gameOverScreenDraw();
     jack->popMove(3);
     jack->popMove(-3);
     gameOverScreenLoop();
-	cout << "Leaving Game Over" << endl;
 
     return ;
 }
