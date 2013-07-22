@@ -16,6 +16,8 @@ public:
     int getScorePoints();
     int popBox();
     int increaseScore(int value);
+    void boxes(int numero);
+    void scoring(int value);
 
 private:
 

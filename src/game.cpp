@@ -492,6 +492,9 @@ void Game::loadLevel() {
         level->addChild(box[i]);
     }
 
+    score->boxes(10);
+    score->scoring(100);
+
     return;
 }
 
@@ -603,6 +606,8 @@ void Game::initScreenLoop() {
     bool quitButton = false;
     bool optionsButton = false;
     this->quitGame = false;
+    this->quitLevel = false;
+    this->pauseLevel = false;
     this->gameOver = false;
 
     do {

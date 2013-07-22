@@ -29,36 +29,49 @@ ScoreScreen::~ScoreScreen()
     SDL_FreeSurface (scoreMessage);
 }
 
+void
+ScoreScreen::boxes(int numero)
+{
+    this->boxLeft = numero;
+}
+
+void
+ScoreScreen::scoring(int value)
+{
+    this->scorePoints = value;
+}
+
+
 int
 ScoreScreen::getBox()
 {
-    return boxLeft;
+    return this->boxLeft;
 }
 
 int
 ScoreScreen::getScorePoints()
 {
-    return scorePoints;
+    return this->scorePoints;
 }
 
 int
 ScoreScreen::popBox()
 {
-    boxLeft --;
+    this->boxLeft --;
     return updateSelf();
 }
 
 int
 ScoreScreen::increaseScore(int value)
 {
-    scorePoints += value;
+    this->scorePoints += value;
     return updateSelf();
 }
 
 int
 ScoreScreen::updateSelf()
 {
-    if (boxLeft <= 0 || scorePoints > 99999)
+    if (this->boxLeft <= 0 || this->scorePoints > 99999)
     {
     	return 1;
     }
