@@ -31,7 +31,7 @@ class Game {
         TTF_Font *scoreFont;
         SDL_Surface *scoreMessage;
         SDL_Color scoreTextColor;
-        string scoreString;
+        char scoreString[12];
         int scorePoints;
 
         InitScreen* initScreen;

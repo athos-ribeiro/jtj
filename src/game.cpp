@@ -27,12 +27,11 @@ void Game::closeGUI() {
 
 void Game::loadCommonResources() {
     string scoreFontFileName = "resources/HanaleiRegular.ttf";
-    int scoreFontSize = 18;
+    int scoreFontSize = 30;
     scoreTextColor.r = 255;
     scoreTextColor.g = 255;
     scoreTextColor.b = 255;
     scoreFont = TTF_OpenFont (scoreFontFileName.c_str(), scoreFontSize);
-    scoreMessage = TTF_RenderText_Solid (scoreFont, "Oioaisdoaisdoaissdoaisd", scoreTextColor);
 
     return;
 }
@@ -202,10 +201,9 @@ void Game::update() {
     {
         gameOvering();
     }
-//    scorePoints ++;
-//    char strasd[50];
-//    sprintf(strasd, "%d", scorePoints);
-//    itoa(scorePoints, scoreString, 10);
+    scorePoints ++;
+    sprintf(scoreString, "Score: %4d", scorePoints);
+    scoreMessage = TTF_RenderText_Solid (scoreFont, scoreString, scoreTextColor);
     return;
 }
 
@@ -229,9 +227,10 @@ int Game::checkIfSkip() {
 
 void Game::draw() {
     if(checkIfSkip() == 0) {
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
         level->draw(this->screen);
-        SDL_Flip(this->screen);
         SDLUtil::applySurface (556, 50, scoreMessage, this->screen);
+        SDL_Flip(this->screen);
     }
     return;
 }
