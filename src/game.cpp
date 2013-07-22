@@ -414,7 +414,7 @@ void Game::runPhysics() {
     box[0]->fall(level);
     box[1]->fall(level);
     box[5]->fall(level);
-    for(int i = 0; i < boxes.size(); i++) {
+    for(unsigned int i = 0; i < boxes.size(); i++) {
         boxes[i]->fall(level);
     }
     return;
