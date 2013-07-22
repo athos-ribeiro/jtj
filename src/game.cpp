@@ -44,7 +44,7 @@ void AudioCallback(void *user_data, Uint8 *audio, int length)
     int i;
 
     /* Avoid compiler warning. */
-    user_data += 0;
+//    user_data += 0;
 
     /* Clear the audio buffer so we can mix samples into it. */
     memset(audio, 0, length);
