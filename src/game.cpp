@@ -54,6 +54,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_w):
+            score->increaseScore(3);
             if(jack->jumping == true) {
                 break;
             }
@@ -62,12 +63,13 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_a):
+            score->increaseScore(1);
             jack->pushMove(-3);
             break;
 
         case (SDLK_s):
             //How about jack take the box and carry it with him?
-//          this->quitLevel = true;
+            score->popBox();
             break;
 
         case (SDLK_q):
@@ -75,6 +77,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_d):
+            score->increaseScore(1);
             jack->pushMove(3);
             break;
 
@@ -126,7 +129,8 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-//      printf("Posicao onde o botao foi apertado: (%d, %d)\n", event.button.x, event.button.y);
+        score->increaseScore(10);
+
         break;
 
     default:
@@ -204,6 +208,16 @@ void Game::runPhysics() {
 }
 
 void Game::update() {
+    if (score->getBox() <= 0)
+    {
+        gameOver = true;
+    }
+
+    if (score->getScore() >= 99999)
+    {
+        gameOver = true;
+    }
+
     if (pauseLevel == true) {
         pausingLevel();
     }
@@ -211,7 +225,6 @@ void Game::update() {
     {
         gameOvering();
     }
-    score->updateSelf();
     return;
 }
 

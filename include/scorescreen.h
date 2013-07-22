@@ -9,14 +9,17 @@
 class ScoreScreen
 {
 public:
-	ScoreScreen();
-	~ScoreScreen();
-	int updateSelf();
-	void drawSelf(SDL_Surface *surface);
+    ScoreScreen();
+    ~ScoreScreen();
+    void drawSelf(SDL_Surface *surface);
+    int popBox();
+    int increaseScore(int value);
 
 private:
 
-	SDL_Surface *armario;
+    int updateSelf();
+
+    SDL_Surface *armario;
     TTF_Font *scoreFont;
     SDL_Surface *scoreMessage;
     SDL_Surface *boxMessage;
@@ -30,9 +33,6 @@ private:
     static const int SCORE_HEIGHT = 456;
     static const int SCORE_X_OFFSET = 506;
     static const int SCORE_Y_OFFSET = 10;
-
-
-
 };
 
 #endif

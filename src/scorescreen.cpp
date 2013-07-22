@@ -11,7 +11,7 @@ ScoreScreen::ScoreScreen()
     scoreTextColor.r = 255;
     scoreTextColor.g = 255;
     scoreTextColor.b = 255;
-    scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 30);
+    scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 42);
 
 	scorePoints = 0;
     sprintf(scoreString, "Score: %5d", scorePoints);
@@ -30,11 +30,34 @@ ScoreScreen::~ScoreScreen()
 }
 
 int
+ScoreScreen::getBox()
+{
+    return boxLeft;
+}
+
+int
+ScoreScreen::getScorePoints()
+{
+    return scorePoints;
+}
+
+int
+ScoreScreen::popBox()
+{
+    boxLeft --;
+    return updateSelf();
+}
+
+int
+ScoreScreen::increaseScore(int value)
+{
+    scorePoints += value;
+    return updateSelf();
+}
+
+int
 ScoreScreen::updateSelf()
 {
-    scorePoints ++;
-    boxLeft --;
-
     if (boxLeft <= 0 || scorePoints > 99999)
     {
     	return 1;
@@ -52,7 +75,7 @@ ScoreScreen::updateSelf()
 void
 ScoreScreen::drawSelf(SDL_Surface *surface)
 {
-    SDLUtil::applySurface (10, 25, this->scoreMessage, this->armario);
-    SDLUtil::applySurface (10, 75, this->boxMessage, this->armario);
     SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET, ScoreScreen::SCORE_Y_OFFSET, this->armario, surface);
+    SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET + 20, ScoreScreen::SCORE_Y_OFFSET + 25, this->scoreMessage, surface);
+    SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET + 20, ScoreScreen::SCORE_Y_OFFSET + 75, this->boxMessage, surface);
 }
