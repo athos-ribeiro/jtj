@@ -13,6 +13,7 @@
 #include "pausescreen.h"
 #include "gameoverscreen.h"
 #include <string>
+#include "scorescreen.h"
 #include <stdlib.h>
 
 class Game {
@@ -28,11 +29,7 @@ class Game {
         Jack* jack;
         Timer frameTime;
 
-        TTF_Font *scoreFont;
-        SDL_Surface *scoreMessage;
-        SDL_Color scoreTextColor;
-        char scoreString[12];
-        int scorePoints;
+        ScoreScreen* score;
 
         InitScreen* initScreen;
         PauseScreen* pauseScreen;

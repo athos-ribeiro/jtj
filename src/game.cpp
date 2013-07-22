@@ -5,6 +5,7 @@
 #include "sdlutil.h"
 #include <cstdlib>
 #include "SDL/SDL_ttf.h"
+#include "scorescreen.h"
 
 using namespace std;
 Box* box[6];
@@ -26,19 +27,10 @@ void Game::closeGUI() {
 }
 
 void Game::loadCommonResources() {
-    string scoreFontFileName = "resources/HanaleiRegular.ttf";
-    int scoreFontSize = 30;
-    scoreTextColor.r = 255;
-    scoreTextColor.g = 255;
-    scoreTextColor.b = 255;
-    scoreFont = TTF_OpenFont (scoreFontFileName.c_str(), scoreFontSize);
-
     return;
 }
 
 void Game::releaseCommonResources() {
-    TTF_CloseFont (scoreFont);
-    SDL_FreeSurface (scoreMessage);
     return;
 }
 
@@ -219,9 +211,7 @@ void Game::update() {
     {
         gameOvering();
     }
-    scorePoints ++;
-    sprintf(scoreString, "Score: %4d", scorePoints);
-    scoreMessage = TTF_RenderText_Solid (scoreFont, scoreString, scoreTextColor);
+    score->updateSelf();
     return;
 }
 
@@ -247,7 +237,7 @@ void Game::draw() {
     if(checkIfSkip() == 0) {
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
         level->draw(this->screen);
-        SDLUtil::applySurface (556, 50, scoreMessage, this->screen);
+        score->drawSelf(this->screen);
         SDL_Flip(this->screen);
     }
     return;
@@ -274,6 +264,7 @@ void Game::loadLevel() {
     for(int i = 0; i < 6; i++) {
         level->addChild(box[i]);
     }
+    score = new ScoreScreen();
     return;
 }
 
