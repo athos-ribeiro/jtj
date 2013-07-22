@@ -200,7 +200,8 @@ void Game::runPhysics() {
 	}
     }
     cout << "Limite a esquerda de Jack: " << xinit << endl;
-    cout << "Posicao do Jack: " << jack->getXPosition() << endl;
+    cout << "Posicao do Jack em x: " << jack->getXPosition() << endl;
+    cout << "Posicao do Jack em y: " << jack->getYPosition() << endl;
 
     jack->move(Level::LEVEL_X_OFFSET, Level::LEVEL_WIDTH, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     jack->jump(level);
