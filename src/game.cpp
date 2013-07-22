@@ -1,4 +1,5 @@
 #include <iostream>
+#include "SDL/SDL_ttf.h"
 #include "game.h"
 #include "enemy.h"
 #include "box.h"
@@ -8,6 +9,7 @@ Box* box[6];
 
 void Game::initGUI() {
     SDL_Init(SDL_INIT_EVERYTHING);
+    TTF_Init ();
     SDL_WM_SetCaption("Jack, The Janitor", NULL);
     SDL_WM_SetIcon(IMG_Load("resources/Logo_WareHouse_64x64.png"), NULL);
     this->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
@@ -15,15 +17,23 @@ void Game::initGUI() {
 }
 
 void Game::closeGUI() {
+    TTF_Quit ();
     SDL_Quit();
     return;
 }
 
 void Game::loadCommonResources() {
+    string scoreFontFileName = "resources/Hanalei-Regular.ttf";
+    int scoreFontSize = 18;
+    scoreTextColor = {255, 255, 255}; 
+    scoreFont = TTF_OpenFont (scoreFontFileName, scoreFontFileName);
+
     return;
 }
 
 void Game::releaseCommonResources() {
+    TTF_CloseFont (scoreFont);
+    SDL_FreeSurface (scoreMessage);
     return;
 }
 
@@ -186,6 +196,8 @@ void Game::update() {
 	{
 		gameOvering();
 	}
+
+    scoreMessage = TTF_RenderText_Solid (scoreFont, scoreString, scoreTextColor);
     return;
 }
 
@@ -210,6 +222,7 @@ int Game::checkIfSkip() {
 void Game::draw() {
     if(checkIfSkip() == 0) {
         level->draw(this->screen);
+
         SDL_Flip(this->screen);
     }
     return;

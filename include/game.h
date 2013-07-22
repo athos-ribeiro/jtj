@@ -24,6 +24,10 @@ class Game {
         Jack* jack;
         Timer frameTime;
 
+        TTF_Font *scoreFont;
+        SDL_Surface *scoreMessage;
+        SDL_Color scoreTextColor;
+
         InitScreen* initScreen;
         PauseScreen* pauseScreen;
         GameOverScreen* gameOverScreen;
