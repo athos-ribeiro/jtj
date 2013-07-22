@@ -1,13 +1,18 @@
 #ifndef SCORESCREEN_h
 #define SCORESCREEN_h
 
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include "SDL/SDL_ttf.h"
+#include <string>
+
 class ScoreScreen
 {
 public:
-	ScoreScreen(string scoreFontFileName = "resources/HanaleiRegular.ttf", scoreFontSize = 30);
+	ScoreScreen();
 	~ScoreScreen();
-	void update();
-	void drawSelf();
+	int updateSelf();
+	void drawSelf(SDL_Surface *surface);
 
 private:
 

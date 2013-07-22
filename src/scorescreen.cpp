@@ -1,13 +1,17 @@
 #include "scorescreen.h"
 #include "sdlutil.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include "SDL/SDL_ttf.h"
+#include <string>
 
-ScoreScreen::ScoreScreen(string scoreFontFileName, scoreFontSize)
+ScoreScreen::ScoreScreen()
 {
     armario = SDLUtil::loadImage("resources/armario.png");
     scoreTextColor.r = 255;
     scoreTextColor.g = 255;
     scoreTextColor.b = 255;
-    scoreFont = TTF_OpenFont (scoreFontFileName.c_str(), scoreFontSize);
+    scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 30);
 
 	scorePoints = 0;
     sprintf(scoreString, "Score: %5d", scorePoints);
