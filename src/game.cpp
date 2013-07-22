@@ -11,8 +11,6 @@
 using namespace std;
 Box* box[6];
 
-
-
 /* Structure for loaded sounds. */
 typedef struct sound_s {
     Uint8 *samples;     /* raw PCM sample data */
@@ -143,7 +141,6 @@ int LoadAndConvertSound(char *filename, SDL_AudioSpec *spec,
 
     /* Success! */
     printf("'%s' was loaded and converted successfully.\n", filename);
-
     return 0;
 }
 
@@ -663,6 +660,12 @@ void Game::pausingLevel() {
 }
 
 void Game::initializingScreen() {
+    /* Clear the list of playing sounds. */
+    ClearPlayingSounds();
+
+    /* SDL's audio is initially paused. Start it. */
+    SDL_PauseAudio(0);
+
     PlaySound(&initScreenSound);
 
     initScreenDraw();
