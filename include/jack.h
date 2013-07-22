@@ -28,6 +28,8 @@ class Jack : public GameObject {
 	void pushMove(int v);
 	void popMove(int v);
         void jump(Level* level);
+	int getXPosition();
+	int getYPosition();
 };
 
 #endif
