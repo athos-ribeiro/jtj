@@ -204,22 +204,22 @@ void Game::loadCommonResources() {
     /* Open the audio device. The sound driver will try to give us
     the requested format, but it might not succeed. The 'obtained'
     structure will be filled in with the actual format data. */
-    desired.freq = 44100;   /* desired output sample rate */
-    desired.format = AUDIO_S16; /* request signed 16-bit samples */
-    desired.samples = 4096; /* this is more or less discretionary */
-    desired.channels = 2;   /* ask for stereo */
-    desired.callback = AudioCallback;
-    desired.userdata = NULL;    /* we don't need this */
-    if (SDL_OpenAudio(&desired, &obtained) < 0) {
-    printf("Unable to open audio device: %s\n", SDL_GetError());
-    return ;
-    }
+//    desired.freq = 44100;   /* desired output sample rate */
+//    desired.format = AUDIO_S16; /* request signed 16-bit samples */
+//    desired.samples = 4096; /* this is more or less discretionary */
+//    desired.channels = 2;   /* ask for stereo */
+//    desired.callback = AudioCallback;
+//    desired.userdata = NULL;    /* we don't need this */
+//    if (SDL_OpenAudio(&desired, &obtained) < 0) {
+//    printf("Unable to open audio device: %s\n", SDL_GetError());
+//    return ;
+//    }
 
     /* Load our sound files and convert them to the sound card's format. */
-    if (LoadAndConvertSound("resources/init_screen.wav", &obtained, &initScreenSound) != 0) {
-    printf("Unable to load sound.\n");
-    return ;
-    }
+//    if (LoadAndConvertSound("resources/init_screen.wav", &obtained, &initScreenSound) != 0) {
+//    printf("Unable to load sound.\n");
+//    return ;
+//    }
 
     return;
 }
@@ -661,21 +661,21 @@ void Game::pausingLevel() {
 
 void Game::initializingScreen() {
     /* Clear the list of playing sounds. */
-    ClearPlayingSounds();
+//    ClearPlayingSounds();
 
     /* SDL's audio is initially paused. Start it. */
-    SDL_PauseAudio(0);
+//    SDL_PauseAudio(0);
 
-    PlaySound(&initScreenSound);
+//    PlaySound(&initScreenSound);
 
     initScreenDraw();
     initScreenLoop();
 
-    SDL_PauseAudio(1);
-    SDL_LockAudio();
+//    SDL_PauseAudio(1);
+//    SDL_LockAudio();
 
-    free(initScreenSound.samples);
-    SDL_UnlockAudio();
+//    free(initScreenSound.samples);
+//    SDL_UnlockAudio();
 
     return ;
 }
