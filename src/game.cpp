@@ -381,11 +381,12 @@ void Game::runPhysics() {
 
     int xinit = Level::LEVEL_X_OFFSET;
     //int yinit=Level::LEVEL_Y_OFFSET;
-    int xrange=Level::LEVEL_WIDTH-Level::LEVEL_X_OFFSET;
+    int xrange=Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET;
     //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
     int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
     cout << "Jack esta na posicao " << jackposy << endl;
+    cout << "Altura do Jack: " << 11-jackposy << endl;
     for(int i=jackposx;i>=0;i--) {
         if((level->grid[i]+jackposy)>=12)
 	{
@@ -406,6 +407,7 @@ void Game::runPhysics() {
 
     cout << "Limite a direita do jack: " << xrange+xinit << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
+    cout << "Jack moveu" << endl;
     jack->jump(level);
     box[0]->fall(level);
     box[1]->fall(level);
