@@ -492,8 +492,6 @@ void Game::loadLevel() {
     }
     score = new ScoreScreen();
 
-    //testing enemy throw method
-    enemy->throwBox(box[1], boxes);
     return;
 }
 
