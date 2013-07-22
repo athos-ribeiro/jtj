@@ -26,7 +26,7 @@ int setLimit(int value, int limit1, int range) {
     if(value<limit1)
         return limit1;
     if(value>=limit2)
-        return (limit2-1);
+        return (limit2);
     return value;
 }
 
@@ -89,4 +89,10 @@ void Jack::popMove(int v) {
 			speed=0;
 		}
 	}
+}
+int Jack::getXPosition() {
+	return this->x_position;
+}
+int Jack::getYPosition() {
+	return this->y_position;
 }
