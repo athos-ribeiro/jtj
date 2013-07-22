@@ -52,7 +52,7 @@ ScoreScreen::updateSelf()
 void
 ScoreScreen::drawSelf(SDL_Surface *surface)
 {
-    SDLUtil::applySurface (0, 0, this->scoreMessage, this->armario);
-    SDLUtil::applySurface (50, 0, this->boxMessage, this->armario);
+    SDLUtil::applySurface (0, 25, this->scoreMessage, this->armario);
+    SDLUtil::applySurface (0, 75, this->boxMessage, this->armario);
     SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET, ScoreScreen::SCORE_Y_OFFSET, this->armario, surface);
 }
