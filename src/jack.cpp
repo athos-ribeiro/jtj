@@ -31,14 +31,14 @@ int setLimit(int value, int limit1, int range) {
 }
 
 void Jack::drawSelf(SDL_Surface *surface) {
-    this->x_position = setLimit(x_position, Level::LEVEL_X_OFFSET,Level::LEVEL_WIDTH-JACK_WIDTH);
-    this->y_position = setLimit(y_position, Level::LEVEL_Y_OFFSET,Level::LEVEL_HEIGHT-JACK_HEIGHT - 38);
     SDLUtil::applySurface(this->x_position, this->y_position, this->jack, surface);
     return;
 }
 
-void Jack::move() {
+void Jack::move(int xBegin, int xRange, int yBegin, int yRange) {
     x_position += speed;
+    this->x_position = setLimit(x_position, xBegin, xRange-JACK_WIDTH);
+    this->y_position = setLimit(y_position, yBegin, yRange-JACK_HEIGHT - 38);
     return;
 }
 

@@ -24,9 +24,9 @@ class Jack : public GameObject {
         Jack(std::string filename);
         ~Jack();
 
-        void move();
-		void pushMove(int v);
-		void popMove(int v);
+        void move(int xBegin, int xRange, int yBegin, int yRange);
+	void pushMove(int v);
+	void popMove(int v);
         void jump(Level* level);
 };
 
