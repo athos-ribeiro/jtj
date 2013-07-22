@@ -6,6 +6,7 @@ using namespace std;
 Box::Box(string filename) {
     this->box = SDLUtil::loadImage(filename);
     speed = 0;
+    lyingDown = false;
 }
 
 Box::~Box() {
@@ -27,12 +28,17 @@ void Box::accelerate() {
 }
 
 void Box::fall(Level* level) {
-    speed += ACCELERATION;
-    y_position += speed;
-    if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2) {
-        speed = 0;
-        y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2;
-        return;
+    if(lyingDown == false) {
+        speed += ACCELERATION;
+        y_position += speed;
+        if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
+            speed = 0;
+            lyingDown = true;
+            y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
+            //level->grid[0]++;
+            level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
+            return;
+        }
     }
 }
 

@@ -11,6 +11,7 @@ class Box : public GameObject {
     int x_position;
     int y_position;
     int speed;
+    bool lyingDown;
     static const int ACCELERATION = 1;
     public:
         Box(std::string filename);
