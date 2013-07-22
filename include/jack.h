@@ -2,6 +2,7 @@
 #define JACK_H
 
 #include "gameobject.h"
+#include "level.h"
 #include <string>
 
 class Jack : public GameObject {
@@ -26,7 +27,7 @@ class Jack : public GameObject {
         void move();
 		void pushMove(int v);
 		void popMove(int v);
-        void jump();
+        void jump(Level* level);
 };
 
 #endif

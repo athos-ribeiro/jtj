@@ -42,12 +42,15 @@ void Jack::move() {
     return;
 }
 
-void Jack::jump() {
+void Jack::jump(Level* level) {
     y_position += verticalSpeed;
     verticalSpeed += ACCELERATION;
-    if(jumping == true && y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38) {
+    if(jumping == true && y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
         jumping = false;
         verticalSpeed = 0;
+    }
+    if(y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
+        y_position = Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
     }
     //verticalSpeed++;
     return;

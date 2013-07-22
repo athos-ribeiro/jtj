@@ -35,7 +35,6 @@ void Box::fall(Level* level) {
             speed = 0;
             lyingDown = true;
             y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
-            //level->grid[0]++;
             level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
             return;
         }

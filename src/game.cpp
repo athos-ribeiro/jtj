@@ -187,7 +187,7 @@ void Game::runAI() {
 
 void Game::runPhysics() {
     jack->move();
-    jack->jump();
+    jack->jump(level);
     box[0]->fall(level);
     box[1]->fall(level);
     box[5]->fall(level);
