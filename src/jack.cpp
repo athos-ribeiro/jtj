@@ -51,10 +51,12 @@ void Jack::jump(Level* level) {
     }
     if(y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
         y_position = Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
+        verticalSpeed = 1;
         //verticalSpeed -= ACCELERATION;
     }
     if(y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38]*38)) {
         y_position = Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38]*38);
+        verticalSpeed = 1;
         //verticalSpeed -= ACCELERATION;
     }
     //verticalSpeed++;
