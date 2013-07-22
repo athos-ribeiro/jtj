@@ -25,6 +25,8 @@ void Enemy::move() {
     return;
 }
 
-void Enemy::throwBox() {
+void Enemy::throwBox(Box* box, vector<Box*> boxes) {
+    box->setPosition(x_position, y_position - 57);
+    boxes.push_back(box);
     return;
 }

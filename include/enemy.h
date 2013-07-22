@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "gameobject.h"
+#include "box.h"
 #include <string>
 
 class Enemy : public GameObject {
@@ -17,7 +18,7 @@ class Enemy : public GameObject {
         ~Enemy();
 
         void move();
-        void throwBox();
+        void throwBox(Box* box, vector<Box*> boxes);
 };
 
 #endif
