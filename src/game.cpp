@@ -12,6 +12,7 @@
 using namespace std;
 vector<Box*> boxes;
 Box* box[6];
+Box* boxTest = NULL;
 
 /* Structure for loaded sounds. */
 typedef struct sound_s {
@@ -418,6 +419,9 @@ void Game::runPhysics() {
     box[3]->fall(level);
     box[4]->fall(level);
     box[5]->fall(level);
+    //cout << "BOX TEST POSITION: " << boxTest->y_position << endl;
+    //cout << "BOX TEST VETOR POSITION: " << boxes[0]->y_position << endl;
+    //notice that when the game restarts, another box is pushed into the array
     for(unsigned int i = 0; i < boxes.size(); i++) {
         boxes[i]->fall(level);
     }
@@ -494,6 +498,9 @@ void Game::loadLevel() {
     for(int i = 0; i < 6; i++) {
         level->addChild(box[i]);
     }
+    boxTest = new Box("resources/box.png");
+    level->addChild(boxTest);
+    enemy->throwBox(boxTest, &boxes);
 
     score->boxes(10);
     score->scoring(100);

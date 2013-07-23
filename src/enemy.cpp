@@ -6,7 +6,7 @@ using namespace std;
 
 Enemy::Enemy(string filename) {
     this->enemy = SDLUtil::loadImage(filename);
-    this->x_position = ENEMY_WIDTH + Level::LEVEL_X_OFFSET + 76;
+    this->x_position = ENEMY_WIDTH + Level::LEVEL_X_OFFSET;
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Enemy::ENEMY_HEIGHT - 38*8 - 1;
 }
 
@@ -25,8 +25,8 @@ void Enemy::move() {
     return;
 }
 
-void Enemy::throwBox(Box* box, vector<Box*> boxes) {
-    box->setPosition(x_position, y_position - 57);
-    boxes.push_back(box);
+void Enemy::throwBox(Box* box, vector<Box*> *boxes) {
+    box->setPosition(x_position, y_position - Enemy::ENEMY_HEIGHT);
+    boxes->push_back(box);
     return;
 }

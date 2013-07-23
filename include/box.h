@@ -8,12 +8,12 @@
 class Box : public GameObject {
     SDL_Surface *box;
     void drawSelf(SDL_Surface *surface);
-    int x_position;
-    int y_position;
     int speed;
     bool lyingDown;
     static const int ACCELERATION = 1;
     public:
+    int x_position;
+    int y_position;
         Box(std::string filename);
         ~Box();
 
