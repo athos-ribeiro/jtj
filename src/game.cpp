@@ -10,10 +10,8 @@
 #include <stdio.h>
 
 using namespace std;
-vector<Box*> boxes;
 Box* box[6];
 Box* boxTest = NULL;
-
 /* Structure for loaded sounds. */
 typedef struct sound_s {
     Uint8 *samples;     /* raw PCM sample data */
@@ -413,17 +411,17 @@ void Game::runPhysics() {
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     cout << "Jack moveu" << endl;
     jack->jump(level);
-    box[0]->fall(level);
-    box[1]->fall(level);
-    box[2]->fall(level);
-    box[3]->fall(level);
-    box[4]->fall(level);
-    box[5]->fall(level);
+    box[0]->fall(level->grid);
+    box[1]->fall(level->grid);
+    box[2]->fall(level->grid);
+    box[3]->fall(level->grid);
+    box[4]->fall(level->grid);
+    box[5]->fall(level->grid);
     //cout << "BOX TEST POSITION: " << boxTest->y_position << endl;
     //cout << "BOX TEST VETOR POSITION: " << boxes[0]->y_position << endl;
     //notice that when the game restarts, another box is pushed into the array
-    for(unsigned int i = 0; i < boxes.size(); i++) {
-        boxes[i]->fall(level);
+    for(unsigned int i = 0; i < level->boxes.size(); i++) {
+        level->boxes[i]->fall(level->grid);
     }
     return;
 }
@@ -500,7 +498,7 @@ void Game::loadLevel() {
     }
     boxTest = new Box("resources/box.png");
     level->addChild(boxTest);
-    enemy->throwBox(boxTest, &boxes);
+    enemy->throwBox(boxTest, &level->boxes);
 
     score->boxes(10);
     score->scoring(100);

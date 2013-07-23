@@ -4,6 +4,7 @@
 #include "gameobject.h"
 #include "box.h"
 #include <string>
+#include <vector>
 
 class Enemy : public GameObject {
     SDL_Surface *enemy;

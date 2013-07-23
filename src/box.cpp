@@ -1,4 +1,5 @@
 #include "box.h"
+#include "level.h"
 #include "sdlutil.h"
 
 using namespace std;
@@ -27,15 +28,15 @@ void Box::setPosition(int x, int y) {
 void Box::accelerate() {
 }
 
-void Box::fall(Level* level) {
+void Box::fall(int grid[12]) {
     if(lyingDown == false) {
         speed += ACCELERATION;
         y_position += speed;
-        if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
+        if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
             speed = 0;
             lyingDown = true;
-            y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
-            level->grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
+            y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
+            grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
             return;
         }
     }

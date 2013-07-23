@@ -2,7 +2,6 @@
 #define BOX_H
 
 #include "gameobject.h"
-#include "level.h"
 #include <string>
 
 class Box : public GameObject {
@@ -19,7 +18,7 @@ class Box : public GameObject {
 
         void setPosition(int x, int y);
         void accelerate();
-        void fall(Level* level);
+        void fall(int grid[12]);
 };
 
 #endif
