@@ -693,10 +693,6 @@ void Game::initializingScreen() {
     initScreenLoop();
 
     SDL_PauseAudio(1);
-    SDL_LockAudio();
-
-    free(initScreenSound.samples);
-    SDL_UnlockAudio();
 
     return ;
 }
@@ -770,6 +766,10 @@ void Game::gameOvering() {
 }
 
 void Game::shutdown() {
+    SDL_LockAudio();
+
+    free(initScreenSound.samples);
+    SDL_UnlockAudio();
     closeGUI();
     return;
 }
@@ -780,7 +780,6 @@ void Game::loop() {
 
         if (isGameFinished())
             break;
-
         loadLevel();
         while(isLevelFinished() == false) {
             updateTimeStep();
