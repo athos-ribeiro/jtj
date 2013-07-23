@@ -3,6 +3,7 @@
 
 #include "gameobject.h"
 #include "box.h"
+#include "enemy.h"
 #include <string>
 #include <vector>
 
@@ -12,6 +13,7 @@ class Level : public GameObject {
     //this stack shall handle the colision logic.
     public:
         vector<Box*> boxes;
+        vector<Box*> enemies;
         int grid[12];
         static const int LEVEL_WIDTH = 456;
         static const int LEVEL_HEIGHT = 456;
