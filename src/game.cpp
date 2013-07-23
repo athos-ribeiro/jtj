@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <vector>
 #include "game.h"
 #include "enemy.h"
@@ -10,8 +12,6 @@
 #include <stdio.h>
 
 using namespace std;
-Box* box[6];
-Box* boxTest = NULL;
 /* Structure for loaded sounds. */
 typedef struct sound_s {
     Uint8 *samples;     /* raw PCM sample data */
@@ -411,14 +411,6 @@ void Game::runPhysics() {
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     cout << "Jack moveu" << endl;
     jack->jump(level);
-    box[0]->fall(level->grid);
-    box[1]->fall(level->grid);
-    box[2]->fall(level->grid);
-    box[3]->fall(level->grid);
-    box[4]->fall(level->grid);
-    box[5]->fall(level->grid);
-    //cout << "BOX TEST POSITION: " << boxTest->y_position << endl;
-    //cout << "BOX TEST VETOR POSITION: " << boxes[0]->y_position << endl;
     //notice that when the game restarts, another box is pushed into the array
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         level->boxes[i]->fall(level->grid);
@@ -481,24 +473,30 @@ void Game::loadLevel() {
     jack = new Jack("resources/jack.png");
     level->addChild(jack);
 
-    Enemy* enemy = new Enemy("resources/enemy_1.png");
-    level->addChild(enemy);
+    ifstream levelFile;
+    string numberOfLevel;
+    string numberOfBoxes;
+    string numberOfEnemies;
+    levelFile.open("resources/level_1");
+    getline(levelFile, numberOfLevel);
+    getline(levelFile, numberOfBoxes);
+    getline(levelFile, numberOfEnemies);
+    levelFile.close();
 
-    for(int i = 0; i < 6; i++) {
-        box[i] = new Box("resources/box.png");
+    for(int i = 0; i < atoi(numberOfBoxes.c_str()); i++) {
     }
-    box[0]->setPosition(Level::LEVEL_X_OFFSET, 250);
-    box[1]->setPosition(Level::LEVEL_X_OFFSET + 10*38, 200);
-    box[2]->setPosition(Level::LEVEL_X_OFFSET + 4*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*9);
-    box[3]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*7);
-    box[4]->setPosition(Level::LEVEL_X_OFFSET + 5*38, Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 38*12);
-    box[5]->setPosition(Level::LEVEL_X_OFFSET, 100);
-    for(int i = 0; i < 6; i++) {
-        level->addChild(box[i]);
+
+    for(int i = 0; i < atoi(numberOfEnemies.c_str()); i++) {
+        Enemy* enemy = new Enemy("resources/enemy_1.png");
+        level->enemies.push_back(enemy);
+        level->addChild(enemy);
     }
-    boxTest = new Box("resources/box.png");
-    level->addChild(boxTest);
-    enemy->throwBox(boxTest, &level->boxes);
+    //Enemy* enemy = new Enemy("resources/enemy_1.png");
+    //level->addChild(enemy);
+
+    //boxTest = new Box("resources/box.png");
+    //level->addChild(boxTest);
+    //enemy->throwBox(boxTest, &level->boxes);
 
     score->boxes(10);
     score->scoring(100);

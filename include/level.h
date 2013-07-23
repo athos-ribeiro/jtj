@@ -13,7 +13,7 @@ class Level : public GameObject {
     //this stack shall handle the colision logic.
     public:
         vector<Box*> boxes;
-        vector<Box*> enemies;
+        vector<Enemy*> enemies;
         int grid[12];
         static const int LEVEL_WIDTH = 456;
         static const int LEVEL_HEIGHT = 456;
