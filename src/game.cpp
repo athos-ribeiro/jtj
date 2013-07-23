@@ -250,10 +250,10 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_w):
-            score->increaseScore(3);
             if(jack->jumping == true) {
                 break;
             }
+            score->increaseScore(3);
             jack->verticalSpeed = -10;
             jack->jumping = true;
             break;
@@ -427,12 +427,12 @@ void Game::runPhysics() {
 }
 
 void Game::update() {
-    if (score->getBox() <= 0)
+    if (score->getBox() < 0)
     {
         gameOver = true;
     }
 
-    if (score->getScorePoints() >= 99999)
+    if (score->getScorePoints() > 99999)
     {
         gameOver = true;
     }
@@ -692,6 +692,7 @@ void Game::initializingScreen() {
     initScreenDraw();
     initScreenLoop();
 
+
 //    SDL_PauseAudio(1);
 //    SDL_LockAudio();
 
@@ -719,6 +720,7 @@ void Game::gameOverScreenLoop() {
     bool playButton = false;
     bool quitButton = false;
     bool optionsButton = false;
+    this->quitGame = false;
     this->quitLevel = true;
 
     do {
@@ -733,9 +735,11 @@ void Game::gameOverScreenLoop() {
                 case SDL_BUTTON_LEFT:
                     if (labelPlay->wasClicked(event.button.x, event.button.y)) {
                         playButton = true;
+                        this->quitGame = false;
                     } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
                         optionsButton = true;
                     } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
+                        this->quitGame = true;
                         quitButton = true;
                     }
                     break;
@@ -775,6 +779,10 @@ void Game::shutdown() {
 void Game::loop() {
     while(isGameFinished() == false) {
         initializingScreen();
+
+        if (isGameFinished())
+            break;
+
         loadLevel();
         while(isLevelFinished() == false) {
             updateTimeStep();
