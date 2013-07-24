@@ -271,6 +271,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_q):
+            cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             this->gameOver = true;
             break;
 
@@ -389,8 +390,8 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 
     for (int i = 0; i < boxes.size(); ++i)
     {
-        cout << "Box " << i << "(" << boxes[i]->getPositionX() << "," << boxes[i]->getPositionY() << ")\t";
-        cout << "(" << boxes[i]->getPositionX() + 38 << "," << boxes[i]->getPositionY() + 38 << ")" << endl;
+//        cout << "Box " << i << "(" << boxes[i]->getPositionX() << "," << boxes[i]->getPositionY() << ")\t";
+//        cout << "(" << boxes[i]->getPositionX() + 38 << "," << boxes[i]->getPositionY() + 38 << ")" << endl;
 
         if (jack->getXPosition() + 38 > boxes[i]->getPositionX() &&
             jack->getXPosition() < boxes[i]->getPositionX() + 38 &&
@@ -419,8 +420,7 @@ void Game::runPhysics() {
         jack->die();
     }
 
-
-    cout << "Jogador (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
+//    cout << "Jogador (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
     //notice that when the game restarts, another box is pushed into the array
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         if(level->boxes[i]->used == true) {
@@ -461,9 +461,10 @@ void Game::runPhysics() {
 
     for (int i = 0; i < 12; ++i)
     {
+//        cout << i << " " << level->grid[i] << endl;
         if (level->grid[i] > 7)
         {
-            quitGame = true;
+            this->quitGame = true;
         }
     }
 
@@ -532,7 +533,7 @@ void Game::update() {
     if (pauseLevel == true) {
         pausingLevel();
     }
-    if (gameOver == true)
+    if (isGameFinished())
     {
         gameOvering();
     }
