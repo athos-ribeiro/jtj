@@ -389,17 +389,36 @@ void Game::runPhysics() {
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
     cout << "Jack esta na posicao " << jackposy << endl;
     cout << "Altura do Jack: " << 11-jackposy << endl;
+
+	//Looking for the first box before Jack
+	
+	int boxMobileBeforeJack=-1;
+	int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
-        if((level->grid[i]+jackposy)>=12)
-	{
-		xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
-		break;
-	}
+        if((level->grid[i]+jackposy)>=12) {
+			if((level->grid[i]+jackposy)==12) {
+				if(i>1){
+					if(level->grid[i-1]>=level->grid[i])
+						break;
+				}
+				boxMobileBeforeJack = i;
+			}
+			xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
+			break;
+		}
     }
+	//Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
 	    if((level->grid[i]+jackposy)>=12) {
-		xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
-		break;
+			if((level->grid[i]+jackposy)==12) {
+				if(i<11){
+					if(level->grid[i+1]>=level->grid[i])
+						break;
+				}
+				boxMobileAfterJack = i;
+			}
+			xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
+			break;
 	    }
     }
     if(xinit<Level::LEVEL_X_OFFSET)
@@ -408,6 +427,10 @@ void Game::runPhysics() {
 	    xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
     cout << "Limite a direita do jack: " << xrange+xinit << endl;
+	if(boxMobileBeforeJack!=-1)
+		cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
+	if(boxMobileAfterJack!=-1)
+		cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     cout << "Jack moveu" << endl;
     jack->jump(level);
