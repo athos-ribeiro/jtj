@@ -12,6 +12,7 @@ Enemy::Enemy(string filename) {
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Enemy::ENEMY_HEIGHT - 38*8 - 1;
     movesLeft = 0;
     moveDirection = 0;
+    srand((unsigned)time(0));
 }
 
 Enemy::~Enemy() {
@@ -55,7 +56,6 @@ void Enemy::move() {
 
         else {
             //gen  movesLeft and moveDirection
-            srand((unsigned)time(0));
             movesLeft = (rand()%6)*38;
             moveDirection = (rand()%120);
             }

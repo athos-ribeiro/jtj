@@ -120,3 +120,6 @@ int Jack::getXPosition() {
 int Jack::getYPosition() {
 	return this->y_position;
 }
+
+void Jack::pushBox() {
+}

@@ -30,11 +30,12 @@ class Jack : public GameObject {
         void die();
 
         void move(int xBegin, int xRange, int yBegin, int yRange);
-	void pushMove(int v);
-	void popMove(int v);
+        void pushMove(int v);
+        void popMove(int v);
         void jump(Level* level);
-	int getXPosition();
-	int getYPosition();
+        int getXPosition();
+        int getYPosition();
+        void pushBox();
 };
 
 #endif
