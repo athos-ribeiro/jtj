@@ -7,7 +7,7 @@
 class Box : public GameObject {
     SDL_Surface *box;
     void drawSelf(SDL_Surface *surface);
-    int speed;
+    float speed;
     bool lyingDown;
     static const int ACCELERATION = 1;
     public:

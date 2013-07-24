@@ -391,7 +391,8 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
     {
         if (jack->getXPosition() + 38 > boxes[i]->getPositionX() &&
             jack->getXPosition() < boxes[i]->getPositionX() + 38 &&
-            boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition())
+            boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition() && 
+            jack->getYPosition() + 57 > boxes[i]->getPositionY())
         {
             return true;
         }
