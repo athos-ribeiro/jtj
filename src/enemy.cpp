@@ -27,21 +27,21 @@ void Enemy::drawSelf(SDL_Surface *surface) {
 
 void Enemy::move() {
     if(movesLeft > 0 && moveDirection%2 == 0) {
-        x_position++;
-        movesLeft--;
+        x_position+= 2;
+        movesLeft-=2;
     }
     else if(movesLeft > 0 && moveDirection%2 == 1) {
-        x_position--;
-        movesLeft--;
+        x_position-=2;
+        movesLeft-=2;
     }
     if(x_position <= Level::LEVEL_X_OFFSET) {
-        x_position++;
-        movesLeft = 37;
+        x_position+= 2;
+        movesLeft = 36;
         moveDirection = 2;
     }
     if(x_position >= Level::LEVEL_X_OFFSET + Level::LEVEL_WIDTH - 38) {
-        x_position--;
-        movesLeft = 37;
+        x_position-=2;
+        movesLeft = 36;
         moveDirection = 1;
     }
 
@@ -56,8 +56,8 @@ void Enemy::move() {
         else {
             //gen  movesLeft and moveDirection
             srand((unsigned)time(0));
-            movesLeft = (rand()%7)*38;
-            moveDirection = (rand()%200);
+            movesLeft = (rand()%6)*38;
+            moveDirection = (rand()%120);
             }
     }
     return;
@@ -65,7 +65,7 @@ void Enemy::move() {
 
 void Enemy::throwBox(vector<Box*> boxes) {
     if((x_position-Level::LEVEL_X_OFFSET)%38 == 0) {
-    if(movesLeft == 0 && moveDirection == 1) {
+    if(movesLeft == 0 && moveDirection == 30) {
         for(unsigned int i = 0; i < boxes.size(); i++) {
             if(boxes.at(i)->used == false) {
                 boxes.at(i)->used = true;

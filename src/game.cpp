@@ -378,10 +378,10 @@ void Game::handleEvents() {
 }
 
 void Game::runAI() {
-        level->enemies[0]->throwBox(level->boxes);
-        level->enemies[0]->move();
-    //if((level->enemies[0]->x_position - Level::LEVEL_X_OFFSET) % (38*2) == 0)
-        //buggy line
+    for(int i = 0; i < level->enemies.size(); i++) {
+        level->enemies[i]->throwBox(level->boxes);
+        level->enemies[i]->move();
+    }
     return;
 }
 
@@ -391,7 +391,7 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
     {
         if (jack->getXPosition() + 38 > boxes[i]->getPositionX() &&
             jack->getXPosition() < boxes[i]->getPositionX() + 38 &&
-            boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition() && 
+            boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition() &&
             jack->getYPosition() + 57 > boxes[i]->getPositionY())
         {
             return true;
@@ -411,11 +411,11 @@ void Game::runPhysics() {
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
     cout << "Jack esta na posicao " << jackposy << endl;
     cout << "Altura do Jack: " << 11-jackposy << endl;
-    
+
     if (checkColision (jack, level->boxes)) {
         jack->die();
     }
-    
+
 
     cout << "Jogador (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
     //notice that when the game restarts, another box is pushed into the array
