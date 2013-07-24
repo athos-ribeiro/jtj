@@ -9,6 +9,7 @@ Jack::Jack(string filename) {
     this->x_position = JACK_WIDTH + Level::LEVEL_X_OFFSET;
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Jack::JACK_HEIGHT - 38;
     this->speed = 0;
+    this->dead = false;
     verticalSpeed = 0;
     jumping = false;
 	lastMove=0;
@@ -19,6 +20,18 @@ Jack::~Jack() {
     if(jack != NULL) {
         SDL_FreeSurface(jack);
     }
+}
+
+void
+Jack::die()
+{
+    this->dead = true;
+}
+
+bool
+Jack::isDead()
+{
+    return this->dead;
 }
 
 int setLimit(int value, int limit1, int range) {

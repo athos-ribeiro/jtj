@@ -415,12 +415,23 @@ void Game::runPhysics() {
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         if(level->boxes[i]->used == true) {
             level->boxes[i]->fall(level->grid);
+            if (jack->getYPosition() + 57 > level->boxes[i]->getPositionY() &&
+                (jack->getXPosition() > level->boxes[i]->getPositionX() + 38 ||
+                jack->getXPosition() + 38 < level->boxes[i]->getPositionX()))
+            {
+                jack->die();
+            }
         }
     }
     return;
 }
 
 void Game::update() {
+
+    if (jack->isDead())
+    {
+        gameOvering();
+    }
     if (score->getBox() < 0)
     {
         gameOver = true;
@@ -505,7 +516,7 @@ void Game::loadLevel() {
     //level->addChild(boxTest);
     //enemy->throwBox(boxTest, &level->boxes);
 
-    score->boxes(10);
+    score->boxes(atoi(numberOfBoxes.c_str()));
     score->scoring(100);
 
     return;

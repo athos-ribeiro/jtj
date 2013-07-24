@@ -11,6 +11,8 @@ class Jack : public GameObject {
     int x_position;
     int y_position;
 
+    bool dead;
+
 	int lastMove;
 	int lastButOneMove;
     public:
@@ -23,6 +25,9 @@ class Jack : public GameObject {
 
         Jack(std::string filename);
         ~Jack();
+
+        bool isDead();
+        void die();
 
         void move(int xBegin, int xRange, int yBegin, int yRange);
 	void pushMove(int v);

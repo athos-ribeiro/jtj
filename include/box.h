@@ -17,6 +17,9 @@ class Box : public GameObject {
 
         Box(std::string filename);
         ~Box();
+        int getPositionX();
+
+        int getPositionY();
 
         void setPosition(int x, int y);
         void accelerate();

@@ -26,6 +26,14 @@ void Box::setPosition(int x, int y) {
     this->y_position = y;
 }
 
+int Box::getPositionX() {
+    return this->x_position;
+}
+
+int Box::getPositionY() {
+    return this->y_position;
+}
+
 void Box::accelerate() {
 }
 
