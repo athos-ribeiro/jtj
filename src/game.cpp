@@ -484,6 +484,9 @@ void Game::loadLevel() {
     levelFile.close();
 
     for(int i = 0; i < atoi(numberOfBoxes.c_str()); i++) {
+        Box* box = new Box("resources/box.png");
+        level->boxes.push_back(box);
+        level->addChild(box);
     }
 
     for(int i = 0; i < atoi(numberOfEnemies.c_str()); i++) {
@@ -491,6 +494,8 @@ void Game::loadLevel() {
         level->enemies.push_back(enemy);
         level->addChild(enemy);
     }
+    level->enemies[0]->throwBox(level->boxes[0], &level->boxes);
+
     //Enemy* enemy = new Enemy("resources/enemy_1.png");
     //level->addChild(enemy);
 
