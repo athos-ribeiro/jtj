@@ -18,10 +18,10 @@ class Box : public GameObject {
 
         Box(std::string filename);
         ~Box();
+
         int getPositionX();
-
         int getPositionY();
-
+        int getSpeed();
         void setPosition(int x, int y);
         void accelerate();
         void fall(int grid[12]);

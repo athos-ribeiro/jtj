@@ -37,6 +37,10 @@ int Box::getPositionY() {
     return this->y_position;
 }
 
+int Box::getSpeed() {
+    return this->speed;
+}
+
 void Box::accelerate() {
 }
 
