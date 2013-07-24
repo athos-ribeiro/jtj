@@ -455,6 +455,15 @@ void Game::runPhysics() {
             break;
         }
     }
+
+    for (int i = 0; i < 12; ++i)
+    {
+        if (level->grid[i] > 7)
+        {
+            quitGame = true;
+        }
+    }
+
     if(xinit<Level::LEVEL_X_OFFSET)
         xinit=Level::LEVEL_X_OFFSET;
     if(xrange+xinit>(Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET))
