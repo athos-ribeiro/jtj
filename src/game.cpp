@@ -389,6 +389,9 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 
     for (int i = 0; i < boxes.size(); ++i)
     {
+        cout << "Box " << i << "(" << boxes[i]->getPositionX() << "," << boxes[i]->getPositionY() << ")\t";
+        cout << "(" << boxes[i]->getPositionX() + 38 << "," << boxes[i]->getPositionY() + 38 << ")" << endl;
+
         if (jack->getXPosition() + 38 > boxes[i]->getPositionX() &&
             jack->getXPosition() < boxes[i]->getPositionX() + 38 &&
             boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition() &&
