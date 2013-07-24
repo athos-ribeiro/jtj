@@ -448,9 +448,11 @@ void Game::runPhysics() {
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         if(level->boxes[i]->used == true) {
             level->boxes[i]->fall(level->grid);
-            cout << "Box " << i << " Position: (" << level->boxes[i]->getPositionX() << "," << level->boxes[i]->getPositionY() << ")" << endl;
-            cout << "Jack position: (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
-            if (jack->getYPosition() + 57 > level->boxes[i]->getPositionY() &&
+            cout << "Box " << i << " Position: (" << level->boxes[i]->getPositionX() << "," << level->boxes[i]->getPositionY() << ")" << "\t";
+            cout << "(" << level->boxes[i]->getPositionX() << "," << level->boxes[i]->getPositionY() - 38 << ")" << endl;
+            cout << "Jack position:  (" << jack->getXPosition() << "," << jack->getYPosition() - 58 << ")" << "\t";
+            cout << "(" << jack->getXPosition() + 38 << "," << jack->getYPosition() - 58 << ")" << endl;
+            if (jack->getYPosition() - 58 < level->boxes[i]->getPositionY() &&
                 (jack->getXPosition() > level->boxes[i]->getPositionX() + 38 &&
                 jack->getXPosition() + 38 < level->boxes[i]->getPositionX()))
             {
