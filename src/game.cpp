@@ -430,13 +430,19 @@ void Game::runPhysics() {
     if(xrange+xinit>(Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET))
 	    xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
-    cout << "Limite a direita do jack: " << xrange+xinit << endl;
-	if(boxMobileBeforeJack!=-1)
-		cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
-	if(boxMobileAfterJack!=-1)
-		cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
+	if(boxMobileBeforeJack!=-1) {
+		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::WIDTH)+Level::LEVEL_X_OFFSET)) {
+			cout << "Colidiu com uma caixa a esquerda!!!" << endl;
+		}
+
+	}
+	if(boxMobileAfterJack!=-1) {
+		if((jack->getXPosition()+Jack::JACK_WIDTH)==(xrange+xinit)) {
+			cout << "Colidiu com uma caixa a direta!!!" << endl;
+		}
+	}
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
-    cout << "Jack moveu" << endl;
+    //cout << "Jack moveu" << endl;
     jack->jump(level);
     //notice that when the game restarts, another box is pushed into the array
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
