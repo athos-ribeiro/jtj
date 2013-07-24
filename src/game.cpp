@@ -413,7 +413,9 @@ void Game::runPhysics() {
     jack->jump(level);
     //notice that when the game restarts, another box is pushed into the array
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
-        level->boxes[i]->fall(level->grid);
+        if(level->boxes[i]->used == true) {
+            level->boxes[i]->fall(level->grid);
+        }
     }
     return;
 }

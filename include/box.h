@@ -11,8 +11,10 @@ class Box : public GameObject {
     bool lyingDown;
     static const int ACCELERATION = 1;
     public:
-    int x_position;
-    int y_position;
+        int x_position;
+        int y_position;
+        bool used;
+
         Box(std::string filename);
         ~Box();
 

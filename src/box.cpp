@@ -8,6 +8,7 @@ Box::Box(string filename) {
     this->box = SDLUtil::loadImage(filename);
     speed = 0;
     lyingDown = false;
+    used = false;
 }
 
 Box::~Box() {

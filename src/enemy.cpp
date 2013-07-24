@@ -26,6 +26,14 @@ void Enemy::move() {
 }
 
 void Enemy::throwBox(vector<Box*> boxes) {
-    boxes[0]->setPosition(x_position, y_position - Enemy::ENEMY_HEIGHT);
+    Box* box = NULL;
+    for(unsigned int i = 0; i < boxes.size(); i++) {
+        if(box == NULL && boxes[i]->used == false) {
+            box = boxes[i];
+            box->used = true;
+            box->setPosition(x_position, y_position - Enemy::ENEMY_HEIGHT);
+            return;
+        }
+    }
     return;
 }
