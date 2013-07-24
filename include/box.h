@@ -11,6 +11,7 @@ class Box : public GameObject {
     bool lyingDown;
     static const int ACCELERATION = 1;
     public:
+		static const int WIDTH = 38;
         int x_position;
         int y_position;
         bool used;
