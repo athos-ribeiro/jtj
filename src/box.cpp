@@ -6,6 +6,8 @@ using namespace std;
 
 Box::Box(string filename) {
     this->box = SDLUtil::loadImage(filename);
+    x_position = 0;
+    y_position = 0;
     speed = 0;
     lyingDown = false;
     used = false;
@@ -18,7 +20,8 @@ Box::~Box() {
 }
 
 void Box::drawSelf(SDL_Surface *surface) {
-    SDLUtil::applySurface(this->x_position, this->y_position, this->box, surface);
+    if(used == true)
+        SDLUtil::applySurface(this->x_position, this->y_position, this->box, surface);
 }
 
 void Box::setPosition(int x, int y) {

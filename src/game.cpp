@@ -376,6 +376,10 @@ void Game::handleEvents() {
 }
 
 void Game::runAI() {
+    level->enemies[0]->move();
+    if((level->enemies[0]->x_position - Level::LEVEL_X_OFFSET) % (38*3) == 0)
+        //buggy line
+        //level->enemies[0]->throwBox(level->boxes);
     return;
 }
 
