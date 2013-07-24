@@ -6,7 +6,7 @@ using namespace std;
 
 Enemy::Enemy(string filename) {
     this->enemy = SDLUtil::loadImage(filename);
-    this->x_position = Level::LEVEL_X_OFFSET;
+    this->x_position = Level::LEVEL_X_OFFSET + 38;
     this->y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - Enemy::ENEMY_HEIGHT - 38*8 - 1;
 }
 
