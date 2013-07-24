@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <time.h>
+#include <unistd.h>
 #include "game.h"
 #include "enemy.h"
 #include "box.h"
@@ -394,41 +396,47 @@ void Game::runPhysics() {
     cout << "Jack esta na posicao " << jackposy << endl;
     cout << "Altura do Jack: " << 11-jackposy << endl;
 
-	//Looking for the first box before Jack
+    //notice that when the game restarts, another box is pushed into the array
+    for(unsigned int i = 0; i < level->boxes.size(); i++) {
+        if(level->boxes[i]->used == true) {
+            level->boxes[i]->fall(level->grid);
+        }
+    }
+    //Looking for the first box before Jack
 
-	int boxMobileBeforeJack=-1;
-	int boxMobileAfterJack=-1;
+    int boxMobileBeforeJack=-1;
+    int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
         if((level->grid[i]+jackposy)>=12) {
-			if((level->grid[i]+jackposy)==12) {
-				if(i>1){
-					if(level->grid[i-1]>=level->grid[i])
-						break;
-				}
-				boxMobileBeforeJack = i;
-			}
-			xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
-			break;
-		}
+            if((level->grid[i]+jackposy)==12) {
+                if(i>1){
+                    if(level->grid[i-1]>=level->grid[i])
+                        break;
+                }
+                boxMobileBeforeJack = i;
+            }
+            xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
+            break;
+        }
     }
-	//Looking for the first box after Jack
+    //Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
-	    if((level->grid[i]+jackposy)>=12) {
-			if((level->grid[i]+jackposy)==12) {
-				if(i<11){
-					if(level->grid[i+1]>=level->grid[i])
-						break;
-				}
-				boxMobileAfterJack = i;
-			}
-			xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
-			break;
-	    }
+        if((level->grid[i]+jackposy)>=12) {
+            if((level->grid[i]+jackposy)==12) {
+                if(i<11){
+                    if(level->grid[i+1]>=level->grid[i])
+                        break;
+                }
+                boxMobileAfterJack = i;
+            }
+            xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
+            break;
+        }
     }
     if(xinit<Level::LEVEL_X_OFFSET)
-	    xinit=Level::LEVEL_X_OFFSET;
+        xinit=Level::LEVEL_X_OFFSET;
     if(xrange+xinit>(Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET))
-	    xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
+        xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
 	if(boxMobileBeforeJack!=-1) {
 		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::WIDTH)+Level::LEVEL_X_OFFSET)) {
@@ -441,25 +449,14 @@ void Game::runPhysics() {
 			cout << "Colidiu com uma caixa a direta!!!" << endl;
 		}
 	}
+    cout << "Limite a direita do jack: " << xrange+xinit << endl;
+    if(boxMobileBeforeJack!=-1)
+        cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
+    if(boxMobileAfterJack!=-1)
+        cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     //cout << "Jack moveu" << endl;
     jack->jump(level);
-    //notice that when the game restarts, another box is pushed into the array
-    for(unsigned int i = 0; i < level->boxes.size(); i++) {
-        if(level->boxes[i]->used == true) {
-            level->boxes[i]->fall(level->grid);
-            cout << "Box " << i << " Position: (" << level->boxes[i]->getPositionX() << "," << level->boxes[i]->getPositionY() << ")" << "\t";
-            cout << "(" << level->boxes[i]->getPositionX() << "," << level->boxes[i]->getPositionY() - 38 << ")" << endl;
-            cout << "Jack position:  (" << jack->getXPosition() << "," << jack->getYPosition() - 58 << ")" << "\t";
-            cout << "(" << jack->getXPosition() + 38 << "," << jack->getYPosition() - 58 << ")" << endl;
-            if (jack->getYPosition() - 58 < level->boxes[i]->getPositionY() &&
-                (jack->getXPosition() > level->boxes[i]->getPositionX() + 38 &&
-                jack->getXPosition() + 38 < level->boxes[i]->getPositionX()))
-            {
-                jack->die();
-            }
-        }
-    }
     return;
 }
 
