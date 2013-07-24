@@ -12,6 +12,8 @@ class Enemy : public GameObject {
     public:
         int x_position;
         int y_position;
+        int movesLeft;
+        int moveDirection;
         static const int ENEMY_WIDTH = 38;
         static const int ENEMY_HEIGHT = 57;
 
