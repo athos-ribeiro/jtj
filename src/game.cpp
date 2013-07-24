@@ -494,7 +494,7 @@ void Game::loadLevel() {
         level->enemies.push_back(enemy);
         level->addChild(enemy);
     }
-    level->enemies[0]->throwBox(level->boxes[0], &level->boxes);
+    level->enemies[0]->throwBox(level->boxes);
 
     //Enemy* enemy = new Enemy("resources/enemy_1.png");
     //level->addChild(enemy);

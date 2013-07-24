@@ -19,7 +19,7 @@ class Enemy : public GameObject {
         ~Enemy();
 
         void move();
-        void throwBox(Box* box, vector<Box*> *boxes);
+        void throwBox(vector<Box*> boxes);
 };
 
 #endif
