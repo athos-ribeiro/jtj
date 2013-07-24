@@ -22,8 +22,8 @@ void Enemy::drawSelf(SDL_Surface *surface) {
 }
 
 void Enemy::move() {
-    if(x_position >= 506) {
-        x_position -= 456-38;
+    if(x_position >= 470) {
+        x_position -= 300-38;
     }
     else {
         x_position += 1;

@@ -379,7 +379,7 @@ void Game::runAI() {
     level->enemies[0]->move();
     if((level->enemies[0]->x_position - Level::LEVEL_X_OFFSET) % (38*3) == 0)
         //buggy line
-        //level->enemies[0]->throwBox(level->boxes);
+        level->enemies[0]->throwBox(level->boxes);
     return;
 }
 
@@ -395,7 +395,7 @@ void Game::runPhysics() {
     cout << "Altura do Jack: " << 11-jackposy << endl;
 
 	//Looking for the first box before Jack
-	
+
 	int boxMobileBeforeJack=-1;
 	int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
