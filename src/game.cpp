@@ -464,6 +464,25 @@ void Game::runPhysics() {
         }
     }
 
+
+    int quantidadeDeCaixas = 0;
+    for (int i = 0; i < 12; ++i)
+    {
+        if (level->grid[i] > 0)
+        {
+            quantidadeDeCaixas++;
+        }
+    }
+
+    if (quantidadeDeCaixas == 12)
+    {
+        for (int i = 0; i < 12; ++i)
+        {
+            cout << "LALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALA" << endl;
+            level->grid[i] --;
+        }
+    }
+
     if(xinit<Level::LEVEL_X_OFFSET)
         xinit=Level::LEVEL_X_OFFSET;
     if(xrange+xinit>(Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET))
