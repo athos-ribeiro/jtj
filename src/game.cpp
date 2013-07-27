@@ -436,7 +436,7 @@ void Game::runPhysics() {
     int boxMobileBeforeJack=-1;
     int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
-        if((level->grid[i].size()+jackposy)>=12) {
+		if((level->grid[i].size()+jackposy)>=12) {
             if((level->grid[i].size()+jackposy)==12) {
                 if(i>1){
                     if(level->grid[i-1].size()>=level->grid[i].size())
@@ -452,7 +452,7 @@ void Game::runPhysics() {
 	cout << "Procurando pela caixa móvel depois do Jack" << endl;
     //Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
-        if((level->grid[i].size()+jackposy)>=12) {
+		if((level->grid[i].size()+jackposy)>=12) {
             if((level->grid[i].size()+jackposy)==12) {
                 if(i<11){
                     if(level->grid[i+1].size()>=level->grid[i].size())

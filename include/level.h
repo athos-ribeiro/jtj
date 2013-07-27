@@ -14,7 +14,8 @@ class Level : public GameObject {
     public:
         vector<Box*> boxes;
         vector<Enemy*> enemies;
-		vector< vector<Box*> >grid;
+		vector<Box*> grid[12];
+
         static const int LEVEL_WIDTH = 456;
         static const int LEVEL_HEIGHT = 456;
         static const int LEVEL_X_OFFSET = 50;
