@@ -16,6 +16,7 @@ class Jack : public GameObject {
 	int lastMove;
 	int lastButOneMove;
     public:
+		int	strength;
         int speed;
         int verticalSpeed;
         bool jumping;

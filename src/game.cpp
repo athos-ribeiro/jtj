@@ -407,16 +407,6 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 
 void Game::runPhysics() {
 
-    int xinit = Level::LEVEL_X_OFFSET;
-    //int yinit=Level::LEVEL_Y_OFFSET;
-    int xrange=Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET;
-    //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
-    int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
-    int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
-    cout << "Jack esta na posicao vertical " << jackposy << endl;
-    cout << "Jack esta na posicao horizontal " << jackposx << endl;
-    cout << "Altura do Jack: " << 11-jackposy << endl;
-
 	cout << "Checando colisão" << endl;
     if (checkColision (jack, level->boxes)) {
         jack->die();
@@ -431,6 +421,14 @@ void Game::runPhysics() {
             level->boxes[i]->fall(level->grid);
         }
     }
+    
+    int xinit = Level::LEVEL_X_OFFSET;
+    //int yinit=Level::LEVEL_Y_OFFSET;
+    int xrange=Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET;
+    //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
+    int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
+    int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
+    
     //Looking for the first box before Jack
 	cout << "Procurando pela caixa móvel antes do Jack" << endl;
     int boxMobileBeforeJack=-1;
@@ -504,14 +502,21 @@ void Game::runPhysics() {
 	if(boxMobileBeforeJack!=-1) {
         cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
 		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::BOX_WIDTH)+Level::LEVEL_X_OFFSET)) {
-			cout << "Colidiu com uma caixa a esquerda!!!" << endl;
-
-			Box* boxTransition = level->grid[boxMobileBeforeJack].back();
-			boxTransition->x_position -= Box::BOX_WIDTH;
-			level->grid[boxMobileBeforeJack].pop_back();
-			boxTransition->lyingDown=false;
-			boxTransition->fall(level->grid);
+			cout << "Colidiu com uma caixa a esquerda!!! forca: " << jack->strength << endl;
+			if(jack->strength<10){
+				jack->strength++;
+			}
+			if((jack->strength>=10)&&(jack->speed!=0)) {
+				Box* boxTransition = level->grid[boxMobileBeforeJack].back();
+				boxTransition->x_position -= Box::BOX_WIDTH;
+				level->grid[boxMobileBeforeJack].pop_back();
+				boxTransition->lyingDown=false;
+				boxTransition->fall(level->grid);
+			}
 			//level->grid[boxMobileBeforeJack-1].push_back(boxTransition);
+		}
+		else {
+				jack->strength=0;
 		}
 
 	}
@@ -519,12 +524,19 @@ void Game::runPhysics() {
         cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
 		if((jack->getXPosition()+Jack::JACK_WIDTH)==(xrange+xinit)) {
 			cout << "Colidiu com uma caixa a direta!!!" << endl;
-
-			Box* boxTransitionRight = level->grid[boxMobileAfterJack].back();
-			boxTransitionRight->x_position += Box::BOX_WIDTH;
-			level->grid[boxMobileAfterJack].pop_back();
-			boxTransitionRight->lyingDown=false;
-			boxTransitionRight->fall(level->grid);
+			if(jack->strength<10){
+				jack->strength++;
+			}
+			if((jack->strength>=10)&&(jack->speed!=0)) {
+				Box* boxTransitionRight = level->grid[boxMobileAfterJack].back();
+				boxTransitionRight->x_position += Box::BOX_WIDTH;
+				level->grid[boxMobileAfterJack].pop_back();
+				boxTransitionRight->lyingDown=false;
+				boxTransitionRight->fall(level->grid);
+			}
+		}
+		else {
+				jack->strength=0;
 		}
 	}
     cout << "Limite a direita do jack: " << xrange+xinit << endl;

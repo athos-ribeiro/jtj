@@ -14,6 +14,7 @@ Jack::Jack(string filename) {
     jumping = false;
 	lastMove=0;
 	lastButOneMove=0;
+	strength = 0;
 }
 
 Jack::~Jack() {
