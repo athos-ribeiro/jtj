@@ -379,7 +379,7 @@ void Game::handleEvents() {
 }
 
 void Game::runAI() {
-    for(int i = 0; i < level->enemies.size(); i++) {
+    for(unsigned int i = 0; i < level->enemies.size(); i++) {
         level->enemies[i]->throwBox(level->boxes);
         level->enemies[i]->move();
     }
@@ -388,7 +388,7 @@ void Game::runAI() {
 
 bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 
-    for (int i = 0; i < boxes.size(); ++i)
+    for (unsigned int i = 0; i < boxes.size(); ++i)
     {
 //        cout << "Box " << i << "(" << boxes[i]->getPositionX() << "," << boxes[i]->getPositionY() << ")\t";
 //        cout << "(" << boxes[i]->getPositionX() + 38 << "," << boxes[i]->getPositionY() + 38 << ")" << endl;
