@@ -437,14 +437,14 @@ void Game::runPhysics() {
     int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
 		if((level->grid[i].size()+jackposy)>=12) {
+            xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
             if((level->grid[i].size()+jackposy)==12) {
                 if(i>1){
                     if(level->grid[i-1].size()>=level->grid[i].size())
-                        break;
+						break;
                 }
                 boxMobileBeforeJack = i;
             }
-            xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
             break;
         }
     }
@@ -453,14 +453,14 @@ void Game::runPhysics() {
     //Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
 		if((level->grid[i].size()+jackposy)>=12) {
+            xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
             if((level->grid[i].size()+jackposy)==12) {
                 if(i<11){
                     if(level->grid[i+1].size()>=level->grid[i].size())
-                        break;
+                       break;
                 }
                 boxMobileAfterJack = i;
             }
-            xrange=Level::LEVEL_X_OFFSET+ (i)*38-xinit;
             break;
         }
     }
@@ -500,21 +500,20 @@ void Game::runPhysics() {
         xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
 	if(boxMobileBeforeJack!=-1) {
-		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::WIDTH)+Level::LEVEL_X_OFFSET)) {
+        cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
+		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::BOX_WIDTH)+Level::LEVEL_X_OFFSET)) {
 			cout << "Colidiu com uma caixa a esquerda!!!" << endl;
 		}
 
 	}
 	if(boxMobileAfterJack!=-1) {
+        cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
 		if((jack->getXPosition()+Jack::JACK_WIDTH)==(xrange+xinit)) {
 			cout << "Colidiu com uma caixa a direta!!!" << endl;
 		}
 	}
     cout << "Limite a direita do jack: " << xrange+xinit << endl;
-    if(boxMobileBeforeJack!=-1)
-        cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
-    if(boxMobileAfterJack!=-1)
-        cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
+    cout << "Limite a esquerda do jack: " << xinit << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     //cout << "Jack moveu" << endl;
     jack->jump(level);
@@ -893,21 +892,13 @@ void Game::loop() {
             break;
         loadLevel();
         while(isLevelFinished() == false) {
-			cout << "Atualizando time Step" << endl;
             updateTimeStep();
-			cout << "Recebendo dados da Rede" << endl;
             recieveNetworkData();
-			cout << "Tratamento de Eventos" << endl;
             handleEvents();
-			cout << "Inteligencia artificial" << endl;
             runAI();
-			cout << "Executando Fisica" << endl;
             runPhysics();
-			cout << "Atualizando." << endl;
             update();
-			cout << "Enviando Dados para rede" << endl;
             sendNetworkData();
-			cout << "Desenhando." << endl;
             draw();
         }
         releaseLevel();

@@ -111,6 +111,16 @@ void Jack::popMove(int v) {
 		else {
 			lastMove=0;
 			speed=0;
+			/*
+			int rest = x_position%Box::BOX_WIDTH;
+			if(rest<10) {
+				x_position -=rest;
+			}
+			else if(rest>(Box::BOX_WIDTH-10)) {
+				x_position +=Box::BOX_WIDTH-rest-1;
+			}
+			*/
+
 		}
 	}
 }
