@@ -506,7 +506,7 @@ void Game::runPhysics() {
 			if(jack->strength<10){
 				jack->strength++;
 			}
-			if((jack->strength>=10)&&(jack->speed!=0)) {
+			if((jack->strength>=10)&&(jack->speed<0)) {
 				Box* boxTransition = level->grid[boxMobileBeforeJack].back();
 				boxTransition->x_position -= Box::BOX_WIDTH;
 				level->grid[boxMobileBeforeJack].pop_back();
@@ -523,7 +523,7 @@ void Game::runPhysics() {
 			if(jack->strength<10){
 				jack->strength++;
 			}
-			if((jack->strength>=10)&&(jack->speed!=0)) {
+			if((jack->strength>=10)&&(jack->speed>0)) {
 				Box* boxTransitionRight = level->grid[boxMobileAfterJack].back();
 				boxTransitionRight->x_position += Box::BOX_WIDTH;
 				level->grid[boxMobileAfterJack].pop_back();
