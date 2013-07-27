@@ -439,11 +439,12 @@ void Game::runPhysics() {
 		if((level->grid[i].size()+jackposy)>=12) {
             xinit=Level::LEVEL_X_OFFSET+ (i+1)*38;
             if((level->grid[i].size()+jackposy)==12) {
-                if(i>1){
+                if(i>0){
                     if(level->grid[i-1].size()>=level->grid[i].size())
 						break;
+					else
+						boxMobileBeforeJack = i;
                 }
-                boxMobileBeforeJack = i;
             }
             break;
         }
@@ -458,8 +459,9 @@ void Game::runPhysics() {
                 if(i<11){
                     if(level->grid[i+1].size()>=level->grid[i].size())
                        break;
+					else
+						boxMobileAfterJack = i;
                 }
-                boxMobileAfterJack = i;
             }
             break;
         }

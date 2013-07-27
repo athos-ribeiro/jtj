@@ -60,19 +60,19 @@ void Jack::jump(Level* level) {
     verticalSpeed += ACCELERATION;
 
     if(jumping == true) {
-        if ((y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38)) || (y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38].size()*38))) {
+        if ((y_position >= (int)(Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38))) || (y_position >= (int)(Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38].size()*38)))) {
         jumping = false;
         verticalSpeed = 1;
         }
     }
 
     //these next two if's handles boxes superior colision.
-    if(y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38)) {
-        y_position = Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38);
+    if(y_position >= (int)(Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38))) {
+        y_position = (int)(Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38));
         verticalSpeed = 1;
         //verticalSpeed -= ACCELERATION;
     }
-    else if(y_position >= Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38].size()*38)) {
+    else if(y_position >= (int)(Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38].size()*38))) {
         y_position = Level::LEVEL_Y_OFFSET + Level::LEVEL_HEIGHT - 57 -38 - (level->grid[(x_position+37 - Level::LEVEL_X_OFFSET)/38].size()*38);
         verticalSpeed = 1;
         //verticalSpeed -= ACCELERATION;
