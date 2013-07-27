@@ -5,9 +5,9 @@ using namespace std;
 
 Level::Level(string filename) {
     this->level = SDLUtil::loadImage(filename);
-    for(unsigned int i = 0; i < sizeof(grid)/sizeof(int); i++) {
-        grid[i] = 0;
-    }
+    //for(unsigned int i = 0; i < sizeof(grid)/sizeof(int); i++) {
+    //    grid[i] = 0;
+    //}
 }
 
 Level::~Level() {

@@ -44,15 +44,16 @@ int Box::getSpeed() {
 void Box::accelerate() {
 }
 
-void Box::fall(int grid[12]) {
+void Box::fall(vector< vector<Box*> >grid) {
     if(lyingDown == false) {
         speed += 0.5;
         y_position += speed;
-        if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38)) {
+        if(y_position >= Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38)) {
             speed = 0;
             lyingDown = true;
-            y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38]*38);
-            grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
+            y_position = Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38);
+			grid[(x_position - Level::LEVEL_X_OFFSET)/38].push_back(this);
+            //grid[(x_position - Level::LEVEL_X_OFFSET)/38]++;
             return;
         }
     }

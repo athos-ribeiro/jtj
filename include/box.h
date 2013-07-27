@@ -24,7 +24,7 @@ class Box : public GameObject {
         int getSpeed();
         void setPosition(int x, int y);
         void accelerate();
-        void fall(int grid[12]);
+		void fall(vector< vector<Box*> >grid);
 };
 
 #endif

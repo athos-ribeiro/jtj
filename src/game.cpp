@@ -413,29 +413,33 @@ void Game::runPhysics() {
     //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
     int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
-    cout << "Jack esta na posicao " << jackposy << endl;
+    cout << "Jack esta na posicao vertical " << jackposy << endl;
+    cout << "Jack esta na posicao horizontal " << jackposx << endl;
     cout << "Altura do Jack: " << 11-jackposy << endl;
 
+	cout << "Checando colisão" << endl;
     if (checkColision (jack, level->boxes)) {
         jack->die();
     }
+	cout << "Colisão checada." << endl;
 
 //    cout << "Jogador (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
     //notice that when the game restarts, another box is pushed into the array
+	cout << "Derrubando caixas" << endl;
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         if(level->boxes[i]->used == true) {
             level->boxes[i]->fall(level->grid);
         }
     }
     //Looking for the first box before Jack
-
+	cout << "Procurando pela caixa móvel antes do Jack" << endl;
     int boxMobileBeforeJack=-1;
     int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
-        if((level->grid[i]+jackposy)>=12) {
-            if((level->grid[i]+jackposy)==12) {
+        if((level->grid[i].size()+jackposy)>=12) {
+            if((level->grid[i].size()+jackposy)==12) {
                 if(i>1){
-                    if(level->grid[i-1]>=level->grid[i])
+                    if(level->grid[i-1].size()>=level->grid[i].size())
                         break;
                 }
                 boxMobileBeforeJack = i;
@@ -444,12 +448,14 @@ void Game::runPhysics() {
             break;
         }
     }
+
+	cout << "Procurando pela caixa móvel depois do Jack" << endl;
     //Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
-        if((level->grid[i]+jackposy)>=12) {
-            if((level->grid[i]+jackposy)==12) {
+        if((level->grid[i].size()+jackposy)>=12) {
+            if((level->grid[i].size()+jackposy)==12) {
                 if(i<11){
-                    if(level->grid[i+1]>=level->grid[i])
+                    if(level->grid[i+1].size()>=level->grid[i].size())
                         break;
                 }
                 boxMobileAfterJack = i;
@@ -462,7 +468,7 @@ void Game::runPhysics() {
     for (int i = 0; i < 12; ++i)
     {
 //        cout << i << " " << level->grid[i] << endl;
-        if (level->grid[i] > 7)
+        if (level->grid[i].size() > 7)
         {
             this->quitGame = true;
         }
@@ -472,7 +478,7 @@ void Game::runPhysics() {
     int quantidadeDeCaixas = 0;
     for (int i = 0; i < 12; ++i)
     {
-        if (level->grid[i] > 0)
+        if (level->grid[i].size() > 0)
         {
             quantidadeDeCaixas++;
         }
@@ -483,7 +489,8 @@ void Game::runPhysics() {
         for (int i = 0; i < 12; ++i)
         {
             cout << "LALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALA" << endl;
-            level->grid[i] --;
+            //level->grid[i] --;
+			level->grid[i].erase(level->grid[i].begin());
         }
     }
 
@@ -886,13 +893,21 @@ void Game::loop() {
             break;
         loadLevel();
         while(isLevelFinished() == false) {
+			cout << "Atualizando time Step" << endl;
             updateTimeStep();
+			cout << "Recebendo dados da Rede" << endl;
             recieveNetworkData();
+			cout << "Tratamento de Eventos" << endl;
             handleEvents();
+			cout << "Inteligencia artificial" << endl;
             runAI();
+			cout << "Executando Fisica" << endl;
             runPhysics();
+			cout << "Atualizando." << endl;
             update();
+			cout << "Enviando Dados para rede" << endl;
             sendNetworkData();
+			cout << "Desenhando." << endl;
             draw();
         }
         releaseLevel();
