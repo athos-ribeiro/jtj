@@ -515,10 +515,6 @@ void Game::runPhysics() {
 			}
 			//level->grid[boxMobileBeforeJack-1].push_back(boxTransition);
 		}
-		else {
-				jack->strength=0;
-		}
-
 	}
 	if(boxMobileAfterJack!=-1) {
         cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
@@ -535,9 +531,9 @@ void Game::runPhysics() {
 				boxTransitionRight->fall(level->grid);
 			}
 		}
-		else {
-				jack->strength=0;
-		}
+	}
+	if(jack->speed==0){
+			jack->strength=0;
 	}
     cout << "Limite a direita do jack: " << xrange+xinit << endl;
     cout << "Limite a esquerda do jack: " << xinit << endl;
