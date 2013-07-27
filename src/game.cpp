@@ -503,6 +503,13 @@ void Game::runPhysics() {
         cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
 		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::BOX_WIDTH)+Level::LEVEL_X_OFFSET)) {
 			cout << "Colidiu com uma caixa a esquerda!!!" << endl;
+
+			Box* boxTransition = level->grid[boxMobileBeforeJack].back();
+			boxTransition->x_position -= Box::BOX_WIDTH;
+			level->grid[boxMobileBeforeJack].pop_back();
+			boxTransition->lyingDown=false;
+			boxTransition->fall(level->grid);
+			//level->grid[boxMobileBeforeJack-1].push_back(boxTransition);
 		}
 
 	}
@@ -510,6 +517,12 @@ void Game::runPhysics() {
         cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
 		if((jack->getXPosition()+Jack::JACK_WIDTH)==(xrange+xinit)) {
 			cout << "Colidiu com uma caixa a direta!!!" << endl;
+
+			Box* boxTransitionRight = level->grid[boxMobileAfterJack].back();
+			boxTransitionRight->x_position += Box::BOX_WIDTH;
+			level->grid[boxMobileAfterJack].pop_back();
+			boxTransitionRight->lyingDown=false;
+			boxTransitionRight->fall(level->grid);
 		}
 	}
     cout << "Limite a direita do jack: " << xrange+xinit << endl;

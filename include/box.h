@@ -8,9 +8,9 @@ class Box : public GameObject {
     SDL_Surface *box;
     void drawSelf(SDL_Surface *surface);
     float speed;
-    bool lyingDown;
     static const int ACCELERATION = 1;
     public:
+		bool lyingDown;
 		static const int BOX_WIDTH = 38;
 		static const int BOX_HEIGHT = 38;
         int x_position;
