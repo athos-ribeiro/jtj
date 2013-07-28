@@ -397,7 +397,7 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 		int boxTop = boxes[i]->getPositionY();
 		int boxBottom = boxes[i]->getPositionY()+Box::BOX_HEIGHT;
 
-		if(((boxLeft < jackLeft && jackRight < boxRight) && (boxTop < jackTop && jackTop < boxBottom)) ||
+		if(((boxLeft < jackLeft && jackLeft < boxRight) && (boxTop < jackTop && jackTop < boxBottom)) ||
 				((jackLeft < boxLeft && boxLeft < jackRight) && (jackTop < boxTop && boxTop < jackBottom)))
 		 {
 
