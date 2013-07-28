@@ -406,8 +406,8 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 				((jackLeft < boxLeft && boxLeft < jackRight) && (jackTop < boxTop && boxTop < jackBottom)))
 		 {
 
-			cout << "Jack: ("<< jackLeft <<", " << jackRight << ") e ("<< jackTop <<", " << jackBottom << endl; 
-			cout << "Box: ("<< boxLeft <<", " << boxRight << ") e ("<< boxTop <<", " << boxBottom << endl; 
+			cout << "Jack: ("<< jackLeft <<", " << jackRight << ") e ("<< jackTop <<", " << jackBottom << endl;
+			cout << "Box: ("<< boxLeft <<", " << boxRight << ") e ("<< boxTop <<", " << boxBottom << endl;
 
 			return true;
 		}
@@ -497,7 +497,7 @@ void Game::runPhysics() {
 
     if (quantidadeDeCaixas == 12)
     {
-		
+
 		if(jack->jumping != true) {
 			score->increaseScore(3);
 			jack->verticalSpeed = -10;
@@ -511,7 +511,10 @@ void Game::runPhysics() {
 			//SDL_FreeSurface(boxToDelete);
 			for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
 				if(*it==boxToDelete) {
+                    //delete level->boxes.it;
+                    Box* myBox = *it;
 					level->boxes.erase(it);
+                    myBox->used = false;
 					break;
 				}
 			}
