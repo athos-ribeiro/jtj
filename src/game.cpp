@@ -600,7 +600,8 @@ void Game::draw() {
 void Game::loadLevel() {
     level = new Level("resources/level_1.png");
 
-    jack = new Jack("resources/jack.png");
+    jack = new Jack("resources/jack_sprites.png");
+    jack->setSpriteClips();
     level->addChild(jack);
 
     ifstream levelFile;

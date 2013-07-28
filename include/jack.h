@@ -15,6 +15,9 @@ class Jack : public GameObject {
 
 	int lastMove;
 	int lastButOneMove;
+    int frame; //for animation
+
+    SDL_Rect spriteClips[8];
     public:
 		int	strength;
         int speed;
@@ -30,6 +33,7 @@ class Jack : public GameObject {
         bool isDead();
         void die();
 
+        void setSpriteClips();
         void move(int xBegin, int xRange, int yBegin, int yRange);
         void pushMove(int v);
         void popMove(int v);

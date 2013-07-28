@@ -22,11 +22,11 @@ SDL_Surface *SDLUtil::loadImage(string filename) {
     return optimizedImage;
 }
 
-void SDLUtil::applySurface(int x, int y, SDL_Surface *source, SDL_Surface* destination) {
+void SDLUtil::applySurface(int x, int y, SDL_Surface *source, SDL_Surface* destination, SDL_Rect* clip) {
     SDL_Rect offset;
     offset.x = x;
     offset.y = y;
-    SDL_BlitSurface(source, NULL, destination, &offset);
+    SDL_BlitSurface(source, clip, destination, &offset);
     return;
 }
 
