@@ -5,9 +5,8 @@ TODO
 - Write game manual
 
 ### #13:
-- Make boxes line disappear when complete(ALEXANDRE is handling this one right now).
-- - Player get 100 points when a line disappears.
-- - Victory condition (time inG or number of lines completed)
+- Player get 100 points when a line disappears.
+- Victory condition (time inG or number of lines completed) *maybe for the 1st level, 1 line would be enough?
 - we MUST make an options screen, that's very important right now since it belongs to #12 and not here(Can you handle this one for now FURQUIM?)!!!!!!
 
 ### #14:
