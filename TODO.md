@@ -12,9 +12,8 @@ TODO
 
 ### #14:
 - When jack wins a level, move to the next (should have at least 3 here, but we could just do it for all the five levels insted).
-- Make AI better so the probability of dropping a box in a column decreases when that column grid value is higher than the others.
+- Make AI better so the probability of dropping a box in a column decreases when that column grid value is higher than the others(ATHOS handling it right now).
 - Save High Scores in a file and load it when the game starts.
-- Game shall be installed with make install (/opt/jackTheJanitor)(ATHOS handling this one right now)
 
 ### #15:
 - Help Menu (at least one option on initial screen which shows the basic commands and game rules?)
