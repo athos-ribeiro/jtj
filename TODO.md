@@ -1,6 +1,10 @@
 TODO
 ===================
 
+### KNOWN BUGS:
+- When a box falls on jack's head, if he is placed to the right of the grid, the box will push him instead of killing.
+- Jack can still walk through a 2 boxes gap.
+
 ### #7:
 - Write game manual
 
