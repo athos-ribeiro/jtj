@@ -268,8 +268,8 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_q):
-            cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             this->gameOver = true;
+            this->quitLevel = true;
             break;
 
         case (SDLK_d):
@@ -706,60 +706,135 @@ void Game::pauseScreenDraw() {
     return;
 }
 
-void Game::pauseScreenLoop() {
-    bool playButton = false;
-    bool quitButton = false;
-    bool optionsButton = false;
-    bool keyPressed = false;
-    this->quitLevel = false;
+void Game::showOptionsScreen() {
 
-    do {
-        while (SDL_PollEvent (&event)) {
-            switch (event.type) {
-            case SDL_QUIT:
-                this->quitLevel = true;
+    optionsScreen = new OptionsScreen("resources/backgroundoptionsscreen.png");
+
+    labelMute = new Label("resources/mutebutton.png", 483, 68);
+    optionsScreen->addChild(labelMute);
+
+    labelLoad = new Label("resources/loadbutton.png", 483, 191);
+    optionsScreen->addChild(labelLoad);
+
+    labelBack = new Label("resources/backbutton.png", 483, 314);
+    optionsScreen->addChild(labelBack);
+
+    bool muteButton = false;
+    bool loadButton = false;
+    bool backButton = false;
+
+    while (SDL_WaitEvent (&event) != 0 && backButton == false) {
+        switch (event.type) {
+        case SDL_QUIT:
+            backButton = true;
+            break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                muteButton = labelMute->wasClicked(event.button.x, event.button.y);
+                loadButton = labelLoad->wasClicked(event.button.x, event.button.y);
+                backButton = labelQuit->wasClicked(event.button.x, event.button.y);
+            }
+            break;
+
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case SDLK_q:
+            case SDLK_ESCAPE:
+                backButton = true;
                 break;
-
-            case SDL_MOUSEBUTTONDOWN:
-                switch (event.button.button) {
-                case SDL_BUTTON_LEFT:
-                    if (labelPlay->wasClicked(event.button.x, event.button.y)) {
-                        playButton = true;
-                        this->quitLevel = false;
-                        this->pauseLevel = false;
-                    } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
-                        optionsButton = true;
-                    } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
-                        this->quitLevel = true;
-                        quitButton = true;
-                    }
-                    break;
-
-                default:
-                    break;
-                }
-                break;
-
-            case SDL_KEYDOWN:
-        	    switch (event.key.keysym.sym) {
-				case (SDLK_p):
-					keyPressed = true;
-					this->pauseLevel = false;
-				    break;
-
-				default:
-					break;
-				}
-				break;
 
             default:
                 break;
             }
+            break;
+
+        default:
+            break;
+        }
+        optionsScreen->draw(this->screen);
+        SDL_Flip(this->screen);
+
+        if (muteButton)
+        {
+
+        }
+        if (loadButton)
+        {
+            cout << "Não implementado, cara... Se deu mal =P" << endl;
+        }
+    }
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    delete optionsScreen;
+
+    return ;
+}
+
+void Game::pauseScreenLoop() {
+    bool playButton = false;
+    bool quitButton = false;
+    bool optionsButton = false;
+    this->quitLevel = false;
+
+    while (SDL_WaitEvent (&event) != 0 && playButton == false && quitButton == false) {
+        switch (event.type) {
+        case SDL_QUIT:
+            quitButton = true;
+            this->quitLevel = true;
+            break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                playButton = labelPlay->wasClicked(event.button.x, event.button.y);
+                optionsButton = labelOptions->wasClicked(event.button.x, event.button.y);
+                quitButton = labelQuit->wasClicked(event.button.x, event.button.y);
+            }
+            break;
+
+        case SDL_KEYDOWN:
+    	    switch (event.key.keysym.sym) {
+			case (SDLK_p):
+				this->pauseLevel = false;
+                playButton = true;
+			    break;
+
+            case SDLK_q:
+            case SDLK_ESCAPE:
+                this->quitLevel = true;
+                quitButton = true;
+                break;
+
+			default:
+				break;
+			}
+			break;
+
+        default:
+            break;
         }
         pauseScreen->draw(this->screen);
         SDL_Flip(this->screen);
-    } while (keyPressed == false && playButton == false && optionsButton == false && quitButton == false);
+
+        if (playButton)
+        {
+            this->pauseLevel = false;
+        }
+        if (quitButton)
+        {
+            this->quitLevel = true;
+        }
+        if (optionsButton)
+        {
+            showOptionsScreen();
+            optionsButton = false;
+        }
+    }
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    delete pauseScreen;
 
     return ;
 }
@@ -772,41 +847,59 @@ void Game::initScreenLoop() {
     this->quitLevel = false;
     this->pauseLevel = false;
     this->gameOver = false;
+    while (SDL_WaitEvent (&event) != 0 && playButton == false && quitButton == false) {
+        switch (event.type) {
+        case SDL_QUIT:
+            quitButton = true;
+            this->quitLevel = true;
+            break;
 
-    do {
-        while (SDL_PollEvent (&event)) {
-            switch (event.type) {
-            case SDL_QUIT:
-                this->quitGame = true;
+        case SDL_MOUSEBUTTONDOWN:
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                playButton = labelPlay->wasClicked(event.button.x, event.button.y);
+                optionsButton = labelOptions->wasClicked(event.button.x, event.button.y);
+                quitButton = labelQuit->wasClicked(event.button.x, event.button.y);
+            }
+            break;
+
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case (SDLK_p):
+                playButton = true;
                 break;
 
-            case SDL_MOUSEBUTTONDOWN:
-                switch (event.button.button) {
-                case SDL_BUTTON_LEFT:
-                    if (labelPlay->wasClicked(event.button.x, event.button.y)) {
-                        playButton = true;
-                        this->quitLevel = false;
-                    } else if (labelOptions->wasClicked(event.button.x, event.button.y)) {
-                        optionsButton = true;
-                    } else if (labelQuit->wasClicked(event.button.x, event.button.y)) {
-                        this->quitGame = true;
-                        quitButton = true;
-                    }
-                    break;
-
-                default:
-                    break;
-                }
+            case SDLK_q:
+            case SDLK_ESCAPE:
+                this->quitLevel = true;
+                quitButton = true;
                 break;
 
             default:
                 break;
             }
+            break;
+
+        default:
+            break;
         }
         initScreen->draw(this->screen);
         SDL_Flip(this->screen);
-    } while (playButton == false && optionsButton == false && quitButton == false);
+
+        if (quitButton)
+        {
+            this->quitLevel = true;
+            this->quitGame = true;
+        }
+        if (optionsButton)
+        {
+            showOptionsScreen();
+            optionsButton = false;
+        }
+    }
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    delete initScreen;
 
     return ;
 }

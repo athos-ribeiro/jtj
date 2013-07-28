@@ -5,7 +5,7 @@ using namespace std;
 
 OptionsScreen::OptionsScreen(string filename)
 {
-	this->optionsScreen = SDLUtil::loadImage(filename);
+	this->optionsScreen = SDLUtil::loadImage(filename.c_str());
 }
 
 OptionsScreen::~OptionsScreen()
@@ -16,7 +16,7 @@ OptionsScreen::~OptionsScreen()
 	}
 }
 
-void OptionsScreen::drawSelf(SDl_Surface *surface)
+void OptionsScreen::drawSelf(SDL_Surface *surface)
 {
 	SDLUtil::applySurface(0, 0, this->optionsScreen, surface);
 

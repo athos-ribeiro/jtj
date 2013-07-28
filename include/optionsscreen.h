@@ -2,6 +2,8 @@
 #define OPTIONSSCREEN_H
 
 #include "gameobject.h"
+#include "SDL/SDL.h"
+#include "sdlutil.h"
 #include <string>
 
 class OptionsScreen : public GameObject

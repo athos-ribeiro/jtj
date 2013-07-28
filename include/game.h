@@ -15,6 +15,7 @@
 #include <string>
 #include "scorescreen.h"
 #include <stdlib.h>
+#include "optionsscreen.h"
 
 class Game {
     public:
@@ -34,10 +35,15 @@ class Game {
         InitScreen* initScreen;
         PauseScreen* pauseScreen;
         GameOverScreen* gameOverScreen;
+        OptionsScreen* optionsScreen;
 
         Label* labelPlay;
         Label* labelOptions;
         Label* labelQuit;
+
+        Label* labelMute;
+        Label* labelLoad;
+        Label* labelBack;
 
         static const int SCREEN_WIDTH = 854;
         static const int SCREEN_HEIGHT = 480;
@@ -52,6 +58,7 @@ class Game {
         bool pauseLevel;
         bool gameOver;
 
+        void showOptionsScreen();
         void gameOvering();
         void gameOverScreenDraw();
         void gameOverScreenLoop();
