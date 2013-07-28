@@ -9,7 +9,11 @@
 class Enemy : public GameObject {
     SDL_Surface *enemy;
     void drawSelf(SDL_Surface *surface);
+
+    int frame;
+    SDL_Rect spriteClips[8];
     public:
+        void setSpriteClips();
         int x_position;
         int y_position;
         int movesLeft;

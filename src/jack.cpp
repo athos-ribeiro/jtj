@@ -46,9 +46,11 @@ int setLimit(int value, int limit1, int range) {
 }
 
 void Jack::drawSelf(SDL_Surface *surface) {
-    //SDLUtil::applySurface(this->x_position, this->y_position, this->jack, surface);
 
-    if(speed > 0) {
+    if(jumping == true) {
+        frame = 7;
+    }
+    else if(speed > 0) {
         frame ++;
         if(frame > 3) {
             frame = 1;

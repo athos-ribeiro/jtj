@@ -421,14 +421,14 @@ void Game::runPhysics() {
             level->boxes[i]->fall(level->grid);
         }
     }
-    
+
     int xinit = Level::LEVEL_X_OFFSET;
     //int yinit=Level::LEVEL_Y_OFFSET;
     int xrange=Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET;
     //int yfinal=Level::LEVEL_HEIGHT-Level::LEVEL_Y_OFFSET;
     int jackposx = (jack->getXPosition()-Level::LEVEL_X_OFFSET)/38;
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
-    
+
     //Looking for the first box before Jack
 	cout << "Procurando pela caixa móvel antes do Jack" << endl;
     int boxMobileBeforeJack=-1;
@@ -621,7 +621,8 @@ void Game::loadLevel() {
     }
 
     for(int i = 0; i < atoi(numberOfEnemies.c_str()); i++) {
-        Enemy* enemy = new Enemy("resources/enemy_1.png");
+        Enemy* enemy = new Enemy("resources/enemy_sprites.png");
+        enemy->setSpriteClips();
         level->enemies.push_back(enemy);
         level->addChild(enemy);
     }
