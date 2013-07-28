@@ -656,7 +656,7 @@ void Game::loadLevel() {
     //enemy->throwBox(boxTest, &level->boxes);
 
     score->boxes(atoi(numberOfBoxes.c_str()));
-    score->scoring(100);
+    score->scoring(0);
 
     return;
 }
