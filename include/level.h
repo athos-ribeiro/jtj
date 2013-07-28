@@ -12,8 +12,8 @@ class Level : public GameObject {
     void drawSelf(SDL_Surface *surface);
     //this stack shall handle the colision logic.
     public:
-        vector<Box*> boxes;
         vector<Enemy*> enemies;
+		vector<Box*> boxes;
 		vector<Box*> grid[12];
 
         static const int LEVEL_WIDTH = 456;
@@ -23,6 +23,8 @@ class Level : public GameObject {
 
         Level(std::string filename);
         ~Level();
+
+		vector<Box*> getBoxes();
 
 };
 

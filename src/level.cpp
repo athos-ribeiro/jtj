@@ -21,3 +21,6 @@ void Level::drawSelf(SDL_Surface *surface) {
     SDLUtil::applySurface(Level::LEVEL_X_OFFSET, Level::LEVEL_Y_OFFSET, this->level, surface);
     return;
 }
+vector<Box*> Level::getBoxes() {
+	return boxes;
+}

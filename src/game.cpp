@@ -393,13 +393,24 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 //        cout << "Box " << i << "(" << boxes[i]->getPositionX() << "," << boxes[i]->getPositionY() << ")\t";
 //        cout << "(" << boxes[i]->getPositionX() + 38 << "," << boxes[i]->getPositionY() + 38 << ")" << endl;
 
-        if (jack->getXPosition() + 38 > boxes[i]->getPositionX() &&
-            jack->getXPosition() < boxes[i]->getPositionX() + 38 &&
-            boxes[i]->getPositionY() + 38 + boxes[i]->getSpeed() >= jack->getYPosition() &&
-            jack->getYPosition() + 57 > boxes[i]->getPositionY())
-        {
-            return true;
-        }
+		int jackRight = jack->getXPosition() + Box::BOX_WIDTH;
+		int jackLeft = jack->getXPosition();
+		int jackTop = jack->getYPosition();
+		int jackBottom = jack->getYPosition()+Jack::JACK_HEIGHT;
+		int boxRight =boxes[i]->getPositionX() + Box::BOX_HEIGHT;
+		int boxLeft = boxes[i]->getPositionX();
+		int boxTop = boxes[i]->getPositionY();
+		int boxBottom = boxes[i]->getPositionY()+Box::BOX_HEIGHT;
+
+		if(((boxLeft < jackLeft && jackRight < boxRight) && (boxTop < jackTop && jackTop < boxBottom)) ||
+				((jackLeft < boxLeft && boxLeft < jackRight) && (jackTop < boxTop && boxTop < jackBottom)))
+		 {
+
+			cout << "Jack: ("<< jackLeft <<", " << jackRight << ") e ("<< jackTop <<", " << jackBottom << endl; 
+			cout << "Box: ("<< boxLeft <<", " << boxRight << ") e ("<< boxTop <<", " << boxBottom << endl; 
+
+			return true;
+		}
     }
 
     return false;
@@ -486,11 +497,25 @@ void Game::runPhysics() {
 
     if (quantidadeDeCaixas == 12)
     {
+		
+		if(jack->jumping != true) {
+			score->increaseScore(3);
+			jack->verticalSpeed = -10;
+			jack->jumping = true;
+		}
         for (int i = 0; i < 12; ++i)
         {
             cout << "LALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALA" << endl;
             //level->grid[i] --;
-			level->grid[i].erase(level->grid[i].begin());
+			Box* boxToDelete = level->grid[i].back();
+			//SDL_FreeSurface(boxToDelete);
+			for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
+				if(*it==boxToDelete) {
+					level->boxes.erase(it);
+					break;
+				}
+			}
+			level->grid[i].pop_back();
         }
     }
 
