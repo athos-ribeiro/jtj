@@ -256,18 +256,15 @@ void Game::handle_event_keydown (SDL_Event& event) {
             if(jack->jumping == true) {
                 break;
             }
-            score->increaseScore(3);
             jack->verticalSpeed = -10;
             jack->jumping = true;
             break;
 
         case (SDLK_a):
-            score->increaseScore(1);
             jack->pushMove(-3);
             break;
 
         case (SDLK_s):
-            score->popBox();
             break;
 
         case (SDLK_q):
@@ -276,7 +273,6 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_d):
-            score->increaseScore(1);
             jack->pushMove(3);
             break;
 
@@ -328,7 +324,6 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
     switch (event.button.button) {
 
     case SDL_BUTTON_LEFT:
-        score->increaseScore(10);
         break;
 
     case SDL_BUTTON_RIGHT:
@@ -497,18 +492,15 @@ void Game::runPhysics() {
 
     if (quantidadeDeCaixas == 12)
     {
-
+		score->increaseScore(1000);
 		if(jack->jumping != true) {
-			score->increaseScore(3);
 			jack->verticalSpeed = -10;
 			jack->jumping = true;
 		}
         for (int i = 0; i < 12; ++i)
         {
             cout << "LALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALA" << endl;
-            //level->grid[i] --;
 			Box* boxToDelete = level->grid[i].back();
-			//SDL_FreeSurface(boxToDelete);
 			for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
 				if(*it==boxToDelete) {
                     //delete level->boxes.it;
