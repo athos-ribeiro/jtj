@@ -41,6 +41,7 @@ SDL_AudioSpec desired, obtained;
 
 /* Our loaded sounds and their formats. */
 sound_t initScreenSound;
+sound_t level_1Sound;
 
 void AudioCallback(void *user_data, Uint8 *audio, int length)
 {
@@ -224,7 +225,9 @@ void Game::loadCommonResources() {
 
     /* Load our sound files and convert them to the sound card's format. */
     char initScreenSoundName[26] = "resources/init_screen.wav";
-    if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0) {
+    char level_1SoundName[23] = "resources/level_1.wav";
+    if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0 ||
+        LoadAndConvertSound(level_1SoundName, &obtained, &level_1Sound) != 0) {
     printf("Unable to load sound.\n");
     return ;
     }
@@ -631,6 +634,7 @@ void Game::draw() {
 
 void Game::loadLevel() {
 
+    ClearPlayingSounds();
     string level_1_file = "resources/level_1.png";
     string level_2_file = "resources/level_2.png";
     string level_3_file = "resources/level_3.png";
@@ -647,6 +651,8 @@ void Game::loadLevel() {
         case 1:
             currentLevelFile = level_1_file;
             currentLevelSpec = level_1_spec;
+            PlaySound(&level_1Sound);
+            SDL_PauseAudio(0);
             break;
         case 2:
             currentLevelFile = level_2_file;
@@ -990,7 +996,7 @@ void Game::initializingScreen() {
     SDL_PauseAudio(0);
 
     PlaySound(&initScreenSound);
-
+    
     initScreenDraw();
     initScreenLoop();
 
