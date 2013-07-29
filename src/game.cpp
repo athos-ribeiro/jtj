@@ -401,8 +401,8 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 				((jackLeft < boxLeft && boxLeft < jackRight) && (jackTop < boxTop && boxTop < jackBottom)))
 		 {
 
-			cout << "Jack: ("<< jackLeft <<", " << jackRight << ") e ("<< jackTop <<", " << jackBottom << endl;
-			cout << "Box: ("<< boxLeft <<", " << boxRight << ") e ("<< boxTop <<", " << boxBottom << endl;
+//			cout << "Jack: ("<< jackLeft <<", " << jackRight << ") e ("<< jackTop <<", " << jackBottom << endl;
+//			cout << "Box: ("<< boxLeft <<", " << boxRight << ") e ("<< boxTop <<", " << boxBottom << endl;
 
 			return true;
 		}
@@ -413,15 +413,15 @@ bool checkColision (Jack* jack, std::vector<Box*> boxes) {
 
 void Game::runPhysics() {
 
-	cout << "Checando colisão" << endl;
+//	cout << "Checando colisão" << endl;
     if (checkColision (jack, level->boxes)) {
         jack->die();
     }
-	cout << "Colisão checada." << endl;
+//	cout << "Colisão checada." << endl;
 
 //    cout << "Jogador (" << jack->getXPosition() << "," << jack->getYPosition() << ")" << endl;
     //notice that when the game restarts, another box is pushed into the array
-	cout << "Derrubando caixas" << endl;
+//	cout << "Derrubando caixas" << endl;
     for(unsigned int i = 0; i < level->boxes.size(); i++) {
         if(level->boxes[i]->used == true) {
             level->boxes[i]->fall(level->grid);
@@ -436,7 +436,7 @@ void Game::runPhysics() {
     int jackposy = (jack->getYPosition()-Level::LEVEL_Y_OFFSET + Jack::JACK_HEIGHT+19)/38;
 
     //Looking for the first box before Jack
-	cout << "Procurando pela caixa móvel antes do Jack" << endl;
+//	cout << "Procurando pela caixa móvel antes do Jack" << endl;
     int boxMobileBeforeJack=-1;
     int boxMobileAfterJack=-1;
     for(int i=jackposx;i>=0;i--) {
@@ -454,7 +454,7 @@ void Game::runPhysics() {
         }
     }
 
-	cout << "Procurando pela caixa móvel depois do Jack" << endl;
+//	cout << "Procurando pela caixa móvel depois do Jack" << endl;
     //Looking for the first box after Jack
     for(int i=jackposx;i<12;i++) {
 		if((level->grid[i].size()+jackposy)>=12) {
@@ -520,9 +520,9 @@ void Game::runPhysics() {
         xrange = (Level::LEVEL_WIDTH+Level::LEVEL_X_OFFSET) -xinit;
 
 	if(boxMobileBeforeJack!=-1) {
-        cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
+//        cout << "Primeira caixa móvel antes de jack: " << boxMobileBeforeJack << endl;
 		if(jack->getXPosition()==(((boxMobileBeforeJack+1)*Box::BOX_WIDTH)+Level::LEVEL_X_OFFSET)) {
-			cout << "Colidiu com uma caixa a esquerda!!! forca: " << jack->strength << endl;
+//			cout << "Colidiu com uma caixa a esquerda!!! forca: " << jack->strength << endl;
 			if(jack->strength<10){
 				jack->strength++;
 			}
@@ -537,9 +537,9 @@ void Game::runPhysics() {
 		}
 	}
 	if(boxMobileAfterJack!=-1) {
-        cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
+  //      cout << "Primeira caixa móvel depois de jack: " << boxMobileAfterJack << endl;
 		if((jack->getXPosition()+Jack::JACK_WIDTH)==(xrange+xinit)) {
-			cout << "Colidiu com uma caixa a direta!!!" << endl;
+//			cout << "Colidiu com uma caixa a direta!!!" << endl;
 			if(jack->strength<10){
 				jack->strength++;
 			}
@@ -555,8 +555,8 @@ void Game::runPhysics() {
 	if(jack->speed==0){
 			jack->strength=0;
 	}
-    cout << "Limite a direita do jack: " << xrange+xinit << endl;
-    cout << "Limite a esquerda do jack: " << xinit << endl;
+//    cout << "Limite a direita do jack: " << xrange+xinit << endl;
+//    cout << "Limite a esquerda do jack: " << xinit << endl;
     jack->move(xinit, xrange, Level::LEVEL_Y_OFFSET, Level::LEVEL_HEIGHT);
     //cout << "Jack moveu" << endl;
     jack->jump(level);
@@ -643,13 +643,17 @@ void Game::loadLevel() {
     getline(levelFile, numberOfEnemies);
     levelFile.close();
 
-    for(int i = 0; i < atoi(numberOfBoxes.c_str()); i++) {
+    int nrBoxes = (int) (atoi(numberOfBoxes.c_str()) * this->actualLevel);
+
+    for(int i = 0; i < nrBoxes; i++) {
         Box* box = new Box("resources/box.png");
         level->boxes.push_back(box);
         level->addChild(box);
     }
 
-    for(int i = 0; i < atoi(numberOfEnemies.c_str()); i++) {
+    int nrEnemies = atoi(numberOfEnemies.c_str()) + this->actualLevel;
+
+    for(int i = 0; i < nrEnemies; i++) {
         Enemy* enemy = new Enemy("resources/enemy_sprites.png");
         enemy->setSpriteClips();
         level->enemies.push_back(enemy);
@@ -667,8 +671,13 @@ void Game::loadLevel() {
     score->boxes(atoi(numberOfBoxes.c_str()));
     score->scoring(0);
     this->linesDeleted = 0;
-    this->maxLevelLines = 1;
+    this->maxLevelLines = this->actualLevel;
     this->gameWon = false;
+
+    cout << "Level\t" << this->actualLevel << endl;
+    cout << "Number of Boxes: " << nrBoxes << endl;
+    cout << "Number of Enemies: " << nrEnemies << endl;
+    cout << "Max Leve Lines: " << maxLevelLines << endl;
 
     return;
 }
@@ -927,6 +936,9 @@ void Game::init() {
 	this->pauseLevel = false;
 	this->gameOver = false;
     this->actualLevel = 1;
+    this->linesDeleted = 0;
+    this->maxLevelLines = 1;
+
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
