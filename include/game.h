@@ -33,6 +33,7 @@ class Game {
         ScoreScreen* score;
 
         InitScreen* initScreen;
+        InitScreen* wonScreen;
         PauseScreen* pauseScreen;
         GameOverScreen* gameOverScreen;
         OptionsScreen* optionsScreen;
@@ -57,7 +58,11 @@ class Game {
         bool quitLevel;
         bool pauseLevel;
         bool gameOver;
+        bool gameWon;
+        int linesDeleted;
+        int maxLevelLines;
 
+        void wonGameScreen();
         void showOptionsScreen();
         void gameOvering();
         void gameOverScreenDraw();

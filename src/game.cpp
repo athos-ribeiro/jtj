@@ -493,13 +493,13 @@ void Game::runPhysics() {
     if (quantidadeDeCaixas == 12)
     {
 		score->increaseScore(1000);
+        linesDeleted ++;
 		if(jack->jumping != true) {
 			jack->verticalSpeed = -10;
 			jack->jumping = true;
 		}
         for (int i = 0; i < 12; ++i)
         {
-            cout << "LALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALALA" << endl;
 			Box* boxToDelete = level->grid[i].back();
 			for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
 				if(*it==boxToDelete) {
@@ -565,6 +565,11 @@ void Game::runPhysics() {
 
 void Game::update() {
 
+    if (linesDeleted >= maxLevelLines)
+    {
+        this->gameWon = true;
+    }
+
     if (jack->isDead())
     {
         gameOvering();
@@ -585,6 +590,10 @@ void Game::update() {
     if (isGameFinished())
     {
         gameOvering();
+    }
+    if (this->gameWon == true)
+    {
+        this->quitLevel = true;
     }
     return;
 }
@@ -657,6 +666,9 @@ void Game::loadLevel() {
 
     score->boxes(atoi(numberOfBoxes.c_str()));
     score->scoring(0);
+    this->linesDeleted = 0;
+    this->maxLevelLines = 1;
+    this->gameWon = false;
 
     return;
 }
@@ -847,6 +859,7 @@ void Game::initScreenLoop() {
     this->quitLevel = false;
     this->pauseLevel = false;
     this->gameOver = false;
+
     while (SDL_WaitEvent (&event) != 0 && playButton == false && quitButton == false) {
         switch (event.type) {
         case SDL_QUIT:
@@ -1022,6 +1035,69 @@ void Game::shutdown() {
     return;
 }
 
+void Game::wonGameScreen()
+{
+    if (this->gameWon == false)
+    {
+        return ;
+    }
+
+    wonScreen = new InitScreen("resources/backgroundwonscreen.png");
+
+    bool playButton = false;
+    bool quitButton = false;
+
+    this->quitGame = false;
+    this->quitLevel = false;
+    this->pauseLevel = false;
+    this->gameOver = false;
+
+    while (SDL_WaitEvent (&event) != 0 && playButton == false && quitButton == false) {
+        switch (event.type) {
+        case SDL_QUIT:
+            quitButton = true;
+            break;
+
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case SDLK_p:
+            case SDLK_w:
+            case SDLK_a:
+            case SDLK_s:
+            case SDLK_d:
+                playButton = true;
+                break;
+
+            case SDLK_q:
+            case SDLK_ESCAPE:
+                quitButton = true;
+                break;
+
+            default:
+                break;
+            }
+            break;
+
+        default:
+            break;
+        }
+        wonScreen->draw(this->screen);
+        SDL_Flip(this->screen);
+
+        if (quitButton)
+        {
+            this->quitLevel = true;
+            this->quitGame = true;
+        }
+    }
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
+    delete wonScreen;
+
+    return ;
+
+}
+
 void Game::loop() {
     while(isGameFinished() == false) {
         initializingScreen();
@@ -1039,6 +1115,7 @@ void Game::loop() {
             sendNetworkData();
             draw();
         }
+        wonGameScreen();
         releaseLevel();
     }
     return;
