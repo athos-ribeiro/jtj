@@ -926,6 +926,7 @@ void Game::init() {
     this->quitLevel = false;
 	this->pauseLevel = false;
 	this->gameOver = false;
+    this->actualLevel = 1;
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
@@ -1041,7 +1042,8 @@ void Game::wonGameScreen()
     {
         return ;
     }
-
+    this->actualLevel ++;
+    cout << "Level: " << actualLevel << endl;
     wonScreen = new InitScreen("resources/backgroundwonscreen.png");
 
     bool playButton = false;

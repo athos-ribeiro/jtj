@@ -61,6 +61,7 @@ class Game {
         bool gameWon;
         int linesDeleted;
         int maxLevelLines;
+        int actualLevel;
 
         void wonGameScreen();
         void showOptionsScreen();
