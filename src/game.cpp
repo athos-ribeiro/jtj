@@ -814,7 +814,15 @@ void Game::showOptionsScreen() {
 
         if (muteButton)
         {
-
+            if (SDL_GetAudioStatus() == SDL_AUDIO_PLAYING)
+            {
+                SDL_PauseAudio(1);
+            }
+            else
+            {
+                SDL_PauseAudio(0);
+            }
+            muteButton = false;
         }
         if (loadButton)
         {
