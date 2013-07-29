@@ -1052,6 +1052,8 @@ void Game::wonGameScreen()
     this->pauseLevel = false;
     this->gameOver = false;
 
+    SDL_Delay(5);
+
     while (SDL_WaitEvent (&event) != 0 && playButton == false && quitButton == false) {
         switch (event.type) {
         case SDL_QUIT:
