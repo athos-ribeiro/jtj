@@ -1058,6 +1058,13 @@ void Game::wonGameScreen()
             quitButton = true;
             break;
 
+        case SDL_MOUSEBUTTONDOWN:
+            switch (event.button.button) {
+            case SDL_BUTTON_LEFT:
+                playButton = true;
+                break;
+            }
+
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
             case SDLK_p:
