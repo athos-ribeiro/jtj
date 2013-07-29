@@ -4,6 +4,9 @@
 #include <SDL/SDL_image.h>
 #include "SDL/SDL_ttf.h"
 #include <string>
+#include <iostream>
+
+using namespace std;
 
 ScoreScreen::ScoreScreen()
 {
@@ -57,14 +60,18 @@ ScoreScreen::getScorePoints()
 int
 ScoreScreen::popBox()
 {
+    cout << "Box" << endl;
     this->boxLeft --;
+    cout << "Minus" << endl;
     return updateSelf();
 }
 
 int
 ScoreScreen::increaseScore(int value)
 {
+    cout << "Score" << endl;
     this->scorePoints += value;
+    cout << "Plus" << endl;
     return updateSelf();
 }
 
@@ -75,12 +82,14 @@ ScoreScreen::updateSelf()
     {
     	return 1;
     }
-
+    cout << "Is" << endl;
     sprintf(this->scoreString, "Score: %5d", this->scorePoints);
     this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->scoreString, this->scoreTextColor);
+    cout << "This" << endl;
 
     sprintf(this->boxString, "Box left: %2d", this->boxLeft);
     this->boxMessage = TTF_RenderText_Solid (this->scoreFont, this->boxString, this->scoreTextColor);
+    cout << "Working?" << endl;
 
     return 0;
 }

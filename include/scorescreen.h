@@ -28,8 +28,8 @@ private:
     SDL_Surface *scoreMessage;
     SDL_Surface *boxMessage;
     SDL_Color scoreTextColor;
-    char scoreString[13];
-    char boxString[13];
+    char scoreString[30];
+    char boxString[30];
     int scorePoints;
     int boxLeft;
 
