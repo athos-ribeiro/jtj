@@ -12,16 +12,16 @@ public:
     ScoreScreen();
     ~ScoreScreen();
     void drawSelf(SDL_Surface *surface);
-    int getBox();
+    int getLine();
     int getScorePoints();
-    int popBox();
-    int increaseScore(int value);
-    void boxes(int numero);
+    void popLine();
+    void increaseScore(int value);
+    void lines(int numero);
     void scoring(int value);
 
 private:
 
-    int updateSelf();
+    void updateSelf();
 
     SDL_Surface *armario;
     TTF_Font *scoreFont;
@@ -29,9 +29,9 @@ private:
     SDL_Surface *boxMessage;
     SDL_Color scoreTextColor;
     char scoreString[30];
-    char boxString[30];
+    char lineString[30];
     int scorePoints;
-    int boxLeft;
+    int lineLeft;
 
     static const int SCORE_WIDTH = 282;
     static const int SCORE_HEIGHT = 456;

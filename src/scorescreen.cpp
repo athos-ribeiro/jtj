@@ -14,15 +14,15 @@ ScoreScreen::ScoreScreen()
     this->scoreTextColor.r = 255;
     this->scoreTextColor.g = 255;
     this->scoreTextColor.b = 255;
-    this->scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 42);
+    this->scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 40);
 
 	this->scorePoints = 0;
     sprintf(this->scoreString, "Score: %5d", this->scorePoints);
     this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->scoreString, this->scoreTextColor);
 
-    this->boxLeft = 99;
-    sprintf(this->boxString, "Box left: %2d", this->boxLeft);
-    this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->boxString, this->scoreTextColor);
+    this->lineLeft = 99;
+    sprintf(this->lineString, "Lines left: %d", this->lineLeft);
+    this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->lineString, this->scoreTextColor);
 }
 
 ScoreScreen::~ScoreScreen()
@@ -33,9 +33,9 @@ ScoreScreen::~ScoreScreen()
 }
 
 void
-ScoreScreen::boxes(int numero)
+ScoreScreen::lines(int numero)
 {
-    this->boxLeft = numero;
+    this->lineLeft = numero;
 }
 
 void
@@ -46,9 +46,9 @@ ScoreScreen::scoring(int value)
 
 
 int
-ScoreScreen::getBox()
+ScoreScreen::getLine()
 {
-    return this->boxLeft;
+    return this->lineLeft;
 }
 
 int
@@ -57,46 +57,36 @@ ScoreScreen::getScorePoints()
     return this->scorePoints;
 }
 
-int
-ScoreScreen::popBox()
+void
+ScoreScreen::popLine()
 {
-    cout << "Box" << endl;
-    this->boxLeft --;
-    cout << "Minus" << endl;
-    return updateSelf();
+    this->lineLeft --;
+    return ;
 }
 
-int
+void
 ScoreScreen::increaseScore(int value)
 {
-    cout << "Score" << endl;
     this->scorePoints += value;
-    cout << "Plus" << endl;
-    return updateSelf();
+    return ;
 }
 
-int
+void
 ScoreScreen::updateSelf()
 {
-    if (this->boxLeft <= 0 || this->scorePoints > 99999)
-    {
-    	return 1;
-    }
-    cout << "Is" << endl;
-    sprintf(this->scoreString, "Score: %5d", this->scorePoints);
+    sprintf(this->scoreString, "Score: %6d", this->scorePoints);
     this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->scoreString, this->scoreTextColor);
-    cout << "This" << endl;
 
-    sprintf(this->boxString, "Box left: %2d", this->boxLeft);
-    this->boxMessage = TTF_RenderText_Solid (this->scoreFont, this->boxString, this->scoreTextColor);
-    cout << "Working?" << endl;
+    sprintf(this->lineString, "Line left: %2d", this->lineLeft);
+    this->boxMessage = TTF_RenderText_Solid (this->scoreFont, this->lineString, this->scoreTextColor);
 
-    return 0;
+    return ;
 }
 
 void
 ScoreScreen::drawSelf(SDL_Surface *surface)
 {
+    updateSelf();
     SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET, ScoreScreen::SCORE_Y_OFFSET, this->armario, surface);
     SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET + 20, ScoreScreen::SCORE_Y_OFFSET + 25, this->scoreMessage, surface);
     SDLUtil::applySurface (ScoreScreen::SCORE_X_OFFSET + 20, ScoreScreen::SCORE_Y_OFFSET + 75, this->boxMessage, surface);

@@ -333,7 +333,6 @@ void Game::handle_event_mouse_button_down (SDL_Event& event) {
         break;
 
     case SDL_BUTTON_RIGHT:
-        score->popBox();
         break;
 
     default:
@@ -498,25 +497,26 @@ void Game::runPhysics() {
 
     if (quantidadeDeCaixas == 12)
     {
-		score->increaseScore(1000);
+        score->increaseScore(1000);
+        score->popLine();
         linesDeleted ++;
-		if(jack->jumping != true) {
-			jack->verticalSpeed = -10;
-			jack->jumping = true;
-		}
+        if(jack->jumping != true) {
+            jack->verticalSpeed = -10;
+            jack->jumping = true;
+        }
         for (int i = 0; i < 12; ++i)
         {
-			Box* boxToDelete = level->grid[i].back();
-			for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
-				if(*it==boxToDelete) {
+            Box* boxToDelete = level->grid[i].back();
+            for(vector<Box*>::iterator it=level->boxes.begin();it!=level->boxes.end();it++) {
+                if(*it==boxToDelete) {
                     //delete level->boxes.it;
                     Box* myBox = *it;
-					level->boxes.erase(it);
+                    level->boxes.erase(it);
                     myBox->used = false;
-					break;
-				}
-			}
-			level->grid[i].pop_back();
+                    break;
+                }
+            }
+            level->grid[i].pop_back();
         }
     }
 
@@ -580,7 +580,7 @@ void Game::update() {
     {
         gameOvering();
     }
-    if (score->getBox() < 0)
+    if (score->getLine() < 0)
     {
         gameOver = true;
     }
@@ -699,10 +699,10 @@ void Game::loadLevel() {
         level->addChild(enemy);
     }
 
-    score->boxes(atoi(numberOfBoxes.c_str()));
+    this->maxLevelLines = atoi(maxLines.c_str());
+    score->lines(this->maxLevelLines);
     score->scoring(0);
     this->linesDeleted = 0;
-    this->maxLevelLines = atoi(maxLines.c_str());
     this->gameWon = false;
 
     jack = new Jack("resources/jack_sprites.png");
