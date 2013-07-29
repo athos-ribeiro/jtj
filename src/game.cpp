@@ -42,6 +42,8 @@ SDL_AudioSpec desired, obtained;
 /* Our loaded sounds and their formats. */
 sound_t initScreenSound;
 sound_t level_1Sound;
+sound_t level_2Sound;
+sound_t level_3Sound;
 
 void AudioCallback(void *user_data, Uint8 *audio, int length)
 {
@@ -225,9 +227,13 @@ void Game::loadCommonResources() {
 
     /* Load our sound files and convert them to the sound card's format. */
     char initScreenSoundName[26] = "resources/init_screen.wav";
-    char level_1SoundName[23] = "resources/level_1.wav";
+    char level_1SoundName[26] = "resources/level_1.wav";
+    char level_2SoundName[26] = "resources/level_2.wav";
+    char level_3SoundName[26] = "resources/level_3.wav";
     if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0 ||
-        LoadAndConvertSound(level_1SoundName, &obtained, &level_1Sound) != 0) {
+        LoadAndConvertSound(level_1SoundName, &obtained, &level_1Sound) != 0 ||
+        LoadAndConvertSound(level_2SoundName, &obtained, &level_2Sound) != 0 ||
+        LoadAndConvertSound(level_3SoundName, &obtained, &level_3Sound) != 0){
     printf("Unable to load sound.\n");
     return ;
     }
@@ -657,10 +663,14 @@ void Game::loadLevel() {
         case 2:
             currentLevelFile = level_2_file;
             currentLevelSpec = level_2_spec;
+            PlaySound(&level_2Sound);
+            SDL_PauseAudio(0);
             break;
         case 3:
             currentLevelFile = level_3_file;
             currentLevelSpec = level_3_spec;
+            PlaySound(&level_3Sound);
+            SDL_PauseAudio(0);
             break;
         default:
             cout << "could not load level file";
@@ -1085,6 +1095,9 @@ void Game::shutdown() {
     SDL_LockAudio();
 
     free(initScreenSound.samples);
+    free(level_1Sound.samples);
+    free(level_2Sound.samples);
+    free(level_3Sound.samples);
     SDL_UnlockAudio();
     closeGUI();
     return;
