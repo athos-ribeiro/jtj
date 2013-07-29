@@ -48,6 +48,8 @@ void AudioCallback(void *user_data, Uint8 *audio, int length)
 
     /* Avoid compiler warning. */
 //    user_data += 0;
+    user_data = NULL;
+    if(user_data == NULL) {}
 
     /* Clear the audio buffer so we can mix samples into it. */
     memset(audio, 0, length);
@@ -221,7 +223,8 @@ void Game::loadCommonResources() {
     }
 
     /* Load our sound files and convert them to the sound card's format. */
-    if (LoadAndConvertSound("resources/init_screen.wav", &obtained, &initScreenSound) != 0) {
+    char initScreenSoundName[26] = "resources/init_screen.wav";
+    if (LoadAndConvertSound(initScreenSoundName, &obtained, &initScreenSound) != 0) {
     printf("Unable to load sound.\n");
     return ;
     }
