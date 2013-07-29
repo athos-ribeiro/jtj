@@ -39,6 +39,9 @@ void Enemy::drawSelf(SDL_Surface *surface) {
             frame = 4;
         }
     }
+    else if(movesLeft == 0 && moveDirection > 30 && moveDirection < 40) {
+        frame = 7;
+    }
     else {
         frame = 0;
     }
@@ -89,7 +92,7 @@ void Enemy::throwBox(vector<Box*> boxes) {
         for(unsigned int i = 0; i < boxes.size(); i++) {
             if(boxes.at(i)->used == false) {
                 boxes.at(i)->used = true;
-                boxes.at(i)->setPosition(x_position, y_position - Enemy::ENEMY_HEIGHT);
+                boxes.at(i)->setPosition(x_position, y_position - Enemy::ENEMY_HEIGHT + Box::BOX_HEIGHT);
                 return;
             }
         }
