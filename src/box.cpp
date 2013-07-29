@@ -46,7 +46,13 @@ void Box::accelerate() {
 
 void Box::fall(vector<Box*>grid[12]) {
     if(lyingDown == false) {
-        speed += 0.5;
+        speed += ACCELERATION;
+
+        if (speed > MAX_SPEED)
+        {
+            speed = MAX_SPEED;
+        }
+
         y_position += speed;
         if(y_position >= (int)(Level::LEVEL_HEIGHT + Level::LEVEL_Y_OFFSET - 38*2 - (grid[(x_position - Level::LEVEL_X_OFFSET)/38].size()*38))) {
             speed = 0;
