@@ -7,17 +7,17 @@
 
 ScoreScreen::ScoreScreen()
 {
-    armario = SDLUtil::loadImage("resources/armario.png");
-    scoreTextColor.r = 255;
-    scoreTextColor.g = 255;
-    scoreTextColor.b = 255;
-    scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 42);
+    this->armario = SDLUtil::loadImage("resources/armario.png");
+    this->scoreTextColor.r = 255;
+    this->scoreTextColor.g = 255;
+    this->scoreTextColor.b = 255;
+    this->scoreFont = TTF_OpenFont ("resources/HanaleiRegular.ttf", 42);
 
-	scorePoints = 0;
-    sprintf(scoreString, "Score: %5d", scorePoints);
-    scoreMessage = TTF_RenderText_Solid (scoreFont, scoreString, scoreTextColor);
+	this->scorePoints = 0;
+    sprintf(this->scoreString, "Score: %5d", this->scorePoints);
+    this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->scoreString, this->scoreTextColor);
 
-    boxLeft = 99;
+    this->boxLeft = 99;
     sprintf(this->boxString, "Box left: %2d", this->boxLeft);
     this->scoreMessage = TTF_RenderText_Solid (this->scoreFont, this->boxString, this->scoreTextColor);
 }
