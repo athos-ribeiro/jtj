@@ -630,23 +630,53 @@ void Game::draw() {
 }
 
 void Game::loadLevel() {
-    level = new Level("resources/level_1.png");
 
-    jack = new Jack("resources/jack_sprites.png");
-    jack->setSpriteClips();
-    level->addChild(jack);
+    string level_1_file = "resources/level_1.png";
+    string level_2_file = "resources/level_2.png";
+    string level_3_file = "resources/level_3.png";
+    string level_1_spec = "resources/level_1";
+    string level_2_spec = "resources/level_2";
+    string level_3_spec = "resources/level_3";
+    string currentLevelFile;
+    string currentLevelSpec;
+    if(this->actualLevel > 3) {
+        this->actualLevel = 1;
+    }
+
+    switch(this->actualLevel) {
+        case 1:
+            currentLevelFile = level_1_file;
+            currentLevelSpec = level_1_spec;
+            break;
+        case 2:
+            currentLevelFile = level_2_file;
+            currentLevelSpec = level_2_spec;
+            break;
+        case 3:
+            currentLevelFile = level_3_file;
+            currentLevelSpec = level_3_spec;
+            break;
+        default:
+            cout << "could not load level file";
+            return;
+    }
+
 
     ifstream levelFile;
     string numberOfLevel;
     string numberOfBoxes;
     string numberOfEnemies;
-    levelFile.open("resources/level_1");
+    string maxLines;
+
+    level = new Level(currentLevelFile);
+    levelFile.open(currentLevelSpec.c_str());
     getline(levelFile, numberOfLevel);
     getline(levelFile, numberOfBoxes);
     getline(levelFile, numberOfEnemies);
+    getline(levelFile, maxLines);
     levelFile.close();
 
-    int nrBoxes = (int) (atoi(numberOfBoxes.c_str()) * this->actualLevel);
+    int nrBoxes = atoi(numberOfBoxes.c_str());
 
     for(int i = 0; i < nrBoxes; i++) {
         Box* box = new Box("resources/box.png");
@@ -654,7 +684,7 @@ void Game::loadLevel() {
         level->addChild(box);
     }
 
-    int nrEnemies = atoi(numberOfEnemies.c_str()) + this->actualLevel;
+    int nrEnemies = atoi(numberOfEnemies.c_str());
 
     for(int i = 0; i < nrEnemies; i++) {
         Enemy* enemy = new Enemy("resources/enemy_sprites.png");
@@ -662,20 +692,16 @@ void Game::loadLevel() {
         level->enemies.push_back(enemy);
         level->addChild(enemy);
     }
-    //level->enemies[0]->throwBox(level->boxes);
-
-    //Enemy* enemy = new Enemy("resources/enemy_1.png");
-    //level->addChild(enemy);
-
-    //boxTest = new Box("resources/box.png");
-    //level->addChild(boxTest);
-    //enemy->throwBox(boxTest, &level->boxes);
 
     score->boxes(atoi(numberOfBoxes.c_str()));
     score->scoring(0);
     this->linesDeleted = 0;
-    this->maxLevelLines = this->actualLevel;
+    this->maxLevelLines = atoi(maxLines.c_str());
     this->gameWon = false;
+
+    jack = new Jack("resources/jack_sprites.png");
+    jack->setSpriteClips();
+    level->addChild(jack);
 
     cout << "Level\t" << this->actualLevel << endl;
     cout << "Number of Boxes: " << nrBoxes << endl;
@@ -940,7 +966,6 @@ void Game::init() {
 	this->gameOver = false;
     this->actualLevel = 1;
     this->linesDeleted = 0;
-    this->maxLevelLines = 1;
 
 
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
