@@ -6,8 +6,6 @@ TODO
 - When Jack Jumps, if he tries to get up on a box, his jump will not be as high as it should, he will just lock on the top of the box, that is a bug and should be fixed.
 
 ### #14:
-- When jack wins a level, move to the next (should have at least 3 here, but we could just do it for all the five levels insted).
-- Make AI better so the probability of dropping a box in a column decreases when that column grid value is higher than the others(ATHOS handling it right now).
 - Save High Scores in a file and load it when the game starts.
 
 ### #15:
