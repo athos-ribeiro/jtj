@@ -48,7 +48,12 @@ int setLimit(int value, int limit1, int range) {
 void Jack::drawSelf(SDL_Surface *surface) {
 
     if(jumping == true) {
-        frame = 7;
+        if(speed >= 0) {
+            frame = 7;
+        }
+        else {
+            frame = 8;
+        }
     }
     else if(speed > 0) {
         frame ++;
@@ -198,4 +203,9 @@ void Jack::setSpriteClips() {
     spriteClips[7].y = JACK_HEIGHT;
     spriteClips[7].w = JACK_WIDTH;
     spriteClips[7].h = JACK_HEIGHT;
+
+    spriteClips[8].x = JACK_WIDTH*4;
+    spriteClips[8].y = 0;
+    spriteClips[8].w = JACK_WIDTH;
+    spriteClips[8].h = JACK_HEIGHT;
 }

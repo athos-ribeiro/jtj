@@ -17,7 +17,7 @@ class Jack : public GameObject {
 	int lastButOneMove;
     int frame; //for animation
 
-    SDL_Rect spriteClips[8];
+    SDL_Rect spriteClips[9];
     public:
 		int	strength;
         int speed;
