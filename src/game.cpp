@@ -265,6 +265,8 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_w):
+        case (SDLK_UP):
+        case (SDLK_SPACE):
             if(jack->jumping == true) {
                 break;
             }
@@ -273,6 +275,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_a):
+        case (SDLK_LEFT):
             jack->pushMove(-3);
             break;
 
@@ -285,6 +288,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         case (SDLK_d):
+        case (SDLK_RIGHT):
             jack->pushMove(3);
             break;
 
@@ -298,6 +302,7 @@ void Game::handle_event_keydown (SDL_Event& event) {
             break;
 
         default:
+            cout << event.key.keysym.sym << endl;
             break;
     }
 }
@@ -305,10 +310,12 @@ void Game::handle_event_keydown (SDL_Event& event) {
 void Game::handle_event_keyup (SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case (SDLK_a):
+        case (276):
             jack->popMove(-3);
             break;
 
         case (SDLK_d):
+        case (275):
             jack->popMove(3);
             break;
 
