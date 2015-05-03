@@ -2,7 +2,8 @@
 #define GAMEOBJECT_H
 
 #include <vector>
-#include <SDL/SDL.h>
+
+typedef struct SDL_Surface SDL_Surface;
 
 using namespace std;
 

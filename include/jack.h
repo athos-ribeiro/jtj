@@ -3,6 +3,7 @@
 
 #include "gameobject.h"
 #include <string>
+#include <SDL/SDL.h>
 
 class Level;
 

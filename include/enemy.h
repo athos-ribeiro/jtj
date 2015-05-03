@@ -4,6 +4,7 @@
 #include "gameobject.h"
 #include <string>
 #include <vector>
+#include "SDL/SDL.h"
 
 class Box;
 
