@@ -2,9 +2,10 @@
 #define ENEMY_H
 
 #include "gameobject.h"
-#include "box.h"
 #include <string>
 #include <vector>
+
+class Box;
 
 class Enemy : public GameObject {
     SDL_Surface *enemy;

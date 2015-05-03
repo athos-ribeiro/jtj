@@ -2,8 +2,9 @@
 #define JACK_H
 
 #include "gameobject.h"
-#include "level.h"
 #include <string>
+
+class Level;
 
 class Jack : public GameObject {
     SDL_Surface *jack;

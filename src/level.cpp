@@ -1,5 +1,7 @@
 #include "level.h"
 #include "sdlutil.h"
+#include "box.h"
+#include "enemy.h"
 
 using namespace std;
 

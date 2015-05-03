@@ -3,6 +3,7 @@
 #include "sdlutil.h"
 #include <cstdlib>
 #include <ctime>
+#include "box.h"
 
 using namespace std;
 

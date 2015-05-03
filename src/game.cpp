@@ -13,6 +13,13 @@
 #include "scorescreen.h"
 #include <stdio.h>
 
+#include "jack.h"
+#include "level.h"
+#include "pausescreen.h"
+#include "initscreen.h"
+#include "gameoverscreen.h"
+#include "optionsscreen.h"
+
 using namespace std;
 /* Structure for loaded sounds. */
 typedef struct sound_s {
