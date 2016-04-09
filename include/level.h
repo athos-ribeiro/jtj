@@ -2,10 +2,11 @@
 #define LEVEL_H
 
 #include "gameobject.h"
-#include "box.h"
-#include "enemy.h"
 #include <string>
 #include <vector>
+
+class Box;
+class Enemy;
 
 class Level : public GameObject {
     SDL_Surface *level;

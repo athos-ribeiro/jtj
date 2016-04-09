@@ -1,21 +1,17 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <sdlutil.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include "SDL/SDL_ttf.h"
-#include "level.h"
 #include "timer.h"
-#include "jack.h"
-#include "label.h"
-#include "initscreen.h"
-#include "pausescreen.h"
-#include "gameoverscreen.h"
-#include <string>
-#include "scorescreen.h"
-#include <stdlib.h>
-#include "optionsscreen.h"
+#include "SDL/SDL.h"
+
+class Jack;
+class Level;
+class ScoreScreen; 
+class InitScreen;
+class GameOverScreen;
+class OptionsScreen;
+class PauseScreen;
+class Label;
 
 class Game {
     public:

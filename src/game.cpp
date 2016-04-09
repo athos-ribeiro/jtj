@@ -1,17 +1,17 @@
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <vector>
-#include <time.h>
-#include <unistd.h>
 #include "game.h"
 #include "enemy.h"
 #include "box.h"
 #include "sdlutil.h"
-#include <cstdlib>
-#include "SDL/SDL_ttf.h"
 #include "scorescreen.h"
-#include <stdio.h>
+#include "jack.h"
+#include "level.h"
+#include "pausescreen.h"
+#include "initscreen.h"
+#include "gameoverscreen.h"
+#include "optionsscreen.h"
+#include "label.h"
 
 using namespace std;
 /* Structure for loaded sounds. */
