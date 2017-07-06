@@ -15,6 +15,29 @@ The game ends if a falling box hits Jack or if the closet gets full.
 
 At the moment, Jack, The Janitor is under development by the WareHouse team, in Universidade de Brasília, Brazil.
 
+### Hacking
+
+Jack the Janitor is currently being developed on Linux.
+
+In order to compile it, one must have the SDL and SDL_image libraries. Autotools are also required to generate the makefiles.
+
+The following packages are required for compiling Jack the Janitor:
+
+```
+SDL_image-devel
+SDL-devel
+SDL_ttf-devel
+```
+  
+
+To compile, run:
+
+bootstrap.sh
+./configure
+make
+
+then run src/jackthejanitor
+
 ### License
 
 Jack, The Janitor is distributed under the GNU Public License, read the COPYING file for more information.

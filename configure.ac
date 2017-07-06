@@ -1,4 +1,4 @@
-AC_INIT([jackthejanitor], [1.0], [bug@jackthejanitor.com])
+AC_INIT([jackthejanitor], [1.0.1], [athoscr@fedoraproject.org])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CXX
 AC_CONFIG_HEADERS([config.h])
