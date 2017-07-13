@@ -1,7 +1,8 @@
 Name:	jackthejanitor
 Version:	1.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Puzzle game where you have to unstack boxes
+Group:    Amusements/Games
 
 License:	GPLv3+
 URL:		https://unbgames.lappis.rocks/games/
@@ -38,8 +39,8 @@ The game ends if a falling box hits Jack or if the closet gets full.
 # This is needed so jtj can find the game resources. These changes should be
 # applied upstream instead. Also, the game resources should be shipped in a
 # different package to comply with the Fedora Project packaging guidelines.
-sed -i 's|resources|%{_prefix}/games/%{name}/resources|g' src/*.cpp
-# /usr/games/jackthejanitor/ = +26 characters.
+sed -i 's|resources|%{_datadir}/%{name}/resources|g' src/*.cpp
+# /usr/share/jackthejanitor/ = +26 characters.
 # 26 + 26 = 52
 # Note that those string sizes are wrong and should also be fixed upstream.
 sed -i 's/26/52/g' src/*.cpp
@@ -52,17 +53,21 @@ make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot} resourcesdir=%{_datadir}/%{name}/resources
 
 
 %files
 %{_bindir}/jackthejanitor
-%{_prefix}/games/%{name}
+%{_datadir}/%{name}
 %license COPYING
 %doc %{_docdir}/%{name}
 
 
 
 %changelog
+* Thu Jul 06 2017 Athos Ribeiro <athoscr@fedoraproject.org> - 1.0.1-2
+- Package game resources in datadir, as specified in FHS
+- Include a Group tag
+
 * Thu Jul 06 2017 Athos Ribeiro <athoscr@fedoraproject.org> - 1.0.1-1
 - Initial package
