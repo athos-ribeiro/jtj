@@ -65,7 +65,7 @@ make install DESTDIR=%{buildroot} resourcesdir=%{_datadir}/%{name}/resources
 
 
 %changelog
-* Thu Jul 06 2017 Athos Ribeiro <athoscr@fedoraproject.org> - 1.0.1-2
+* Thu Jul 13 2017 Athos Ribeiro <athoscr@fedoraproject.org> - 1.0.1-2
 - Package game resources in datadir, as specified in FHS
 - Include a Group tag
 
